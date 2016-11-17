@@ -41,7 +41,7 @@ class Cart extends CI_Controller {
 		);
 		$current_customer = vst_getCurrentCustomer();
 		
-		$cartdata = $this->cart_model->haveCartData($current_customer['cid']);
+		$cartdata = $this->cart_model->haveCartData($current_customer['id']);
 	
 		if($cartdata != null){
 			$cartdata_arr = unserialize(stripslashes($cartdata[0]['cartdata']));

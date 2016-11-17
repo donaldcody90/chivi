@@ -20,9 +20,9 @@ class Cart_model extends MY_Model
 	 {
 		if($cid == null){
 			$currentCustomer =  vst_getCurrentCustomer();
-			$cid=$currentCustomer['cid'];
+			$cid=$currentCustomer['id'];
 		}
-		$params_where=array('cid'=>$cid);
+		$params_where=array('id'=>$cid);
 		$cartData = $this->_getwhere(array(
                     'table'        => $this->table_carts,
                     'param_where'  =>$params_where
@@ -42,7 +42,7 @@ class Cart_model extends MY_Model
 	 function updateCartData($cartData,$cid=null){
 		if($cid == null){
 			$currentCustomer =  vst_getCurrentCustomer();
-			$cid=$currentCustomer['cid'];
+			$cid=$currentCustomer['id'];
 		}
 		
 		$is_check=$this->haveCartData($cid);
@@ -86,15 +86,7 @@ class Cart_model extends MY_Model
                'data' => $data
           ));
 	 }
-	 
-	 // Tạo người bán cho order
-	 function createSeller($data)
-	 {
-		 return $this->_save(array(
-               'table' => $this->table_seller,
-               'data' => $data
-          ));
-	 }
+
 	 
 	 // Insert Item vào đơn hàng
 	 function insertItem($data)
