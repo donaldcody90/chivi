@@ -319,6 +319,10 @@ a:hover {
     position: relative;
 }
 
+.category .category-list ul li:hover{
+	background-color: #fafafa;
+}
+
 .category .category-list ul li:hover .sub-category, .category .category-list ul li:hover + .overlay {
     display: block;
 }

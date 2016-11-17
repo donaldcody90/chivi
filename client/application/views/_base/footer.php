@@ -133,7 +133,7 @@
 				echo "<script src='$url'></script>".PHP_EOL;
 			}
 		}
-	?>	
+	?>
 	
     </div>
     <div id="fb-root"></div>

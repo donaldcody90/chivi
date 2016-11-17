@@ -1,11 +1,11 @@
 
 <?php $this->load->view('_base/head'); ?>
 <?php $this->load->view('_base/menu'); ?>
-<div id="content">
+<!--<div id="content">
     <main class="main" role="main">
-        <div class="row main-row">
-			<?php $this->load->view(isset($template)?$template:NULL);?>
-		</div>
+        <div class="row main-row">-->
+			<?php $this->load->view(isset($template)?$template:NULL, isset($data)?$data:NULL);?>
+		<!--</div>
 	</main>
-</div>
+</div>-->
 <?php $this->load->view('_base/footer'); ?>

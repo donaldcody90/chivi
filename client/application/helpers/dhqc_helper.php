@@ -355,3 +355,26 @@ if ( ! function_exists('getCartData'))
 	}
 }
 
+if(!function_exists('order_status')){
+	function order_status($status_id){
+		$status_text='';
+		switch($status_id){
+			case -1:
+				$status_text='Đã hủy';
+				break;
+			case 0:
+				$status_text='Chờ xử lý';
+				break;
+			case 1:
+				$status_text='Đang xử lý';
+				break;
+			case 2:
+				$status_text='Đã giao hàng';
+				break;
+			default: 
+				$status_text='Chờ xử lý';
+		}
+		return $status_text;
+	}
+}
+

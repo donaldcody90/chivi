@@ -12,9 +12,16 @@ class Cart extends CI_Controller {
 
 	public function index(){
 		$current_customer = vst_getCurrentCustomer();
-	
-		$data['array_product'] = $this->cart_model->getCartData(1);
-		var_dump($data['array_product']);
+		$cid= $current_customer['cid'];
+		$data['array_product'] = $this->cart_model->getCartData($cid);
+		$bill_total=null;
+		foreach($data['array_product'] as $data2){
+			foreach($data2['item'] as $data3){
+				$bill_total+= $data3['price'];
+			}
+		}
+		$data['bill_total']= number_format($bill_total);
+		print_r($data['array_product']);
 		$data['template'] = 'cart/cart';
 		$this->load->view('layout/home', $data);
 		
@@ -57,14 +64,14 @@ class Cart extends CI_Controller {
 		}else{
 			$seller = vst_getSeller($array_product['sid']);
 			$cartdata_arr  = array(
-					$array_product['sid'] => array(	 
-							'sid' => $array_product['sid'],
-							'seller_name' => $seller['seller_name'],
-							'item' => array(
-								$array_product['id'] => $array_product,	
-							),
-						),
-				);
+				$array_product['sid'] => array(	 
+					'sid' => $array_product['sid'],
+					'seller_name' => $seller['seller_name'],
+					'item' => array(
+						$array_product['id'] => $array_product,	
+					),
+				),
+			);
 		}
 		$result = $this->cart_model->updateCartData($cartdata_arr,$current_customer['cid']);
 		
@@ -88,20 +95,20 @@ class Cart extends CI_Controller {
 	
 		if($this->input->post('confirm_order')){
 		$checkbox = $this->input->post('checkbox');
-		if(count($checkbox)){
+		//print_r($checkbox);die;
+			if(count($checkbox)){
 				//$vkt_cart = $this->session->userdata('vkt_cart');
-				
 				
 				if(!count($vkt_cart)){
 					message_flash('Giỏ hàng trống!','error');
 					//redirect(site_url('cart'));
 				}
 				
+				
 				$seller_item_selected=array();
 				foreach($checkbox as $checked_items){
-					
-						$temp=explode('{:::}',$checked_items);
-						$seller_item_selected[$temp[0]]['items'][]=$temp[1];
+					$temp=explode('{:::}',$checked_items);
+					$seller_item_selected[$temp[0]]['items'][]=$temp[1];
 				}
 				
 				if(!count($seller_item_selected))
@@ -144,8 +151,7 @@ class Cart extends CI_Controller {
 							// Insert Seller Info
 							$seller_data=array(
 								'oid'=>$oid,
-								'sellerid'=>$seller_id,
-								'sellername'=>$sellers_info['seller_name']					
+								'sellerid'=>$seller_id
 							);
 							
 							$items_selected=$seller_item_selected[$seller_id]['items'];
@@ -221,6 +227,30 @@ class Cart extends CI_Controller {
 		} while ( $this->cart_model->checkInvoice( $params_where=array('invoiceid'=>$invoiceid) ) );
 
 		return $invoiceid;
+	}
+	
+	function removeProduct($product_id=null){
+		if($product_id != ''){
+			$cart_data= $this->cart_model->getCartData();
+			//echo '<pre>'; print_r($cart_data); echo '</pre>';
+			foreach($cart_data as $cart_data1){
+				//echo '<pre>'; print_r($cart_data1); echo '</pre>';
+				foreach($cart_data1['item'] as $key => $cart_data2){
+					
+					if($cart_data2['id']==$product_id){
+						unset($cart_data1['item']["$key"]);
+					}
+					
+				//echo '<pre>'; print_r($key); echo '</pre>';
+				}
+			}
+		}else{
+			$currentCustomer =  vst_getCurrentCustomer();
+			$cid=$currentCustomer['cid'];
+			$param_where= array('cid'=>$cid);
+			$this->cart_model->delete_cart_data($param_where);
+			redirect('cart');
+		}
 	}
 	
 	

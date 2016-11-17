@@ -1,11 +1,11 @@
 @import url('responsive.css');
-.page-title{
+/*.page-title{
     text-transform: uppercase;
     font-size: 16px;
     color: #666;
     font-weight: bold;
     padding: 20px 0;
-}
+}*/
 .steps{
     padding-top: 50px;
     padding-bottom: 50px;
@@ -500,9 +500,10 @@ body .form-group{
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+/*
 .glyphicon-ok:before {
     content: "\e025";
-}
+}*/
 .customize-field .help-block {
   color: #cc0001;
   margin-top: 3px;

@@ -181,4 +181,54 @@ function list_ship_submit(self,message=""){
 	return false;
 	
 }
+	
+	$(".ui-spinner .ui-spinner-button").click(function(){
+		var oldValue= $(this).parent().find('input').val();
+		if($(this).hasClass('btnIncrease')){
+			var newValue= parseFloat(oldValue) + 1;
+		}
+		if($(this).hasClass('btnDecrease')){
+			if(oldValue > 1){
+				var newValue= parseFloat(oldValue) - 1;
+			}else{
+				var newValue= 1;
+			}
+		}
+		$(this).parent().find('.ui-spinner-input').val(newValue);
+	});
+	
+	/*----------checkbox---------------*/
+	
+	$('.cart_check_all').click(function(event) {
+	  if(this.checked) {
+		  // Iterate each checkbox
+		  $('.product_checkbox').each(function() {
+			  this.checked = true;
+		  });
+	  }
+	  else {
+		$('.product_checkbox').each(function() {
+			  this.checked = false;
+		  });
+	  }
+	});
+	
+	$('.product_checkbox').click(function(){
+		if(!this.checked){
+			$('.cart_check_all').each(function(){
+				this.checked=false;
+			});
+		}
+	});
+	
+	$('.product_checkbox').change(function(){
+		if($('.product_checkbox:checked').length==$('.product_checkbox').length){
+			$('.cart_check_all').each(function(){
+				this.checked=true;
+			});
+		}
+	});
+	
+	
 
+	

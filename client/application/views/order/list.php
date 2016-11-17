@@ -15,11 +15,11 @@
 		<div class="profile clearfix">
 		  <div class="col-xs-3">
 			<ul class="profile-menu-left">
-			  <li class="user"><i class="glyphicon glyphicon-user"></i>Xin chào,<br>dendimon    </li>
+			  <li class="user"><i class="glyphicon glyphicon-user"></i>Xin chào,<br><?php $currentCustomer=vst_getCurrentCustomer(); echo $currentCustomer['username'];?> </li>
 			  <li class="active"><a href="list.html">Danh sách đơn hàng</a></li>
 			  <li ><a href="list.html">Danh sách khiếu nại</a></li>
 			  <li ><a href="list.html">Danh sách hoàn tiền</a></li>
-			  <li><a href="#" data-method="post">Thoát</a></li>
+			  <li><a href="<?php echo site_url('customer/logout'); ?>" data-method="post">Thoát</a></li>
 			</ul>
 		  </div>
 		  <div class="col-xs-9 profile-content">
@@ -69,86 +69,68 @@
 						  </div>
 						</div>
 						<div>
-						  <input type="hidden" name="SearchOrderForm[show_order_drop]" value="0"><input type="checkbox" id="searchorderform-show_order_drop" name="SearchOrderForm[show_order_drop]" value="1" style="height: auto;">                        <label for="searchorderform-show_order_drop" style="margin-left: 10px; cursor: pointer;">Đơn
-						  hàng đã
-						  hủy</label>
+						  <input type="hidden" name="SearchOrderForm[show_order_drop]" value="0"><input type="checkbox" id="searchorderform-show_order_drop" name="SearchOrderForm[show_order_drop]" value="1" style="height: auto;">
+						  <label for="searchorderform-show_order_drop" style="margin-left: 10px; cursor: pointer;">Đơn hàng đã hủy</label>
 						</div>
 						<button type="submit" class="btn btn-primary searching">Lọc đơn hàng</button>                    
 					  </form>
 					</div>
 				  </div>
-				  <div class="alert alert-info">Sau 7 ngày kể từ khi thanh toán, nếu quý khách chưa nhận được hàng hãy liên hệ
-					với
-					Luuthong.vn để được hỗ trợ: 04.7303 1999
+				  <div class="alert alert-info">
+					Sau 7 ngày kể từ khi thanh toán, nếu quý khách chưa nhận được hàng hãy liên hệ với Luuthong.vn để được hỗ trợ: 04.7303 1999
 				  </div>
+				  
 				  <div id="w1" class="list-view-orders list-view">
 					<div class="item-view" data-key="1004979">
+					<?php foreach($list_order as $key => $row){ ?>
 					  <div class="order-item">
 						<div class="order-item-header item-header">
-						  ĐH: <a href="#"><span class="order-id">1004979</span></a> <span
-							class="order-time-created">11/10/2016 16:16:29</span>
-						  Gian
-						  hàng: <a class="shop-name" href="http://mpttshop.luuthong.vn" target="_blank">Mỹ phẩm thời trang</a>                    
-						  <div class="pull-right">Chờ thanh toán</div>
+						  ĐH: <a href="<?php echo site_url('order/detail').'/'.$key;?>"><span class="order-id"><?php echo $row['invoiceid'];?></span></a> <span class="order-time-created"><?php echo $row['create_date'];?></span>
+						  Gian hàng: <a class="shop-name" href="<?php echo $row['seller_link'];?>" target="_blank"><?php echo $row['seller_name'];?></a>                    
+						  <div class="pull-right"><?php echo order_status($row['status']);?></div>
 						</div>
 						<div class="order-item-middle item-middle">
 						  <table class="order-detail full-width">
 							<thead>
 							  <tr class="bg-order-item">
-								<th>STT</th>
-								<th class="text-center" style="width: 15%;">Mã đơn</th>
-								<th class="text-center" style="width: 10%;">Số lượng</th>
+								<th class="text-center" style="width: 8%;">STT</th>
+								<th class="text-center" style="width: 15%;">Sản phẩm</th>
+								<th class="text-center" style="width: 15%;">Giá</th>
+								<th class="text-center" style="width: 5%;">Số lượng</th>
 								<th class="text-center" style="width: 15%;">Thành tiền</th>
 							  </tr>
 							</thead>
 							<tbody>
+							<?php $total_price= 0; 
+								foreach($row['data'] as $row_data){ ?>
 							  <tr class="">
 								<td class="order-detail-image">
 								  <!-- image -->
-								  <a class="thumbs-product-image responsive-img" href="#" target="_blank">
-								  <img src="../images/494b826e6dfcecb71d9bda0c8e7efd46.100x100.jpg" alt=""></a>                            
+								  <a class="thumbs-product-image responsive-img" href="<?php echo $row_data['item_link'];?>" target="_blank">
+									<img src="<?php echo $row_data['item_image'];?>" alt="">
+								  </a>                            
 								</td>
 								<td class="oder-detail-product-info">
-								  <a class="product-name" href="#" target="_blank">Quần Legging nữ khóa kéo hiện đại</a>                                                                                
+								  <a class="product-name" href="#" target="_blank"><?php echo $row_data['item_title'];?></a>                                                                                
 								  <p style="margin-top: 5px; margin-bottom: 5px; font-weight: bold;">
-									<label>size</label>&nbsp;:<label>M</label>
+									<label>Size</label>:&nbsp;<label>--unknown--</label>
 								  </p>
 								  <p style="margin-top: 5px; margin-bottom: 5px; font-weight: bold;">
-									<label>Màu sắc</label>&nbsp;:<label>xám- trơn</label>
+									<label>Màu sắc</label>&nbsp;:<label>--unknown--</label>
 								  </p>
 								</td>
 								<td class="order-detail-price text-price text-bold">
-								  <span>55.000 đ</span>
+								  <span><?php echo number_format($row_data['item_price']);?>đ</span>
 								</td>
 								<td class="order-detail-quantity">
-								  <span>1</span>
+								  <span><?php echo $row_data['item_quantity'];?></span>
 								</td>
 								<td class="order-detail-total text-price">
-								  <span>55.000 đ</span>
+								  <span><?php echo number_format($row_data['item_price']*$row_data['item_quantity']);?>đ</span>
 								</td>
 							  </tr>
-							  <tr class="">
-								<td class="order-detail-image">
-								  <!-- image -->
-								  <a class="thumbs-product-image responsive-img" href="#" target="_blank">
-								  <img src="../images/a6eb15abdb2d71fa744a125eac77e888.100x100.jpg" alt=""></a>                            
-								</td>
-								<td class="oder-detail-product-info">
-								  <a class="product-name" href="#" target="_blank">Áo khoác nữ nỉ bông, họa tiết ô vuông hiện đại</a>                                                                                
-								  <p style="margin-top: 5px; margin-bottom: 5px; font-weight: bold;">
-									<label>màu sắc</label>&nbsp;:<label>đen</label>
-								  </p>
-								</td>
-								<td class="order-detail-price text-price text-bold">
-								  <span>99.000 đ</span>
-								</td>
-								<td class="order-detail-quantity">
-								  <span>1</span>
-								</td>
-								<td class="order-detail-total text-price">
-								  <span>99.000 đ</span>
-								</td>
-							  </tr>
+							<?php $total_price+=($row_data['item_price']*$row_data['item_quantity']); 
+								} ?>
 							</tbody>
 						  </table>
 						</div>
@@ -157,17 +139,17 @@
 							<li class="label-title">Tiền hàng:</li>
 							<li class="value">
 							  <span
-								class="total-money text-bold text-price">154.000đ</span>
+								class="total-money text-bold text-price"><?php echo number_format($total_price);?>đ</span>
 							</li>
 							<li class="label-title">Phí vận chuyển:</li>
 							<li class="value">
 							  <span
-								class="total-transporting">23.000đ</span>
+								class="total-transporting">--unknown--</span>
 							</li>
 							<li class="label-title">Thành tiền:</li>
 							<li class="value">
 							  <span
-								class="final-money text-bold text-price">177.000đ</span>
+								class="final-money text-bold text-price">--unknown--</span>
 							</li>
 						  </ul>
 						</div>
@@ -176,6 +158,7 @@
 						  <a class="btn btn-primary" href="/my-order/payment?id=1004979" data-method="post">Thanh toán đơn hàng</a>                                            
 						</div>
 					  </div>
+					<?php } ?>
 					</div>
 				  </div>
 				</div>

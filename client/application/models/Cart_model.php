@@ -20,7 +20,7 @@ class Cart_model extends MY_Model
 	 {
 		if($cid == null){
 			$currentCustomer =  vst_getCurrentCustomer();
-			$user_id=$currentCustomer['cid'];
+			$cid=$currentCustomer['cid'];
 		}
 		$params_where=array('cid'=>$cid);
 		$cartData = $this->_getwhere(array(
@@ -113,6 +113,13 @@ class Cart_model extends MY_Model
                      'list'=>true
       ));
       return $result;
+	}
+	
+	function delete_cart_data($param_where){
+		return $this->_del(array(
+					'table'		=>	$this->table_carts,
+					'param_where'	=>	$param_where
+		));
 	}
 	 
 }

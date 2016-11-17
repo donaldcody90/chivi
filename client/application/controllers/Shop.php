@@ -22,5 +22,11 @@ class Shop extends CI_Controller {
 		$data['template'] = 'shop/shop';
 		$this->load->view('layout/home', $data);
 	}
+	
+	//Danh sách cửa hàng
+	function lists(){
+		$data['template']= 'shop/lists';
+		$this->load->view('layout/home', $data);
+	}
 }
 ?>	

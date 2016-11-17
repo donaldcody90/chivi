@@ -5,7 +5,9 @@
     background-color: #fff;
     padding: 15px;
     margin: 20px 0;
-
+}
+.skin-red .wrapper {
+    background: #f5f5f5!important;
 }
 .cart-product-img{
     width: 70px;
@@ -94,6 +96,9 @@
     width: 100%;
     /*float: right;*/
 }
+.shopping-button-right .btn-update:first-letter{
+    font-family:"Glyphicons Halflings";
+}
 .losers{
     margin-top: 5px;
 }
@@ -164,6 +169,9 @@
     border-right: 1px solid #dddddd;
     padding-right: 36px;
     margin-right: -38px;
+}
+.frm-checkout{
+	margin-bottom:0!important;
 }
 .protection .protection-img{
     vertical-align: top;

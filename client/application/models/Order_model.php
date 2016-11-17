@@ -7,7 +7,8 @@ class Order_model extends MY_Model
      private $table_orders = 'vt_order';
      private $table_customers = 'vt_customer';
      private $table_items = 'vt_order_item';
-     private $table_seller = 'vt_order_seller';
+     private $table_order_seller = 'vt_order_seller';
+	 private $table_seller='vt_seller';
 
      function __construct()
      {
@@ -15,11 +16,15 @@ class Order_model extends MY_Model
      }
 
 	 // List Order
-     function listOrder($filter=array(),$total=0,$start=0){
+     function listOrder($filter=array(),$total=0,$start=0, $param){
           vst_buildFilter($filter);
-          $query = $this->db->select ($this->table_orders.'.*,'.$this->table_customers.'.username,'.$this->table_customers.'.address,'.$this->table_customers.'.fullname,'.$this->table_customers.'.phone,'.$this->table_customers.'.email');
+          $query = $this->db->select ($this->table_orders.'.*,'.$this->table_seller.'.*,'.$this->table_items.'.*,'.$this->table_order_seller.'.*,'.$this->table_customers.'.username,'.$this->table_customers.'.address,'.$this->table_customers.'.fullname,'.$this->table_customers.'.phone,'.$this->table_customers.'.email');
           $query = $this->db->from($this->table_orders);
           $query = $this->db->join ($this->table_customers, $this->table_customers.'.cid = '.$this->table_orders.'.cid');
+          $query = $this->db->join ($this->table_items, $this->table_items.'.oid = '.$this->table_orders.'.id');
+          $query = $this->db->join ($this->table_order_seller, $this->table_order_seller.'.oid = '.$this->table_orders.'.id');
+          $query = $this->db->join ($this->table_seller, $this->table_order_seller.'.sellerid = '.$this->table_seller.'.sid');
+          $query = $this->db->where($param);
           $query = $this->db->order_by($this->table_orders.'.id', 'desc'); 
           
           $query = $this->db->limit($total, $start);
@@ -49,7 +54,17 @@ class Order_model extends MY_Model
         $query = $this->db->get();
 		return $query->num_rows();
     }
-
+	
+	/*chi tiết đơn hàng
+	
+	function orderDetail($param){
+		$this->db->select('*');
+		$this->db->from($this->table_orders);
+		$this->db->join($this->table_customers, $this->table_orders.'.cid = '.$this->table_customers'.cid');
+		$this->db->join($this->table_items, $this->table_orders.'.id = '.$this->table_items.'.oid');
+		$this->db->join($this->table_order_seller, $this->table_orders.'.id = '.$this->table_items.'.oid');
+	}
+	*/
 	/*
     lấy danh sách sản phẩm trong một đơn hàng hoặc người bán
    */
@@ -71,7 +86,7 @@ class Order_model extends MY_Model
    function getSellers($oid)
    {
     $this->db->select ( '*' );
-    $this->db->from($this->table_sellers);
+    $this->db->from($this->table_order_sellers);
     $this->db->where(array('oid'=>$oid));
     $query = $this->db->get();
     $sellers =  $query->result_array();
