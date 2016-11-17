@@ -175,13 +175,11 @@
 }
 
 .product-items {
-    /*padding: 4px 4px 0 4px;*/
     position: relative;
     border: 1px #eeeeee solid;
     background-color: #fff;
     margin-bottom: 20px;
-    min-height: 355px;
-    /*height:355px;*/
+
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
     -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
     box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
@@ -665,3 +663,4 @@
 .col-lg-15.col-sm-4.col-md-3.col-xs-6.col-vxs-12 {
     width: 20% !important;
 }
+.product-shop-detail .price,.product-shop-detail .capital{text-align: center;}

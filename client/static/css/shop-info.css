@@ -367,6 +367,7 @@
 .widget-shop-info-v2 .shop-status {
     padding: 0px 10px;
     border-bottom: none;
+	padding-top: 5px;
 }
 
 .widget-shop-info-v2 .shop-status > span {
