@@ -94,65 +94,32 @@
         </div>
         <div class="category-list">
           <ul class="main-menu">
+			<?php foreach($category-list as $cat0){ ?>
             <li data-submenu-id="msmn1000001">
-              <a href="#">
-              <span class="icon">
-              <img src="static/images//09f076f883a8ad10b63f52b126870348.gif" alt="Thời trang nữ" max-height="32px" max-weight="32px">                                                             </span> Thời trang nữ </a>
+              <a href="<?php echo site_url('category').'/'.$cat0['id'];?>">
+                <span class="icon">
+				  <img src="static/images//09f076f883a8ad10b63f52b126870348.gif" alt="Thời trang nữ" max-height="32px" max-weight="32px">
+			    </span> <?php echo $cat0['name'];?></a>
               <div class="sub-category" id="msmn1000001">
                 <div class="sub-category-list">
                   <ul>
+					<?php foreach($cat0['children'] as $cat1){ ?>
                     <li>
-                      <h3><a href="#"
-                        title="Áo nữ">Áo nữ</a>
-                      </h3>
+                      <h3><a href="<?php echo site_url('category').'/'.$cat1['id'];?>" title="Áo nữ"><?php echo $cat1['name'];?></a></h3>
                       <ul>
+						<?php foreach($cat1['children'] as $cat2){ ?>
                         <li>
-                          <a href="#" title="Áo sơ mi nữ">Áo sơ mi nữ</a>
+                          <a href="<?php echo site_url('category').'/'.$cat2['id'];?>" title="Áo sơ mi nữ"><?php echo $cat2['name'];?></a>
                         </li>
-                        <li>
-                          <a href="#" title="Áo thun nữ">Áo thun nữ</a>
-                        </li>
-                        <li> <a href="#"
-                          title="Áo len nữ">Áo len nữ</a>
-                        </li>
-                        <li> <a href="#"
-                          title="Áo khoác nữ">Áo khoác nữ</a>
-                        </li>
-                        <li> <a href="#"
-                          title="Áo nỉ nữ">Áo nỉ nữ</a>
-                        </li>
-                        <li> <a href="#"
-                          title="Áo vest nữ">Áo vest nữ</a>
-                        </li>
+                        <?php } ?>
                       </ul>
                     </li>
-                    <li>
-                      <h3><a href="#"
-                        title="Quần nữ">Quần nữ</a>
-                      </h3>
-                      <ul>
-                        <li>
-                          <a href="#"
-                            title="Quần Jeans nữ">Quần Jeans nữ</a>
-                        </li>
-                        <li> <a href="#"
-                          title="Quần âu nữ">Quần âu nữ</a>
-                        </li>
-                        <li> <a href="#"
-                          title="Quần kaki nữ">Quần kaki nữ</a>
-                        </li>
-                        <li> <a href="#"
-                          title="Quần thun, legging nữ">Quần thun, legging nữ</a>
-                        </li>
-                        <li> <a href="#"
-                          title="Quần thể thao nữ">Quần thể thao nữ</a>
-                        </li>
-                      </ul>
-                    </li>
+					<?php } ?>
                   </ul>
                 </div>
               </div>
             </li>
+			<?php } ?>
             <li data-submenu-id="msmn1000000">
               <a href="#">
               <span class="icon">
