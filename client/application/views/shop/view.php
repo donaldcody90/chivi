@@ -73,7 +73,7 @@
             <div class="wpc-panel-body">
 			<?php foreach($listproducts as $key=>$product){?>
               <div class="product-list-vertical">
-                <a target="_blank" href="<?php echo $product['link']; ?>" title="<?php echo $product['title']; ?>">
+                <a target="_blank" href="<?php echo site_url('product/detail?id='.$product['id']);?>" title="<?php echo $product['title']; ?>">
                 <span class="responsive-img">
                 <img class="media-object lazy"
                   src="<?php echo $product['image']; ?>"
@@ -83,7 +83,7 @@
                 <div class="media-body m-product-info">
                   <strong class="price">
                   <?php echo $product['vn_price']; ?> đ </strong>
-                  <a class="capital" href=" <?php echo $product['link']; ?>" title=" <?php echo $product['title']; ?>" target="_blank"><?php echo $product['title']; ?></a>        
+                  <a class="capital" href="<?php echo site_url('product/detail?id='.$product['id']);?>" title=" <?php echo $product['title']; ?>" target="_blank"><?php echo $product['title']; ?></a>        
                 </div>
               </div>
 			<?php } ?>  
@@ -124,7 +124,7 @@
 		<?php foreach($listproducts as $key=>$product){?>
           <div class="col-xs-3" data-key="0">
             <div class="product-items product-shop-detail">
-              <a target="_blank" href="<?php echo $product['link']; ?>" class="responsive-img img-featured">
+              <a target="_blank" href="<?php echo site_url('product/detail?id='.$product['id']);?>" class="responsive-img img-featured">
                 <img id="featured-1062862" src="<?php echo $product['image']; ?>" alt="<?php echo $product['title']; ?>">                    
                 <div class="price-range">
                   <p>
@@ -146,7 +146,11 @@
               <div class="price">
                 <strong><?php echo $product['vn_price']; ?> đ</strong>
               </div>
-              <h4 class="capital"><a class="product-title" href="<?php echo $product['link']; ?>" title="<?php echo $product['title']; ?>" target="_blank"><?php echo $product['title']; ?></a></h4>
+              <h4 class="capital">
+			  <a class="product-title" href="<?php echo site_url('product/detail?id='.$product['id']);?>" title="<?php echo $product['title']; ?>" target="_blank">
+				<?php echo $product['title']; ?>
+			  </a>
+			  </h4>
             </div>
           </div>
 		<?php } ?>  

@@ -406,7 +406,7 @@
                 </ul>
                 <div class="product-content">
                   <div style="text-align:center;">
-					<img src="<?php echo $product['image']; ?>" alt="46884be5471326a10058d31a3acc784b.jpg" />
+					<img src="<?php echo $product['image']; ?>" />
 				  </div>                              
                 </div>
               </div>
@@ -421,7 +421,7 @@
       <div class="widget-shop-info-v2">
         <div class="content">	
           <h5 class="brand-name">
-            <a class="url-shop" href="http://maistore90.luuthong.vn" target="_blank"><?php echo $shop['name']; ?></a>            
+            <a class="url-shop" href="<?php echo site_url('shop/view?shop_id='.$shop['id']);?>" target="_blank"><?php echo $shop['name']; ?></a>            
           </h5>
           <div class="shop-status">
             <span class="label label-success">Kinh doanh hộ cá thể</span>
