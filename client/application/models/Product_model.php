@@ -5,12 +5,14 @@ class Product_model extends MY_Model
 {
 
     private $table_product = 'vt_product';
+    private $table_shop = 'vt_shop';
 	
-	function getProduct($pid=0){
-		$this->db->select ( '*' );
-		$this->db->from($this->table_product);
+	function getProduct($pid=null){
+		$this->db->select ('*');
+		$this->db->from($this->table_shop);
+		$this->db->join($this->table_product, $this->table_shop.'.id = '.$this->table_product.'.sid');
 		if($pid){
-			$this->db->where(array('pid'=>$pid));
+			$this->db->where(array($this->table_product.'.id'=>$pid));
 		}
 		$query = $this->db->get();
 		return $query->row_array();

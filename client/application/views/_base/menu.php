@@ -3,8 +3,8 @@
     <div class="menu-utility">
       <div class="container">
         <div class="pull-left" id="show-user-top">
-          <span class="welcome hello-user"></span>
-          <ul class="login-signup">
+          <span class="welcome hello-user">Chào mừng quý khách đến với ChiVi</span>
+          <ul class="login-signup">mmmmmmmmmmmm
             <li>
               <a href="#" title="Đăng nhập"><i class="glyphicon glyphicon-log-in"></i> Đăng nhập</a>                        
             </li>
@@ -39,7 +39,7 @@
   <div class="middle-bar">
     <div class="container p-full">
       <div class="logo pull-left">
-        <h1><a href="#" title="20/10"><img src="static/images//e68e7bcaf0949441630248451a84795f.png" alt="20/10"></a>        </h1>
+        <h1><a href="#" title="20/10"><img src="static/images/e68e7bcaf0949441630248451a84795f.png" alt="20/10"></a>        </h1>
       </div>
       <div class="search">
         <div class="search-box">
@@ -94,130 +94,34 @@
         </div>
         <div class="category-list">
           <ul class="main-menu">
-			<?php foreach($category-list as $cat0){ ?>
-            <li data-submenu-id="msmn1000001">
+			<?php foreach($category_lists as $cat0){ ?>
+            <li>
               <a href="<?php echo site_url('category').'/'.$cat0['id'];?>">
                 <span class="icon">
-				  <img src="static/images//09f076f883a8ad10b63f52b126870348.gif" alt="Thời trang nữ" max-height="32px" max-weight="32px">
+				  <img src="<?php echo $cat0['icon_link'];?>" alt="Thời trang nữ" max-height="32px" max-weight="32px">
 			    </span> <?php echo $cat0['name'];?></a>
               <div class="sub-category" id="msmn1000001">
                 <div class="sub-category-list">
                   <ul>
-					<?php foreach($cat0['children'] as $cat1){ ?>
+					<?php if(isset($cat0['children'])){
+					foreach($cat0['children'] as $cat1){ ?>
                     <li>
                       <h3><a href="<?php echo site_url('category').'/'.$cat1['id'];?>" title="Áo nữ"><?php echo $cat1['name'];?></a></h3>
                       <ul>
-						<?php foreach($cat1['children'] as $cat2){ ?>
+						<?php if(isset($cat1['children'])){
+						foreach($cat1['children'] as $cat2){ ?>
                         <li>
                           <a href="<?php echo site_url('category').'/'.$cat2['id'];?>" title="Áo sơ mi nữ"><?php echo $cat2['name'];?></a>
                         </li>
-                        <?php } ?>
+                        <?php } } ?>
                       </ul>
                     </li>
-					<?php } ?>
+					<?php } } ?>
                   </ul>
                 </div>
               </div>
             </li>
 			<?php } ?>
-            <li data-submenu-id="msmn1000000">
-              <a href="#">
-              <span class="icon">
-              <img src="static/images//4a962b8b3cbeacad5d70b4f0ae92c2ce.gif" alt="Thời trang nam" max-height="32px" max-weight="32px">                                                             </span> Thời trang nam </a>
-              <div class="sub-category" id="msmn1000000">
-                <div class="sub-category-list">
-                  <ul>
-                    <li>
-                      <h3><a href="#"
-                        title="Áo nam">Áo nam</a>
-                      </h3>
-                      <ul>
-                        <li>
-                          <a href="#"
-                            title="Áo sơ mi nam">Áo sơ mi nam</a>
-                        </li>
-                        <li>
-                          <a href="#"
-                            title="Áo thun nam">Áo thun nam</a>
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </li>
-            <li data-submenu-id="msmn1000002">
-              <a href="#">
-              <span class="icon">
-              <img src="static/images//9430be0a3fff99aceaf6276fa71bd719.gif" alt="Giày dép nữ" max-height="32px" max-weight="32px">                                                             </span> Giày dép nữ </a>
-              <div class="sub-category" id="msmn1000002">
-                <div class="sub-category-list">
-                  <ul>
-                    <li>
-                      <h3><a href="#"
-                        title="Giày nữ">Giày nữ</a>
-                      </h3>
-                    </li>
-                    <li>
-                      <h3><a href="#"
-                        title="Giày cao gót nữ">Giày cao gót nữ</a>
-                      </h3>
-                    </li>
-                  </ul>
-                </div>
-                <div class="brand-list">
-                </div>
-              </div>
-            </li>
-            <li data-submenu-id="msmn1000006">
-              <a href="#">
-              <span class="icon">
-              <img src="static/images//def5104f32f86caa57484854e32a1bea.gif" 
-                alt="Giày dép nam" max-height="32px" max-weight="32px">  
-              </span> Giày dép nam </a>
-            </li>
-            <li data-submenu-id="msmn1000003">
-              <a href="#">
-              <span class="icon">
-              <img src="static/images//6ea6e6a2d41f4799699effb18d59bd40.gif" 
-                alt="Túi xách, ví da" max-height="32px" max-weight="32px">    
-              </span> Túi xách, ví da </a>
-            </li>
-            <li data-submenu-id="msmn1000004">
-              <a href="#">
-              <span class="icon">
-              <img src="static/images//41c3ed65dce090e4697b459ac23ccce4.gif" 
-                alt="Phụ kiện - trang sức" max-height="32px" max-weight="32px"> 
-              </span> Phụ kiện - trang sức </a>
-            </li>
-            <li data-submenu-id="msmn1000005">
-              <a href="#">
-              <span class="icon">
-              <img src="static/images//28cc6069e88f2769ea269891b12969e7.gif"
-                alt="Mẹ và bé" max-height="32px" max-weight="32px">  
-              </span> Mẹ và bé </a>
-            </li>
-            <li data-submenu-id="msmn1000255">
-              <a href="#">
-              <span class="icon">
-              <img src="static/images//340ec449d839596734391c7666927eaf.gif" 
-                alt="Sức khoẻ sắc đẹp" max-height="32px" max-weight="32px">                                                         
-              </span> Sức khoẻ sắc đẹp </a>
-            </li>
-            <li data-submenu-id="msmn1000468">
-              <a href="#">
-              <span class="icon">
-              <img src="static/images//f219329717a6a8b5d5e53952d508b99c.gif" 
-                alt="Nội thất - Ngoại thất" max-height="32px" max-weight="32px">                                  
-              </span> Nội thất - Ngoại thất </a>
-            </li>
-            <li data-submenu-id="msmn1000384">
-              <a href="#">
-              <span class="icon">
-              <img src="static/images//b9b5b50b7a954746637f587ddff7969e.gif" 
-                alt="Công nghiệp - Nông nghiệp" max-height="32px" max-weight="32px">  
-              </span> Công nghiệp - Nông nghiệp </a>
-            </li>
           </ul>
         </div>
       </div>

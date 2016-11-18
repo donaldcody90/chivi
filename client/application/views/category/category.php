@@ -39,35 +39,35 @@
 </div>
 </div>
 <div class="widget-product-list">
-<div class="product-filter">
-  <div class="item active">
-    <a href="/ao-khoac-nu-c1000046?sortType=desc&amp;sort=hot" title="Sản phẩm hot"><i class="glyphicon glyphicon-fire"></i> Sản phẩm hot</a>            
-  </div>
-  <div class="item ">
-    <a href="/ao-khoac-nu-c1000046?sortType=asc&amp;sort=price" title="Giá tăng dần"><i class="glyphicon glyphicon-arrow-up"></i> Giá tăng dần</a>            
-  </div>
-  <div class="item ">
-    <a href="/ao-khoac-nu-c1000046?sortType=desc&amp;sort=price" title="Giá giảm dần"><i class="glyphicon glyphicon-arrow-down"></i> Giá giảm dần</a>            
-  </div>
-  <div class="item ">
-    <a href="/ao-khoac-nu-c1000046?sortType=desc&amp;sort=product_id" title="Sản phẩm mới nhất"><i class="glyphicon glyphicon-star"></i> Sản phẩm mới nhất</a>            
-  </div>
-  <div class="item">
-    <form class="form-filter" action="#" method="get">
-      <span>Lọc theo giá:</span>
-      <input type="text" class="top-filter-input" name="priceFrom" placeholder="Từ">                <span>-</span>
-      <input type="text" class="top-filter-input" name="priceTo" placeholder="Đến">                
-      <select class="select-province" name="province">
-        <option value="">-- Lọc theo tỉnh thành --</option>
-        <option value="1">Hà Nội</option>
-        <option value="31">Vĩnh Phúc</option>
-        <option value="41">Bắc Ninh</option>
-        <option value="50">Quảng Ninh</option>
-      </select>
-      <button type="submit" class="filter-btn" title="Lọc">Lọc</button>                
-    </form>
-  </div>
-</div>
+	<div class="product-filter">
+	  <div class="item active">
+		<a href="/ao-khoac-nu-c1000046?sortType=desc&amp;sort=hot" title="Sản phẩm hot"><i class="glyphicon glyphicon-fire"></i> Sản phẩm hot</a>            
+	  </div>
+	  <div class="item ">
+		<a href="/ao-khoac-nu-c1000046?sortType=asc&amp;sort=price" title="Giá tăng dần"><i class="glyphicon glyphicon-arrow-up"></i> Giá tăng dần</a>            
+	  </div>
+	  <div class="item ">
+		<a href="/ao-khoac-nu-c1000046?sortType=desc&amp;sort=price" title="Giá giảm dần"><i class="glyphicon glyphicon-arrow-down"></i> Giá giảm dần</a>            
+	  </div>
+	  <div class="item ">
+		<a href="/ao-khoac-nu-c1000046?sortType=desc&amp;sort=product_id" title="Sản phẩm mới nhất"><i class="glyphicon glyphicon-star"></i> Sản phẩm mới nhất</a>            
+	  </div>
+	  <div class="item">
+		<form class="form-filter" action="#" method="get">
+		  <span>Lọc theo giá:</span>
+		  <input type="text" class="top-filter-input" name="priceFrom" placeholder="Từ">                <span>-</span>
+		  <input type="text" class="top-filter-input" name="priceTo" placeholder="Đến">                
+		  <select class="select-province" name="province">
+			<option value="">-- Lọc theo tỉnh thành --</option>
+			<option value="1">Hà Nội</option>
+			<option value="31">Vĩnh Phúc</option>
+			<option value="41">Bắc Ninh</option>
+			<option value="50">Quảng Ninh</option>
+		  </select>
+		  <button type="submit" class="filter-btn" title="Lọc">Lọc</button>                
+		</form>
+	  </div>
+	</div>
 <div class="row">
 <div class="inside">
 <?php if($list_product){
@@ -76,26 +76,26 @@
 <div
   class="col-lg-15 col-sm-4 col-md-3 col-xs-6 col-vxs-12">
   <div class="product-items">
-    <a target="_blank" href="<?php echo $product['link']?>" class="responsive-img img-featured"
+    <a target="_blank" href="<?php echo site_url('product/index').'/'.$product['id'];?>" class="responsive-img img-featured"
       title=" ">
       <img id="featured-1053957" src="<?php echo $product['image']?>" alt=" ">                                                                    
       <div class="price-range">
         <p>
           <span
-            class="pull-left">1</span>
+            class="pull-left"></span>
           <span
-            class="pull-right"><?php echo $product['price']?> đ </span>
+            class="pull-right"><?php echo number_format($product['vn_price']);?> đ </span>
         </p>
       </div>
     </a>
     <div class="price">
-      <strong class="pull-left"><?php echo $product['price']?> đ </strong>
+      <strong class="pull-left"><?php echo number_format($product['vn_price']);?> đ </strong>
     </div>
-    <h4 class="capital"><a class="product-title" href=" " title=" " target="_blank"><?php echo $product['name']?></a></h4>
+    <h4 class="capital"><a class="product-title" href=" " title=" " target="_blank"><?php echo $product['title']?></a></h4>
     <div class="shop-info">
       <div class="shop-title-v2">
         <div class="shop-left">
-          <a class="shop-title" href="#" title="" target="_blank"><?php $shop = vkt_getShop($product['shop_id']); echo $shop['name'];?></a>                                        
+          <a class="shop-title" href="#" title="" target="_blank"><?php $shop = vkt_getShop($product['sid']); echo $shop['name'];?></a>                                        
           <div class="shop-info-pop">
             <strong class="capital"><?php echo $shop['name']; ?></strong>
             <div class="line">
@@ -115,9 +115,11 @@
           </span>
         </div>
         <div class="hz-star-rating">
-          <?php for($i=0; $i<$shop['vote_rate'];$i++){ ?>
-			<img src="<?php echo site_url('static/images/icon_shop.png')?>"/>
-		  <?php } ?>	
+          <?php 
+			if($shop['total_rate']>0 && $shop['count_rate']>0){
+				for($i=0; $i<($shop['total_rate']/$shop['count_rate']);$i++){ ?>
+					<img src="<?php echo site_url('static/images/icon_shop.png')?>"/>
+		  <?php } } ?>	
 		</div>
         <div class="shop-line-icon">
           <div class="tooltips">
@@ -129,9 +131,7 @@
     </div>
   </div>
 </div>
-<?php } 
-}
-?>
+<?php } } ?>
 
 </div>
 </div>

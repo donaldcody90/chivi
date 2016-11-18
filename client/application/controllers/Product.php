@@ -9,7 +9,10 @@ class Product extends CI_Controller {
 		$this->load->model("product_model");
 	}
 
-	public function index(){
+	public function index($pid){
+		$product = $this->product_model->getProduct($pid);
+		$data['data']['product'] = $product;
+		$data['template'] = 'product/detail';
 		$this->load->view('layout/home', $data);
 
 	}
@@ -18,7 +21,7 @@ class Product extends CI_Controller {
 	public function detail(){
 		$pid = $this->input->get('pid');
 		$product = $this->product_model->getProduct($pid);
-		$data['product'] = $product;
+		$data['data'] = $product;
 		$data['template'] = 'product/detail';
 		$this->load->view('layout/home', $data);
 	}

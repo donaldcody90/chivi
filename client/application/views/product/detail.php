@@ -32,7 +32,7 @@
           </div>
         </div>
         <div class="product-detail-info">
-          <h1 class="product-title tsf"><?php echo $product['name']?></h1>
+          <h1 class="product-title tsf"><?php echo $product['title']?></h1>
           <div class="table-info">
             <table class="table table-responsive">
               <thead>
@@ -45,7 +45,7 @@
                 <tr>
                   <td>1</td>
                   <td class="text-right">
-                    <span><?php echo $product['price']; ?> đ</span> / chiếc                                            
+                    <span><?php echo number_format($product['vn_price']); ?> đ</span> / chiếc                                            
                   </td>
                 </tr>
               </tbody>
@@ -66,7 +66,7 @@
                   <i class="glyphicon glyphicon-tag"></i>
                   <span>Mã sản phẩm:</span>
                 </td>
-                <td>1052825</td>
+                <td><?php echo $product['id'];?></td>
               </tr>
               <tr>
                 <td>
@@ -207,7 +207,7 @@
                     <td>
                       <p class="tsf">Xanh lam</p>
                     </td>
-                    <td class="item-price text-right"><?php echo $product['price']; ?></td>
+                    <td class="item-price text-right"><?php echo number_format($product['vn_price']); ?></td>
                     <td class="text-right item-quantity">30</td>
                     <td class="text-center"><span class="ui-spinner ui-widget ui-widget-content ui-corner-all" style="height: 28px;">
                       <input type="text" class="num-range ui-spinner-input txtQuantity" value="0" >
@@ -222,7 +222,7 @@
                     <td>
                       <p class="tsf">Xanh lá</p>
                     </td>
-                    <td class="item-price text-right"><?php echo $product['price']; ?></td>
+                    <td class="item-price text-right"><?php echo number_format($product['vn_price']); ?></td>
                     <td class="text-right item-quantity">30</td>
                     <td class="text-center">
                       <span class="ui-spinner ui-widget ui-widget-content ui-corner-all" style="height: 28px;">
@@ -254,11 +254,11 @@
                 </div>
               </div>
               <form id="frm-add-cart" action="<?php echo site_url('cart/addToCart');?>" method="post">
-                <input type="hidden" name="pid" value="<?php echo $product['pid']; ?>">
-                <input type="hidden" name="name" value="<?php echo $product['name']; ?>">
+                <input type="hidden" name="pid" value="<?php echo $product['id']; ?>">
+                <input type="hidden" name="name" value="<?php echo $product['title']; ?>">
                 <input type="hidden" name="image" value="<?php echo $product['image']; ?>">
                 <input type="hidden" name="link" value="<?php echo $product['link']; ?>">
-                <input type="hidden" name="price" value="<?php echo $product['price']; ?>">
+                <input type="hidden" name="price" value="<?php echo number_format($product['vn_price']); ?>">
                 <input type="hidden" name="sid" value="<?php echo $product['sid']; ?>">
                 <input type="hidden" name="qty" value="1">
 				<input type="submit" class="hz-btn hz-btn-red hz-btn-block hz-btn-uppercase hz-btn-bold btn-add-cart" value="Thêm vào giỏ hàng" />                            
@@ -416,7 +416,7 @@
       <div class="widget-shop-info-v2">
         <div class="content">
           <h5 class="brand-name">
-            <a class="url-shop" href="http://maistore90.luuthong.vn" target="_blank">Mai Store</a>            
+            <a class="url-shop" href="http://maistore90.luuthong.vn" target="_blank"><?php echo $product['name'];?></a>            
           </h5>
           <div class="shop-status">
             <span class="label label-success">Kinh doanh hộ cá thể</span>
@@ -439,7 +439,7 @@
               <span>Loại hình:</span> Cửa hàng bán lẻ                
             </div>
             <div class="desc">
-              <span>Địa chỉ:</span> Hà Nội                
+              <span>Địa chỉ:</span> <?php echo $product['address'];?>                
             </div>
             <div class="desc">
               <span>Mở shop:</span> 10-04-2016                
@@ -449,13 +449,13 @@
             <a class="btn btn-default" href="#" target="_blank"><i class="glyphicon glyphicon-envelope"></i> Liên hệ với chúng tôi</a>            
           </div>
           <div class="btn-shop">
-            <a class="btn btn-warning" href="#" target="_blank">Xem shop</a> 
-            <a class="btn btn-info hz-favorite" href="/" title="" data-id="1001110" data-type="shop">Yêu thích</a>            
+            <a class="btn btn-warning" href="<?php echo site_url('shop');?>" target="_blank">Xem shop</a> 
+            <a class="btn btn-info hz-favorite" href="" title="">Yêu thích</a>            
           </div>
         </div>
       </div>
       <div class="widget-product">
-        <div class="wp-panel-primary  wpc-panel">
+        <div class="wp-panel-primary wpc-panel">
           <div class="wpc-panel-heading-vs2">
             <div class="title">Sản phẩm mới được bán</div>
           </div>

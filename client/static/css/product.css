@@ -312,6 +312,14 @@
     margin-left: 0;
 }
 
+.widget-product-list .shop-info{
+	margin-bottom:0!important;
+}
+
+.widget-product-list .shop-info .hz-icon.icon-protection-small{
+	margin-bottom: 5px!important;
+}
+
 .shop-info > .shop-title-v2 .tooltips .tooltip-text {
     visibility: hidden;
     width: 120px;

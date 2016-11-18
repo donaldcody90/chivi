@@ -14,10 +14,10 @@ class Category_model extends MY_Model
 		return $query->result_array();
 	}
 	
-	function getAllProduct($cat_id=0){
+	function getAllProduct($param=null){
 		$this->db->select ( '*' );
 		$this->db->from($this->table_product);
-		$this->db->where(array('cat_id'=>$cat_id));
+		$this->db->where($param);
 		$query = $this->db->get();
 		return $query->result_array();
 	}

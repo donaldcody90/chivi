@@ -12,8 +12,10 @@ class Category extends CI_Controller {
 	// Show all product in one Category
 	public function index($cat_id){
 		//$cat_id = $this->input->get('cat_id'); 
-		$list_product = $this->category_model->getAllProduct($cat_id);
-		$data['list_product'] = $list_product;
+		$param= array('cat_id'=>$cat_id);
+		$list_product = $this->category_model->getAllProduct($param);
+		print_r($list_product);
+		$data['data']['list_product'] = $list_product;
 		$data['template'] = 'category/category';
 		$this->load->view('layout/home', $data);
 	}
