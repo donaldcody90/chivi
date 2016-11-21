@@ -17,8 +17,9 @@ class Product extends CI_Controller {
 	
 	// Detail Order
 	public function detail(){
-		$pid = $this->input->get('pid');
-		$product = $this->product_model->getProduct($pid);
+		$pid = $this->input->get('id');
+		
+		$product = $this->product_model->getProduct(array('id'=>$pid));
 		$data['shop_detail'] = $this->shop_model->findShop(array('id'=>$product['sid']));
 		$data['product'] = $product;
 		$data['template'] = 'product/detail';

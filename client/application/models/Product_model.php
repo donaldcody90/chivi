@@ -6,13 +6,11 @@ class Product_model extends MY_Model
 
     private $table_product = 'vt_product';
 	
-	function getProduct($pid=0){
-		$this->db->select ( '*' );
-		$this->db->from($this->table_product);
-		if($pid){
-			$this->db->where(array('pid'=>$pid));
-		}
-		$query = $this->db->get();
-		return $query->row_array();
+	function getProduct($params_where){
+		$product = $this->_getwhere(array(
+                    'table'        => $this->table_product,
+                    'param_where'  =>$params_where
+        ));
+		return $product;
 	}
 }	

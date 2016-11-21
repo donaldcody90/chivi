@@ -3,6 +3,7 @@
 	 $shop = $shop_detail;
  }
 
+ var_dump($product);
 ?>
 <div class="container p-full">
   <div class="product-item clearfix">

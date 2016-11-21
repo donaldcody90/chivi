@@ -18,9 +18,9 @@ if ( ! function_exists('is_logged_in'))
 }
 
 
-if ( ! function_exists('vkt_getShop'))
+if ( ! function_exists('vst_getShop'))
 {
-	function vkt_getShop($shop_id) {
+	function vst_getShop($shop_id) {
 	    $CI =& get_instance();
 		$shop_table="vt_shop";
 		$CI->db->select("*");
@@ -66,18 +66,7 @@ if ( ! function_exists('vst_textDate'))
 	}
 }
 
-if ( ! function_exists('vst_getSeller'))
-{
-	function vst_getSeller($sid) {
-		$CI =& get_instance();
-		$seller_table="vt_seller";
-		$CI->db->select("*");
-		$CI->db->from($seller_table);
-		$CI->db->where(array('sid'=>$sid));
-		$query=$CI->db->get();
-		$row=$query->row_array();
-	}
-}
+
 
 if ( ! function_exists('vst_getCurrentCustomer'))
 {

@@ -6,7 +6,7 @@ class Cart_model extends MY_Model
 
      private $table_order = 'vt_order';
      private $table_seller = 'vt_order_seller';
-     private $table_item = 'vt_order_item';
+     private $table_order_item = 'vt_order_item';
      private $table_ship_only = 'ship_only';
      private $table_carts = 'vt_cart';
 
@@ -16,13 +16,9 @@ class Cart_model extends MY_Model
      }
 	
 	 // Lay thong tin tu bang Cart
-	 function getCartData($cid=null)
+	 function getCartData($params_where)
 	 {
-		if($cid == null){
-			$currentCustomer =  vst_getCurrentCustomer();
-			$cid=$currentCustomer['id'];
-		}
-		$params_where=array('id'=>$cid);
+		
 		$cartData = $this->_getwhere(array(
                     'table'        => $this->table_carts,
                     'param_where'  =>$params_where
@@ -92,7 +88,7 @@ class Cart_model extends MY_Model
 	 function insertItem($data)
 	 {
 		 return $this->_save(array(
-               'table' => $this->table_item,
+               'table' => $this->table_order_item,
                'data' => $data
           ));
 	 }
