@@ -7,6 +7,7 @@ class Product_model extends MY_Model
     private $table_product = 'vt_product';
     private $table_shop = 'vt_shop';
 	
+	
 	function getProduct($pid=null){
 		$this->db->select ('*');
 		$this->db->from($this->table_shop);
@@ -16,5 +17,14 @@ class Product_model extends MY_Model
 		}
 		$query = $this->db->get();
 		return $query->row_array();
+	}
+	
+	function getNewProductList($limit=null){
+		$this->db->select('*');
+		$this->db->from($this->table_product);
+		$this->db->order_by('id', 'desc');
+		$this->db->limit($limit);
+		$query= $this->db->get();
+		return $query->result_array();
 	}
 }	

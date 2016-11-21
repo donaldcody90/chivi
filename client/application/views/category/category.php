@@ -73,8 +73,7 @@
 <?php if($list_product){
 	foreach($list_product as $key => $product){
 	?>
-<div
-  class="col-lg-15 col-sm-4 col-md-3 col-xs-6 col-vxs-12">
+<div class="col-lg-15 col-sm-4 col-md-3 col-xs-6 col-vxs-12">
   <div class="product-items">
     <a target="_blank" href="<?php echo site_url('product/index').'/'.$product['id'];?>" class="responsive-img img-featured"
       title=" ">

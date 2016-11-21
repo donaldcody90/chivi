@@ -17,12 +17,11 @@ class Shop_model extends MY_Model
 		return $query->result_array();
 	}
 	
-	function getAllProduct($shop_id=0){
+	function getAllProduct($param=null, $limit=0){
 		$this->db->select ( '*' );
 		$this->db->from($this->table_product);
-		if($shop_id){
-			$this->db->where(array('shop_id'=>$shop_id));
-		}
+		$this->db->where($param);
+		$this->db->limit($limit);
 		$query = $this->db->get();
 		return $query->result_array();
 	}

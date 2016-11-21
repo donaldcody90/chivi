@@ -316,6 +316,7 @@ table.product-info {
     margin-bottom: 10px;
     border-collapse: collapse;
     line-height: 20px;
+	font-size:12px;
 }
 
 table.product-info td {

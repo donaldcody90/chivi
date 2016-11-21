@@ -1,4 +1,4 @@
-<?php var_dump($product) ?>
+<?php //var_dump($product) ?>
 <div class="container p-full">
   <div class="product-item clearfix">
     <div class="product-detail-col-left">
@@ -304,47 +304,23 @@
                 <div class="title">Sản phẩm cùng Shop</div>
               </div>
               <div class="wpc-panel-body">
+				<?php foreach($same_shop_products as $same_shop_product){ ?>
                 <div class="product-list-vertical">
                   <a target="_blank" href="#" title=" ">
                   <span class="responsive-img">
                   <img class="media-object lazy"
-                    src="<?php echo $product['image']; ?>"
-                    alt="Áo khoác gile nữ 1 cúc thời trang" />
+                    src="<?php echo $same_shop_product['image']; ?>"
+                    alt="<?php echo $same_shop_product['title']; ?>" />
                   </span>
                   </a>
                   <div class="media-body m-product-info">
-                    <strong class="price"> 240.000 đ </strong>
-                    <a class="capital" href="#" title="#" target="_blank">Áo khoác gile nữ 1 cúc thời trang</a>        
+                    <strong class="price"> <?php echo number_format($same_shop_product['vn_price']);?> đ </strong>
+                    <a class="capital" href="<?php echo site_url('product/detail').'/'.$same_shop_product['id'];?>" title="#" target="_blank"><?php echo $same_shop_product['title']; ?></a>        
                   </div>
                 </div>
-                <div class="product-list-vertical">
-                  <a target="_blank" href="#" title="#">
-                  <span class="responsive-img">
-                  <img class="media-object lazy"
-                    src="<?php echo $product['image']; ?>"
-                    alt="Áo gile nữ không cúc túi chéo"/>
-                  </span>
-                  </a>
-                  <div class="media-body m-product-info">
-                    <strong class="price"> 240.000 đ </strong>
-                    <a class="capital" href="#" title=" " target="_blank">Áo gile nữ không cúc túi chéo</a>        
-                  </div>
-                </div>
-                <div class="product-list-vertical">
-                  <a target="_blank" href=" " title=" ">
-                  <span class="responsive-img">
-                  <img class="media-object lazy"
-                    src="static/images/16a25023a0f0238ea1d5d376ea45fa1c.220x220.jpg"
-                    alt=Áo nỉ nữ dài tay in hình chàng trai/>
-                  </span>
-                  </a>
-                  <div class="media-body m-product-info">
-                    <strong class="price"> 130.000 đ </strong>
-                    <a class="capital" href="#" title=" " target="_blank">Áo nỉ nữ dài tay in hình chàng trai</a>        
-                  </div>
-                </div>
+				<?php } ?>
               </div>
-              <a class="btn btn-danger btn-shop-product-view-all" href="#" target="_blank">Xem tất cả</a>        
+              <a class="btn btn-danger btn-shop-product-view-all" href="<?php echo site_url('shop');?>" target="_blank">Xem tất cả</a>        
             </div>
           </div>
         </div>
@@ -416,7 +392,7 @@
       <div class="widget-shop-info-v2">
         <div class="content">
           <h5 class="brand-name">
-            <a class="url-shop" href="http://maistore90.luuthong.vn" target="_blank"><?php echo $product['name'];?></a>            
+            <a class="url-shop" href="<?php echo site_url('shop');?>" target="_blank"><?php echo $product['name'];?></a>            
           </h5>
           <div class="shop-status">
             <span class="label label-success">Kinh doanh hộ cá thể</span>
@@ -433,7 +409,7 @@
               </div>
             </div>
             <div class="desc">
-              <span>Đang bán: </span> 63 mặt hàng
+              <span>Đang bán: </span> <?php echo $product['shop_product_total'];?> mặt hàng
             </div>
             <div class="desc">
               <span>Loại hình:</span> Cửa hàng bán lẻ                
@@ -460,62 +436,22 @@
             <div class="title">Sản phẩm mới được bán</div>
           </div>
           <div class="wpc-panel-body">
+			<?php foreach($newProducts as $newProduct){ ?>
             <div class="product-list-vertical">
-              <a target="_blank" href="#" title="">
+              <a target="_blank" href="<?php echo site_url('product').'/'.$newProduct['id'];?>" title="">
               <span class="responsive-img">
               <img class="media-object lazy"
-                src="<?php echo $product['image']; ?>"
-                alt=Áo thun nam tay ngắn thời trang, họa tiết nổi bật/>
+                src="<?php echo $newProduct['image']; ?>"
+                alt='Áo thun nam tay ngắn thời trang, họa tiết nổi bật'/>
               </span>
               </a>
               <div class="media-body m-product-info">
                 <strong class="price">
                 35.000 đ            </strong>
-                <a class="capital" href=" " title="" target="_blank">Áo thun nam tay ngắn thời trang, họa tiết nổi bật</a>        
+                <a class="capital" href="<?php echo site_url('product').'/'.$newProduct['id'];?>" title="" target="_blank"><?php echo $newProduct['title'];?></a>        
               </div>
             </div>
-            <div class="product-list-vertical">
-              <a target="_blank" href=" " title=" ">
-              <span class="responsive-img">
-              <img class="media-object lazy"
-                src="<?php echo $product['image']; ?>"
-                alt=Đầm nữ xẻ tà phối cổ bẻ DU11763/>
-              </span>
-              </a>
-              <div class="media-body m-product-info">
-                <strong class="price">
-                70.000 đ            </strong>
-                <a class="capital" href=" " title=" " target="_blank">Đầm nữ xẻ tà phối cổ bẻ DU11763</a>        
-              </div>
-            </div>
-            <div class="product-list-vertical">
-              <a target="_blank" href="#" title=" ">
-              <span class="responsive-img">
-              <img class="media-object lazy"
-                src="<?php echo $product['image']; ?>"
-                alt=""/>
-              </span>
-              </a>
-              <div class="media-body m-product-info">
-                <strong class="price">
-                100.000 đ            </strong>
-                <a class="capital" href="#" title="Áo len nữ xẻ tà phối màu" target="_blank">Áo len nữ xẻ tà phối màu</a>        
-              </div>
-            </div>
-            <div class="product-list-vertical">
-              <a target="_blank" href="#" title="#">
-              <span class="responsive-img">
-              <img class="media-object lazy"
-                src="<?php echo $product['image']; ?>"
-                alt=""/>
-              </span>
-              </a>
-              <div class="media-body m-product-info">
-                <strong class="price">
-                49.000 đ            </strong>
-                <a class="capital" href="#" title=" " target="_blank">Đầm xòe Ngọc Trinh phối viền xinh xắn (Hồng)</a>        
-              </div>
-            </div>
+            <?php } ?>
           </div>
         </div>
       </div>

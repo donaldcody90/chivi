@@ -181,21 +181,92 @@ function list_ship_submit(self,message=""){
 	return false;
 	
 }
+
+	function addCommas(nStr)
+	{
+		nStr += '';
+		x = nStr.split('.');
+		x1 = x[0];
+		x2 = x.length > 1 ? '.' + x[1] : '';
+		var rgx = /(\d+)(\d{3})/;
+		while (rgx.test(x1)) {
+			x1 = x1.replace(rgx, '$1' + ',' + '$2');
+		}
+		return x1 + x2;
+	}
 	
 	$(".ui-spinner .ui-spinner-button").click(function(){
-		var oldValue= $(this).parent().find('input').val();
+		var oldValue= parseFloat($(this).parent().find('input').val());
+		var itemQuantity= parseFloat($(this).parents('.ps-item').find('.item-quantity').text());
 		if($(this).hasClass('btnIncrease')){
-			var newValue= parseFloat(oldValue) + 1;
+			if(oldValue<itemQuantity){
+				var newValue= oldValue + 1;
+			}else{
+				var newValue= itemQuantity;
+			}
 		}
 		if($(this).hasClass('btnDecrease')){
-			if(oldValue > 1){
-				var newValue= parseFloat(oldValue) - 1;
+			if(oldValue > 0){
+				var newValue= oldValue - 1;
 			}else{
-				var newValue= 1;
+				var newValue= 0;
 			}
 		}
 		$(this).parent().find('.ui-spinner-input').val(newValue);
+		var summary= '';
+		var totalQuantity= 0;
+		var totalMoney= 0;
+		$('.ps-item').each(function(){
+			var attrText= $(this).find('.tsf').text();
+			var itemPrice= ($(this).find('.item-price').text()).replace(',', '');
+			var quantityValue= $(this).find('.ui-spinner-input').val();
+			if(quantityValue>0){
+				summary+= '<li><div class="s-name tsf">'+ attrText +'</div><span class="s-quantity"><strong>'+ quantityValue +'</strong></span></li>';
+			}
+			totalQuantity+= parseFloat(quantityValue);
+			totalMoney+= parseFloat(quantityValue)*parseFloat(itemPrice);
+		});
+		if(totalQuantity==0){
+			summary= '<li class="text-center">Chưa có sản phẩm nào được chọn</li>';
+		}
+		$('.sku-items').html(summary);
+		$('.txtTotalQuantity').text(totalQuantity);
+		$('.txtTotalMoney').text(addCommas(totalMoney));
 	});
+	
+	$('.ui-spinner-input').change(function(){
+		var summary= '';
+		var totalQuantity= 0;
+		var totalMoney= 0;
+		$('.ps-item').each(function(){
+			var attrText= $(this).find('.tsf').text();
+			var itemPrice= ($(this).find('.item-price').text()).replace(',', '');
+			var itemQuantity= parseFloat($(this).find('.item-quantity').text());
+			var quantityValue= $(this).find('.ui-spinner-input').val();
+			if(quantityValue<=0){
+				var quantityValue1=0;
+				$(this).find('.ui-spinner-input').val(quantityValue1);
+			}
+			if(quantityValue>itemQuantity){
+				var quantityValue1= itemQuantity;
+				$(this).find('.ui-spinner-input').val(quantityValue1);
+				summary+= '<li><div class="s-name tsf">'+ attrText +'</div><span class="s-quantity"><strong>'+ quantityValue1 +'</strong></span></li>';
+			}
+			if(quantityValue>0 && quantityValue<=itemQuantity){
+				var quantityValue1= $(this).find('.ui-spinner-input').val();
+				summary+= '<li><div class="s-name tsf">'+ attrText +'</div><span class="s-quantity"><strong>'+ quantityValue1 +'</strong></span></li>';
+			}
+			totalQuantity+= parseFloat(quantityValue1);
+			totalMoney+= parseFloat(quantityValue1)*parseFloat(itemPrice);
+		});
+		if(totalQuantity==0){
+			summary= '<li class="text-center">Chưa có sản phẩm nào được chọn</li>';
+		}
+		$('.sku-items').html(summary);
+		$('.txtTotalQuantity').text(totalQuantity);
+		$('.txtTotalMoney').text(addCommas(totalMoney));
+	});
+	
 	
 	/*----------checkbox---------------*/
 	
