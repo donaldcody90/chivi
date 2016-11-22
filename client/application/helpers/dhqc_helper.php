@@ -18,9 +18,9 @@ if ( ! function_exists('is_logged_in'))
 }
 
 
-if ( ! function_exists('vkt_getShop'))
+if ( ! function_exists('vst_getShop'))
 {
-	function vkt_getShop($shop_id) {
+	function vst_getShop($shop_id) {
 	    $CI =& get_instance();
 		$shop_table="vt_shop";
 		$CI->db->select("*");
