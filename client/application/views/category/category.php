@@ -110,8 +110,7 @@
               <span>TP Hồ Chí Minh</span>
             </div>
           </div>
-          <span class="shop-icon-vip">
-          </span>
+          <span class="shop-icon-vip"></span>
         </div>
         <div class="hz-star-rating">
           <?php 

@@ -29,10 +29,10 @@
 			  <tr class="tr_seller">
 				<td colspan="5">
 					<span>Người Bán:</span>
-					<?php echo $value['seller_name']; ?>
+					<?php echo $value['shop_name']; ?>
 				</td>
 			  </tr>
-			  <?php foreach($value['item'] as $k=>$v){?>
+			  <?php foreach($value['items'] as $k=>$v){?>
 			  
               <tr class="sku-items">
 				<td>
@@ -50,7 +50,7 @@
                     </div>
                     <div class="media-body">
                       <strong class="media-heading clearfix">
-                      <a href="<?php echo $v['link']; ?>" target="_blank"><?php echo $v['name']; ?></a>
+                      <a href="<?php echo $v['link']; ?>" target="_blank"><?php echo $v['title']; ?></a>
 					  </strong>
                       <div class="p-info clearfix">
                         <div class="property-list">

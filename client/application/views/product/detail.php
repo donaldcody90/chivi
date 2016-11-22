@@ -1,4 +1,12 @@
+
 <?php //var_dump($product) ?>
+<?php 
+ if(isset($shop_detail)){
+	 $shop = $shop_detail;
+ }
+
+ var_dump($product);
+?>
 <div class="container p-full">
   <div class="product-item clearfix">
     <div class="product-detail-col-left">
@@ -45,7 +53,7 @@
                 <tr>
                   <td>1</td>
                   <td class="text-right">
-                    <span><?php echo number_format($product['vn_price']); ?> đ</span> / chiếc                                            
+                    <span><?php echo number_format($product['vn_price']); ?> đ</span> / chiếc   
                   </td>
                 </tr>
               </tbody>
@@ -259,6 +267,10 @@
                 <input type="hidden" name="image" value="<?php echo $product['image']; ?>">
                 <input type="hidden" name="link" value="<?php echo $product['link']; ?>">
                 <input type="hidden" name="price" value="<?php echo number_format($product['vn_price']); ?>">
+                <input type="hidden" name="title" value="<?php echo $product['title']; ?>">
+                <input type="hidden" name="image" value="<?php echo $product['image']; ?>">
+                <input type="hidden" name="link" value="<?php echo $product['link']; ?>">
+                <input type="hidden" name="price" value="<?php echo $product['vn_price']; ?>">
                 <input type="hidden" name="sid" value="<?php echo $product['sid']; ?>">
                 <input type="hidden" name="qty" value="1">
 				<input type="submit" class="hz-btn hz-btn-red hz-btn-block hz-btn-uppercase hz-btn-bold btn-add-cart" value="Thêm vào giỏ hàng" />                            
@@ -377,7 +389,7 @@
                 </ul>
                 <div class="product-content">
                   <div style="text-align:center;">
-					<img src="<?php echo $product['image']; ?>" alt="46884be5471326a10058d31a3acc784b.jpg" />
+					<img src="<?php echo $product['image']; ?>" />
 				  </div>                              
                 </div>
               </div>
@@ -390,9 +402,10 @@
     </div>
     <div class="product-detail-col-right">
       <div class="widget-shop-info-v2">
-        <div class="content">
+        <div class="content">	
           <h5 class="brand-name">
-            <a class="url-shop" href="<?php echo site_url('shop');?>" target="_blank"><?php echo $product['name'];?></a>            
+            <a class="url-shop" href="<?php echo site_url('shop');?>" target="_blank"><?php echo $product['name'];?></a>                 
+
           </h5>
           <div class="shop-status">
             <span class="label label-success">Kinh doanh hộ cá thể</span>
@@ -418,7 +431,8 @@
               <span>Địa chỉ:</span> <?php echo $product['address'];?>                
             </div>
             <div class="desc">
-              <span>Mở shop:</span> 10-04-2016                
+              <span>Mở shop:</span> 10-04-2016      
+              <span>Loại hình:</span> Cửa hàng bán lẻ                
             </div>
           </div>
           <div class="contact-shop text-center">
@@ -426,7 +440,7 @@
           </div>
           <div class="btn-shop">
             <a class="btn btn-warning" href="<?php echo site_url('shop');?>" target="_blank">Xem shop</a> 
-            <a class="btn btn-info hz-favorite" href="" title="">Yêu thích</a>            
+            <a class="btn btn-info hz-favorite" href="" title="">Yêu thích</a>     
           </div>
         </div>
       </div>

@@ -33,7 +33,6 @@ if ( ! function_exists('vkt_getShop'))
 		}else{
 			return false;
 		}
-		
 	}
 }
 
