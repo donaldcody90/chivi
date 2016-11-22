@@ -17,7 +17,6 @@ if ( ! function_exists('is_logged_in'))
 	}
 }
 
-
 if ( ! function_exists('vst_getShop'))
 {
 	function vst_getShop($shop_id) {

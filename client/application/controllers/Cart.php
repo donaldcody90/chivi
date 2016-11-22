@@ -8,6 +8,7 @@ class Cart extends CI_Controller {
 		parent::__construct();
 		$this->load->model("cart_model");
 		$this->load->model("customers_model");
+		$this->load->model("shop_model");
 	}
 
 	public function index(){
@@ -57,7 +58,7 @@ class Cart extends CI_Controller {
 					$cartdata_arr[$array_product['sid']]['items'][$array_product['id']]=$array_product;	
 				}
 			}else{
-				$shop = vst_getShop($array_product['sid']);
+				$shop = $this->shop_model->findShop(array('id'=>$array_product['sid']));
 				$sid = $array_product['sid'];
 				$cartdata_arr[$sid] = array(	 
 					'sid' => $array_product['sid'],
@@ -70,7 +71,7 @@ class Cart extends CI_Controller {
 		}
 		else
 		{
-			$shop = vst_getShop($array_product['sid']);
+			$shop = $this->shop_model->findShop(array('id'=>$array_product['sid']));
 			$sid = $array_product['sid'];
 			$cartdata_arr[$sid] = array(	 
 				'sid' => $array_product['sid'],
@@ -80,7 +81,7 @@ class Cart extends CI_Controller {
 				),
 			);
 		}
-		
+		 
 		$result = $this->cart_model->updateCartData($cartdata_arr,$current_customer['id']);
 		if($result){
 			message_flash('Bạn đã thêm thành công!','success');
