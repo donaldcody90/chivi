@@ -18,6 +18,14 @@
 			echo "<link href='$url' rel='stylesheet' media='$media'>".PHP_EOL;	
 		}
 	}
+	if($siteSconfig['scripts']['foot']){
+		foreach ($siteSconfig['scripts']['head'] as $file)
+		{
+			$url = starts_with($file, 'http') ? $file : base_url($file);
+			echo "<script src='$url'></script>".PHP_EOL;
+		}
+				
+	}
 	?>
 	<title><?php echo $siteSconfig['title']; ?></title>
   </head>

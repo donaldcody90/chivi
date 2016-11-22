@@ -21,11 +21,11 @@ class Cart extends CI_Controller {
 		$bill_total=null;
 		foreach($data['array_product'] as $data2){
 			foreach($data2['items'] as $data3){
-				$bill_total+= $data3['price'];
+				$bill_total+= $data3['price']*$data3['qty'];
 			}
 		}
 		$data['bill_total']= number_format($bill_total);
-		print_r($data['array_product']);
+		
 		$data['template'] = 'cart/cart';
 		$this->load->view('layout/home', $data);
 		
@@ -33,6 +33,7 @@ class Cart extends CI_Controller {
 	
 	// Detail Order
 	public function addToCart(){
+		
 		if (is_logged_in()) { 
 		$array_product = array(
 			'id' => $this->input->post('pid'),
@@ -42,6 +43,7 @@ class Cart extends CI_Controller {
 			'price' => $this->input->post('price'),
 			'qty' => $this->input->post('qty'),
 			'sid' => $this->input->post('sid'),
+			'attrs' => $this->input->post('submitattr[]'),
 		);
 		
 		$current_customer = vst_getCurrentCustomer();
@@ -241,5 +243,86 @@ class Cart extends CI_Controller {
 		}
 	}
 	
+	// Clear Cart
+	public function clearCart($qty = null){
+		if(isset($qty)){
+			$outer_id=$this->input->post('outer_id');
+			$shop_id=$this->input->post('shop_id');
+			
+			if(empty($outer_id) || empty($shop_id) ){
+				$res_json=array('Response'=>"Error","Message"=>"Cập nhật không thành công." );
+				return $res_json;
+			}else{
+				$current_customer = vst_getCurrentCustomer();
+				$cid= $current_customer['id'];
+				$params_where=array('cid'=>$cid);
+				$vkt_cart = $this->cart_model->getCartData($params_where);
+				unset($vkt_cart[$shop_id]['items'][$outer_id]);
+				if(!count($vkt_cart[$shop_id]['items']))
+				{
+					unset ($vkt_cart[$shop_id]);
+				}
+				$this->cart_model->updateCartData($vkt_cart);
+				
+				$res_json=array('Response'=>"Success","Message"=>"Đã xóa sản phẩm." );
+				return $res_json;
+			}
+		}else {
+			$vkt_cart=array();
+			$this->cart_model->updateCartData($vkt_cart);
+			#$this->session->set_userdata('vkt_cart',$vkt_cart);
+			//$res_json=array('Response'=>"Success","Message"=>"Không có sản phẩm nào trong giỏ hàng." );
+			message_flash('Không có sản phẩm nào trong giỏ hàng','error');
+			redirect(site_url('cart'));
+		}
+		
+	}
 	
+	
+	//Update Cart
+	public function updateCart(){
+		
+		
+		$qty=$this->input->post('qty');
+		$item_note=$this->input->post('item_note');
+
+		$outer_id=$this->input->post('outer_id');
+		$shop_id=$this->input->post('shop_id');
+		
+		if(empty($outer_id) || empty($shop_id))
+		{
+			$res_json=array('Response'=>"Error","Message"=>"Cập nhật không thành công.".$outer_id.'--'.$shop_id );
+			
+		}else{
+			$current_customer = vst_getCurrentCustomer();
+			$cid= $current_customer['id'];
+			$params_where=array('cid'=>$cid);
+			$vkt_cart = $this->cart_model->getCartData($params_where);
+				
+			if( isset($qty) && ($qty <=0))
+			{
+				$res_json = $this->clearCart($qty);
+
+			}else if( isset($qty) && ($qty >0)){
+				
+				$vkt_cart[$shop_id]['items'][$outer_id]['qty']=$qty;
+				// update 
+				//$this->session->set_userdata('vkt_cart',$vkt_cart);
+				$this->cart_model->updateCartData($vkt_cart);
+				$res_json=array('Response'=>"Success","Message"=>"Đã cập nhật" );
+			}
+			if($item_note && $item_note!='')
+			{
+					$vkt_cart[$shop_id]['items'][$outer_id]['item_note']=$item_note;
+					
+					// update 
+					//$this->session->set_userdata('vkt_cart',$vkt_cart);
+					$this->cart_model->updateCartData($vkt_cart);
+					$res_json=array('Response'=>"Success","Message"=>"Đã cập ghi chú" );
+			}
+		}
+		
+		echo json_encode($res_json);
+	}
+ 
 }

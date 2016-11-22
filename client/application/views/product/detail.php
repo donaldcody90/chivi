@@ -73,15 +73,6 @@
                 </td>
                 <td><?php echo $product['id'];?></td>
               </tr>
-              <tr>
-                <td>
-                  <i class="glyphicon glyphicon-scale"></i>
-                  <span>Trọng lượng:</span>
-                </td>
-                <td>
-                  0.30kg/chiếc                                
-                </td>
-              </tr>
               <tr class="tr-hidden-price product-shipping">
                 <td class="ele-relative" colspan="2">
                   <div class="product-shipping-top">
@@ -201,43 +192,44 @@
               <table class="table property-items" style="margin-bottom: 0;">
                 <thead>
                   <tr>
-                    <th class="tsf">Màu sắc</th>
-                    <th style="width: 150px;" class="text-right">Giá</th>
-                    <th style="width: 100px;" class="text-right">Còn lại</th>
-                    <th style="width: 200px;" class="text-center">Số lượng</th>
+                    <th  class="tsf text-center">Thuộc tính</th>
+                    <th class="text-center" style="width: 150px;" class="text-right">Giá trị</th>
+                    <th class="text-center" style="width: 150px;" class="text-right">Giá </th>
+                    <th class="text-center" style="width: 200px;" class="text-center">Số lượng</th>
                   </tr>
                 </thead>
                 <tbody>
+				<?php if(!empty($product_detail)){
+						foreach($product_detail as $d_key => $detail){
+					?>
                   <tr class="ps-item">
-                    <td>
-                      <p class="tsf">Xanh lam</p>
-                    </td>
-                    <td class="item-price text-right"><?php echo number_format($product['vn_price']); ?></td>
-                    <td class="text-right item-quantity">30</td>
-                    <td class="text-center"><span class="ui-spinner ui-widget ui-widget-content ui-corner-all" style="height: 28px;">
-                      <input type="text" class="num-range ui-spinner-input txtQuantity" value="0" >
-                      <a class="ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default ui-button-text-only btnIncrease" tabindex="-1" role="button">
-                      <span class="ui-button-text"><span class="ui-icon ui-icon-triangle-1-n">+</span>
-                      </span></a>
-                      <a class="ui-spinner-button ui-spinner-down ui-corner-br ui-button ui-widget ui-state-default ui-button-text-only btnDecrease" tabindex="-1" role="button">
-                      <span class="ui-button-text"><span class="ui-icon ui-icon-triangle-1-s">-</span></span></a></span>
-                    </td>
-                  </tr>
-                  <tr class="ps-item">
-                    <td>
-                      <p class="tsf">Xanh lá</p>
-                    </td>
-                    <td class="item-price text-right"><?php echo number_format($product['vn_price']); ?></td>
-                    <td class="text-right item-quantity">30</td>
                     <td class="text-center">
-                      <span class="ui-spinner ui-widget ui-widget-content ui-corner-all" style="height: 28px;">
+                      <p class="tsf"><?php echo $detail['attr_name']; ?></p>
+                    </td>
+					<td class="text-center">
+                      <p class="tsf2"><?php echo $detail['attr_value']; ?></p>
+                    </td>
+					<td class="text-right item-quantity hidden">30</td>
+                    <td class="item-price text-center"><?php echo number_format($product['vn_price']); ?></td>
+                    <td class="text-center">
+					<span class="ui-spinner ui-widget ui-widget-content ui-corner-all" style="height: 28px;">
                       <input type="text" class="num-range ui-spinner-input txtQuantity" value="0" >
                       <a class="ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default ui-button-text-only btnIncrease" tabindex="-1" role="button">
-                      <span class="ui-button-text"><span class="ui-icon ui-icon-triangle-1-n">+</span></span></a>
+						<span class="ui-button-text">
+							<span class="ui-icon ui-icon-triangle-1-n">+</span>
+						</span>
+					  </a>
                       <a class="ui-spinner-button ui-spinner-down ui-corner-br ui-button ui-widget ui-state-default ui-button-text-only btnDecrease" tabindex="-1" role="button">
-                      <span class="ui-button-text"><span class="ui-icon ui-icon-triangle-1-s">-</span></span></a></span>
+						  <span class="ui-button-text">
+							<span class="ui-icon ui-icon-triangle-1-s">-</span>
+						  </span>
+					  </a>
+					</span>
                     </td>
                   </tr>
+				<?php }
+				}
+				?>  
                 </tbody>
               </table>
             </div>
@@ -269,7 +261,7 @@
                 <input type="hidden" name="link" value="<?php echo $product['link']; ?>">
                 <input type="hidden" name="price" value="<?php echo $product['vn_price']; ?>">
                 <input type="hidden" name="sid" value="<?php echo $product['sid']; ?>">
-                <input type="hidden" name="qty" value="1">
+                <input type="hidden" name="qty" class="total_qty" value="">
 				<input type="submit" class="hz-btn hz-btn-red hz-btn-block hz-btn-uppercase hz-btn-bold btn-add-cart" value="Thêm vào giỏ hàng" />                            
               </form>
               

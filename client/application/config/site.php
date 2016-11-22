@@ -35,7 +35,7 @@ $config['site'] = array(
 			'static/js/custom.js',
 			'static/js/skype.js',
 			'static/js/w2ui-1.4.3.min.js',	
-			'static/js/jquery.dialog.js'	
+				
 		),
 		'foot'	=> array(
 			'static/js/jquery-min.js',
@@ -43,6 +43,7 @@ $config['site'] = array(
 			'static/js/profile.js',
 			'static/js/slick.min.js',
 			'static/js/custom.js',
+			'static/js/jquery.dialog.js',
 		),
 	),
 	// Default stylesheets to embed at page head
@@ -53,7 +54,6 @@ $config['site'] = array(
 			'static/css/slick.css',
 			'static/css/jquery-ui.css',
 			'static/css/font-awesome.css',
-			
 			
 			'static/css/main.css',
 			'static/css/profile.css',

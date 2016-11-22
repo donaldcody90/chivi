@@ -1551,3 +1551,8 @@ ul.horizontal-tab li{
     cursor: pointer;
     font-size: 14px;
 }
+.num-product{
+	text-align: center;
+    width: 50px;
+}
+.shopping-cart-index a{cursor: pointer;}

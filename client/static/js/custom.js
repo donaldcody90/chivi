@@ -196,6 +196,7 @@ function list_ship_submit(self,message=""){
 	}
 	
 	$(".ui-spinner .ui-spinner-button").click(function(){
+		$('input').remove( ".attributes_list" );
 		var oldValue= parseFloat($(this).parent().find('input').val());
 		var itemQuantity= parseFloat($(this).parents('.ps-item').find('.item-quantity').text());
 		if($(this).hasClass('btnIncrease')){
@@ -214,14 +215,17 @@ function list_ship_submit(self,message=""){
 		}
 		$(this).parent().find('.ui-spinner-input').val(newValue);
 		var summary= '';
+		var submitattr= '';
 		var totalQuantity= 0;
 		var totalMoney= 0;
 		$('.ps-item').each(function(){
 			var attrText= $(this).find('.tsf').text();
+			var attrValue= $(this).find('.tsf2').text();
 			var itemPrice= ($(this).find('.item-price').text()).replace(',', '');
 			var quantityValue= $(this).find('.ui-spinner-input').val();
 			if(quantityValue>0){
-				summary+= '<li><div class="s-name tsf">'+ attrText +'</div><span class="s-quantity"><strong>'+ quantityValue +'</strong></span></li>';
+				summary+= '<li><div class="s-name tsf">'+ attrText +'('+attrValue+')</div><span class="s-quantity"><strong>'+ quantityValue +'</strong></span></li>';
+				submitattr+= '<input type="hidden" class="attributes_list" name="submitattr['+attrText+':::'+attrValue+']" value="'+ quantityValue +'">';
 			}
 			totalQuantity+= parseFloat(quantityValue);
 			totalMoney+= parseFloat(quantityValue)*parseFloat(itemPrice);
@@ -230,7 +234,10 @@ function list_ship_submit(self,message=""){
 			summary= '<li class="text-center">Chưa có sản phẩm nào được chọn</li>';
 		}
 		$('.sku-items').html(summary);
+		
+		$('#frm-add-cart').append(submitattr);
 		$('.txtTotalQuantity').text(totalQuantity);
+		$('.total_qty').val(totalQuantity);
 		$('.txtTotalMoney').text(addCommas(totalMoney));
 	});
 	

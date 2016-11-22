@@ -87,22 +87,32 @@
                   </div>
                 </td>
                 <td >
-					<span class="ui-spinner ui-widget ui-widget-content ui-corner-all" style="height: 28px;">
-						<input type="text" name="quantity" class="num-range ui-spinner-input txtQuantity" value="<?php echo $v['qty']?>">
-						<a class="ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default ui-button-text-only btnIncrease" role="button">
-							<span class="ui-button-text">
-								<span class="ui-icon ui-icon-triangle-1-n">+</span>
-							</span>
-						</a>
-						<a class="ui-spinner-button ui-spinner-down ui-corner-br ui-button ui-widget ui-state-default ui-button-text-only btnDecrease" role="button">
-							<span class="ui-button-text">
-								<span class="ui-icon ui-icon-triangle-1-s">-</span>
-							</span>
-						</a>
-					</span>
+					<form name="update_qty" action="" class="ajaxFormComplain" method="POST" enctype="multipart/form-data">											
+						<input type="number" class="num-product" name="qty" value="<?php echo $v['qty'] ?>">
+						
+						<input type="hidden"  name="outer_id" value="<?php echo $v['id'] ?>">
+						<input type="hidden"  name="shop_id" value="<?php echo $value['sid']; ?>">
+						<input type="hidden" name="is_reload" value="1" />
+						<input type="hidden" name="controller" value="cart" />
+						<input type="hidden" name="task" value="updatecart" />
+						<a onClick="submitAjax(this)" class="cart_update_quantity"  title="Cập nhật"><i class="fa fa-refresh"></i></a>
+														
+						<div class="form_upload ajax_response alert dismissable"></div>
+					</form>
                 </td>
                 <td class="text-right">
-                  <a class="cart-remove btn-remove" href="<?php echo site_url('cart/removeProduct').'/'.$v['id'];?>">Xóa sản phẩm</a>                    
+                  
+					<form name="updateCart" action="" class="ajaxFormComplain" method="POST" enctype="multipart/form-data">											
+						<input type="hidden"  name="outer_id" value="<?php echo $v['id'] ?>">
+						<input type="hidden"  name="qty" value="0">
+						<input type="hidden"  name="shop_id" value="<?php echo $value['sid']; ?>">
+						<input type="hidden" name="is_reload" value="1" />
+						<input type="hidden" name="controller" value="cart" />
+						<input type="hidden" name="task" value="updateCart" />
+															
+						<a class="cart-remove btn-remove" onclick="submitAjax(this)"> Xóa sản phẩm</a>
+						<div class="form_upload ajax_response alert dismissable"></div>
+					</form>				  
                 </td>
               </tr>
 			  <?php } ?>
@@ -112,10 +122,10 @@
             <tfoot>
               <tr>
                 <td colspan="3">
-					<a class="cart-remove btn-remove" href="<?php echo site_url('cart/removeProduct'); ?>">
+					<a class="cart-remove btn-remove" href="<?php echo site_url('cart/clearCart'); ?>">
 						<i class="glyphicon glyphicon-remove"></i> Xóa tất cả
 					</a>                
-					<a class="btn-summary" href="#" target="_blank">
+					<a class="btn-summary" href="<?php echo site_url('shop'); ?>" target="_blank">
 						<i class="glyphicon glyphicon-folder-close"></i> Chọn thêm sản phẩm khác
 					</a>                                
                   <div class="protection pull-right">

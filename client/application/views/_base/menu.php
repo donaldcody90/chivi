@@ -4,7 +4,7 @@
       <div class="container">
         <div class="pull-left" id="show-user-top">
           <span class="welcome hello-user">Chào mừng quý khách đến với ChiVi</span>
-          <ul class="login-signup">mmmmmmmmmmmm
+          <ul class="login-signup">
             <li>
               <a href="#" title="Đăng nhập"><i class="glyphicon glyphicon-log-in"></i> Đăng nhập</a>                        
             </li>
