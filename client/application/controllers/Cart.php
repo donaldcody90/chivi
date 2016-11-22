@@ -33,7 +33,7 @@ class Cart extends CI_Controller {
 	
 	// Detail Order
 	public function addToCart(){
-		
+		if (is_logged_in()) { 
 		$array_product = array(
 			'id' => $this->input->post('pid'),
 			'title' => $this->input->post('title'),
@@ -43,7 +43,9 @@ class Cart extends CI_Controller {
 			'qty' => $this->input->post('qty'),
 			'sid' => $this->input->post('sid'),
 		);
+		
 		$current_customer = vst_getCurrentCustomer();
+		
 		$params_where = array('cid'=>$current_customer['id']);
 		$cartdata_arr = $this->cart_model->getCartData($params_where);
 		
@@ -90,7 +92,10 @@ class Cart extends CI_Controller {
 			message_flash('Bạn chưa thêm thành công!','error');
 			redirect(site_url('cart'));
 		}
-	
+		}else{
+			message_flash('Bạn phải đăng nhập để mua hàng!','error');
+			redirect(site_url('auth'));
+		}
 	}
 	
 	
