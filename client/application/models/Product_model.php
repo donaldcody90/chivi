@@ -8,13 +8,14 @@ class Product_model extends MY_Model
     private $table_shop = 'vt_shop';
 	
 	
-	function getProduct($pid=null){
+	function getProduct($pid=null, $where_in= null){
 		$this->db->select ('*');
 		$this->db->from($this->table_shop);
 		$this->db->join($this->table_product, $this->table_shop.'.id = '.$this->table_product.'.sid');
 		if($pid){
 			$this->db->where(array($this->table_product.'.id'=>$pid));
 		}
+		$this->db->where_in($this->table_product.'.id', $where_in);
 		$query = $this->db->get();
 		return $query->row_array();
 	}
