@@ -4,7 +4,7 @@
       <div class="container">
         <div class="pull-left" id="show-user-top">
           <span class="welcome hello-user">Chào mừng quý khách đến với ChiVi</span>
-          <ul class="login-signup">mmmmmmmmmmmm
+          <ul class="login-signup">
             <li>
               <a href="#" title="Đăng nhập"><i class="glyphicon glyphicon-log-in"></i> Đăng nhập</a>                        
             </li>
@@ -94,24 +94,25 @@
         </div>
         <div class="category-list">
           <ul class="main-menu">
-			<?php foreach($category_lists as $cat0){ ?>
+			<?php if(isset($category_lists) && $category_lists!= array('') && $category_lists!= '' ){
+			foreach($category_lists as $cat0){ ?>
             <li>
-              <a href="<?php echo site_url('category').'/'.$cat0['id'];?>">
+              <a href="<?php echo site_url().url_title(cleanVietnamese($cat0['name']),'-',true).'-c'.$cat0['id'];?>">
                 <span class="icon">
-				  <img src="<?php echo $cat0['icon_link'];?>" alt="Thời trang nữ" max-height="32px" max-weight="32px">
+				  <img src="<?php echo $cat0['icon_link'];?>" alt="<?php echo $cat0['name'];?>" max-height="32px" max-weight="32px">
 			    </span> <?php echo $cat0['name'];?></a>
               <div class="sub-category" id="msmn1000001">
                 <div class="sub-category-list">
                   <ul>
-					<?php if(isset($cat0['children'])){
+					<?php if(isset($cat0['children']) && $cat0['children']!= array('') && $cat0['children']!= '' ){
 					foreach($cat0['children'] as $cat1){ ?>
                     <li>
-                      <h3><a href="<?php echo site_url('category').'/'.$cat1['id'];?>" title="Áo nữ"><?php echo $cat1['name'];?></a></h3>
+                      <h3><a href="<?php echo site_url().url_title(cleanVietnamese($cat1['name']),'-',true).'-c'.$cat1['id'];?>" title="<?php echo $cat1['name'];?>"><?php echo $cat1['name'];?></a></h3>
                       <ul>
-						<?php if(isset($cat1['children'])){
+						<?php if(isset($cat1['children']) && $cat1['children']!= array('') && $cat1['children']!= '' ){
 						foreach($cat1['children'] as $cat2){ ?>
                         <li>
-                          <a href="<?php echo site_url('category').'/'.$cat2['id'];?>" title="Áo sơ mi nữ"><?php echo $cat2['name'];?></a>
+                          <a href="<?php echo site_url().url_title(cleanVietnamese($cat2['name']),'-',true).'-c'.$cat2['id'];?>" title="<?php echo $cat2['name'];?>"><?php echo $cat2['name'];?></a>
                         </li>
                         <?php } } ?>
                       </ul>
@@ -121,7 +122,7 @@
                 </div>
               </div>
             </li>
-			<?php } ?>
+			<?php } } ?>
           </ul>
         </div>
       </div>
