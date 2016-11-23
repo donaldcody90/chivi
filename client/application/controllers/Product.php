@@ -31,6 +31,8 @@ class Product extends CI_Controller {
 		}
 
 		$product = $this->product_model->getProduct($pid);
+		$product_detail = $this->product_model->getProductAttributes(array('pid'=>$pid));
+		
 		$param1= array('sid'=> $product['sid']);
 		$param2= array('sid' => $product['sid'], 'id !=' => $product['id']);
 		$param3= $this->session->userdata('lastviewed');
@@ -38,7 +40,8 @@ class Product extends CI_Controller {
 		$data['data']['same_shop_products']= $this->shop_model->getAllProduct($param2, $limit=10);
 		$data['data']['newProducts']= $this->product_model->getNewProductList($limit=10);
 		$data['data']['lastviewed']= $this->product_model->getProduct(null, $param3);
-		print_r($data['data']['lastviewed']);
+		$data['product_detail']= $product_detail;
+		
 		$product['shop_product_total']=$product_total;
 		$data['data']['product'] = $product;
 		$data['template'] = 'product/detail';
