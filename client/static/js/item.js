@@ -1,28 +1,3 @@
-(function ($, w) {
-    if (typeof $.fn.slick === 'function') {
-        $('.hz-slider')
-            .slick({
-                slidesToShow: 5,
-                slidesToScroll: 1,
-                focusOnSelect: true,
-                arrows: true,
-                //centerMode: true,
-                prevArrow: '<button type="button" class="slick-prev"><i class="glyphicon glyphicon-menu-left"></i></button>',
-                nextArrow: '<button type="button" class="slick-next"><i class="glyphicon glyphicon-menu-right"></i></button>'
-            })
-            .on('click', '.item', function (event) {
-                var img = $(this).find('img:first').attr('data-view');
-                $('.image-featured > img').attr('src', img);
-            }).on('click', '.slick-arrow', function () {
-            var currentSlide = $('.hz-slider').slick('slickCurrentSlide');
-            var obj = $('.hz-slider').find('.slick-active.slick-current[data-slick-index="' + currentSlide + '"]');
-            if (obj.length === 1) {
-                var img = obj.find('img:first').attr('data-view');
-                $('.image-featured > img').attr('src', img);
-            }
-        });
-    }
-})(jQuery, jQuery(window));
 
 $.fn.itemOrderForm = function (opt) {
     var options = $.extend({}, opt);

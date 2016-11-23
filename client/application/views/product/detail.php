@@ -190,7 +190,7 @@
                   <div class="sku-table col-xs-8 col-sm-8 item-select-sku">
                      <?php if(!empty($product_detail)){
                         foreach($product_detail as $d_key => $detail){
-                        if($detail['attr_type'] == 1){
+                        if(isset($detail['attr_type']) && $detail['attr_type'] == 1){
                         ?>
                      <div class="item-select-property-list">
                         <table class="table first-property-items" style="margin-bottom: 0;">
@@ -205,7 +205,7 @@
                                  <td style="border: none;">
 								 <?php foreach($detail['list_attr'] as $k=>$v) {?>
                                     <a class="pf-item pf-cs item-selected tsf item-tooltip detail_attr" 
-									 href="javascript:void(0);" title="<?php echo $v['attr_value']; ?>" id="<?php echo $v['pattr_id'];  ?>" data-attr-id="<?php echo $v['pattr_id'];  ?>" >
+									  title="<?php echo $v['attr_value']; ?>" id="<?php echo $v['pattr_id'];  ?>" data-attr-id="<?php echo $v['pattr_id'];  ?>" >
                                        <span class="tsf1 item-wrap">
                                           <p class="tsf tsf1"><?php echo $v['attr_value']; ?></p>
                                        </span>
@@ -216,7 +216,7 @@
                            </tbody>
                         </table>
                      </div>
-                     <?php }else{ ?>
+                     <?php }else if(isset($detail['attr_type']) && $detail['attr_type'] == 2){ ?>
                      <div class="item-select-property-table">
                         <table class="table property-items" style="margin-bottom: 0;">
                            <thead>
@@ -252,11 +252,12 @@
                            </tbody>
                         </table>
                      </div>
-                  </div>
+                  
                   <?php }
 					} 
 				  }
 				  ?>
+				  </div>
                   <div class="sku-summary col-xs-4 col-sm-4">
                      <div class="summary">
                         <ul class="sku-items"></ul>

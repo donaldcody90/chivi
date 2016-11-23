@@ -32,7 +32,7 @@ class Product extends CI_Controller {
 
 		$product = $this->product_model->getProduct($pid);
 		$product_detail = $this->product_model->getProductAttributes(array('pid'=>$pid));
-		var_dump($product_detail);
+		
 		$param1= array('sid'=> $product['sid']);
 		$param2= array('sid' => $product['sid'], 'id !=' => $product['id']);
 		$param3= $this->session->userdata('lastviewed');
