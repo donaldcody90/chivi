@@ -190,7 +190,7 @@
                   <div class="sku-table col-xs-8 col-sm-8 item-select-sku">
                      <?php if(!empty($product_detail)){
                         foreach($product_detail as $d_key => $detail){
-                        if(isset($detail['attr_type']) && $detail['attr_type'] == 1){
+                        if(isset($detail['attr_type']) && $detail['attr_type'] == 'color'){
                         ?>
                      <div class="item-select-property-list">
                         <table class="table first-property-items" style="margin-bottom: 0;">
@@ -216,7 +216,7 @@
                            </tbody>
                         </table>
                      </div>
-                     <?php }else if(isset($detail['attr_type']) && $detail['attr_type'] == 2){ ?>
+                     <?php }else if(isset($detail['attr_type']) && $detail['attr_type'] == 'size'){ ?>
                      <div class="item-select-property-table">
                         <table class="table property-items" style="margin-bottom: 0;">
                            <thead>
