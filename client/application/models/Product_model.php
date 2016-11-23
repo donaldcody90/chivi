@@ -33,12 +33,30 @@ class Product_model extends MY_Model
 	}
 	
 	function getProductAttributes($params_where){
-		$this->db->select ($this->table_attributes.'.*,'.$this->table_product_attributes.'.*');
-		$this->db->from($this->table_attributes);
-		$this->db->join($this->table_product_attributes, $this->table_attributes.'.attr_id = '.$this->table_product_attributes.'.attr_id');
+		
+		$list_attr = $this->getAllAttributes();
+
+		$this->db->select ($this->table_product_attributes.'.*');
+		$this->db->from($this->table_product_attributes);
 		$this->db->join($this->table_product, $this->table_product.'.id = '.$this->table_product_attributes.'.pid');
 		$this->db->where($params_where);
 		$query = $this->db->get();
+
+		$product_attr = $query->result_array();
+		foreach($list_attr as $key=>$value){
+			foreach($product_attr as $key1 => $value1){
+				if($value1['attr_id'] == $value['attr_id']){
+					$list_attr[$key]['list_attr'][$key1] = $value1;
+				}	
+			}
+		}
+		return $list_attr;
+	}
+	
+	function getAllAttributes(){
+		$this->db->select('*');
+		$this->db->from($this->table_attributes);
+		$query= $this->db->get();
 		return $query->result_array();
 	}
 }	

@@ -44,6 +44,7 @@ $config['site'] = array(
 			'static/js/slick.min.js',
 			'static/js/custom.js',
 			'static/js/jquery.dialog.js',
+			'static/js/item.js',
 		),
 	),
 	// Default stylesheets to embed at page head

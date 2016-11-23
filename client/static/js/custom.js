@@ -37,7 +37,10 @@ jQuery(document).ready(function($){
             // Thêm thuộc tính checked cho ô checkbox khác
             $("#cartTable tr td input:checkbox").attr("checked", checked);
     });
-    
+    $("a.detail_attr ").click(function(){
+		$("a.detail_attr").removeClass('selected');
+		$(this).addClass('selected');
+	});
 	
 });
 
@@ -195,43 +198,52 @@ function list_ship_submit(self,message=""){
 		return x1 + x2;
 	}
 	
+
 	$(".ui-spinner .ui-spinner-button").click(function(){
 		$('input').remove( ".attributes_list" );
 		var oldValue= parseFloat($(this).parent().find('input').val());
-		var itemQuantity= parseFloat($(this).parents('.ps-item').find('.item-quantity').text());
-		if($(this).hasClass('btnIncrease')){
-			if(oldValue<itemQuantity){
-				var newValue= oldValue + 1;
-			}else{
-				var newValue= itemQuantity;
-			}
-		}
-		if($(this).hasClass('btnDecrease')){
-			if(oldValue > 0){
-				var newValue= oldValue - 1;
-			}else{
-				var newValue= 0;
-			}
-		}
-		$(this).parent().find('.ui-spinner-input').val(newValue);
+		//var itemQuantity= parseFloat($(this).parents('.ps-item').find('.item-quantity').text());
+		var mydata = $( ".detail_attr" ).data();
+		var attr_id = $('.selected').find('.tsf1').text();
+		console.log('âdsfa' + attr_id);
 		var summary= '';
-		var submitattr= '';
-		var totalQuantity= 0;
-		var totalMoney= 0;
-		$('.ps-item').each(function(){
-			var attrText= $(this).find('.tsf').text();
-			var attrValue= $(this).find('.tsf2').text();
-			var itemPrice= ($(this).find('.item-price').text()).replace(',', '');
-			var quantityValue= $(this).find('.ui-spinner-input').val();
-			if(quantityValue>0){
-				summary+= '<li><div class="s-name tsf">'+ attrText +'('+attrValue+')</div><span class="s-quantity"><strong>'+ quantityValue +'</strong></span></li>';
-				submitattr+= '<input type="hidden" class="attributes_list" name="submitattr['+attrText+':::'+attrValue+']" value="'+ quantityValue +'">';
+		if(attr_id.length == 0 ){
+			summary= '<li class="text-center">Bạn chưa chọn màu</li>';
+		}else{
+			if($(this).hasClass('btnIncrease')){
+				//if(oldValue<itemQuantity){
+					var newValue= oldValue + 1;
+				//}else{
+					//var newValue= itemQuantity;
+				//}
 			}
-			totalQuantity+= parseFloat(quantityValue);
-			totalMoney+= parseFloat(quantityValue)*parseFloat(itemPrice);
-		});
-		if(totalQuantity==0){
-			summary= '<li class="text-center">Chưa có sản phẩm nào được chọn</li>';
+			if($(this).hasClass('btnDecrease')){
+				if(oldValue > 0){
+					var newValue= oldValue - 1;
+				}else{
+					var newValue= 0;
+				}
+			}
+			$(this).parent().find('.ui-spinner-input').val(newValue);
+			
+			var submitattr= '';
+			var totalQuantity= 0;
+			var totalMoney= 0;
+			$('.ps-item').each(function(){
+				var attrText= $(this).find('.tsf').text();
+				var attrValue= $('.selected').find('.tsf1').text();
+				var itemPrice= ($(this).find('.item-price').text()).replace(',', '');
+				var quantityValue= $(this).find('.ui-spinner-input').val();
+				if(quantityValue>0){
+					summary+= '<li><div class="s-name tsf">'+ attrText +'('+attrValue+')</div><span class="s-quantity"><strong>'+ quantityValue +'</strong></span></li>';
+					submitattr+= '<input type="hidden" class="attributes_list" name="submitattr['+attrText+':::'+attrValue+']" value="'+ quantityValue +'">';
+				}
+				totalQuantity+= parseFloat(quantityValue);
+				totalMoney+= parseFloat(quantityValue)*parseFloat(itemPrice);
+			});
+			if(totalQuantity==0){
+				summary= '<li class="text-center">Chưa có sản phẩm nào được chọn</li>';
+			}
 		}
 		$('.sku-items').html(summary);
 		
@@ -241,38 +253,6 @@ function list_ship_submit(self,message=""){
 		$('.txtTotalMoney').text(addCommas(totalMoney));
 	});
 	
-	$('.ui-spinner-input').change(function(){
-		var summary= '';
-		var totalQuantity= 0;
-		var totalMoney= 0;
-		$('.ps-item').each(function(){
-			var attrText= $(this).find('.tsf').text();
-			var itemPrice= ($(this).find('.item-price').text()).replace(',', '');
-			var itemQuantity= parseFloat($(this).find('.item-quantity').text());
-			var quantityValue= $(this).find('.ui-spinner-input').val();
-			if(quantityValue<=0){
-				var quantityValue1=0;
-				$(this).find('.ui-spinner-input').val(quantityValue1);
-			}
-			if(quantityValue>itemQuantity){
-				var quantityValue1= itemQuantity;
-				$(this).find('.ui-spinner-input').val(quantityValue1);
-				summary+= '<li><div class="s-name tsf">'+ attrText +'</div><span class="s-quantity"><strong>'+ quantityValue1 +'</strong></span></li>';
-			}
-			if(quantityValue>0 && quantityValue<=itemQuantity){
-				var quantityValue1= $(this).find('.ui-spinner-input').val();
-				summary+= '<li><div class="s-name tsf">'+ attrText +'</div><span class="s-quantity"><strong>'+ quantityValue1 +'</strong></span></li>';
-			}
-			totalQuantity+= parseFloat(quantityValue1);
-			totalMoney+= parseFloat(quantityValue1)*parseFloat(itemPrice);
-		});
-		if(totalQuantity==0){
-			summary= '<li class="text-center">Chưa có sản phẩm nào được chọn</li>';
-		}
-		$('.sku-items').html(summary);
-		$('.txtTotalQuantity').text(totalQuantity);
-		$('.txtTotalMoney').text(addCommas(totalMoney));
-	});
 	
 	
 	/*----------checkbox---------------*/
