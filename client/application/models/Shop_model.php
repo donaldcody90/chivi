@@ -19,7 +19,9 @@ class Shop_model extends MY_Model
 
 		$this->db->select ( '*' );
 		$this->db->from($this->table_product);
-		$this->db->where($param);
+		if($param){
+			$this->db->where($param);
+		}
 		$this->db->limit($limit);
 		
 		$query = $this->db->get();

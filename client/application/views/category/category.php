@@ -75,8 +75,7 @@
 	?>
 <div class="col-lg-15 col-sm-4 col-md-3 col-xs-6 col-vxs-12">
   <div class="product-items">
-    <a target="_blank" href="<?php echo site_url('product/index').'/'.$product['id'];?>" class="responsive-img img-featured"
-      title=" ">
+    <a target="_blank" href="<?php echo site_url().url_title(cleanVietnamese($product['title']),'-',true).'-i'.$product['id'];?>" class="responsive-img img-featured" title=" ">
       <img id="featured-1053957" src="<?php echo $product['image']?>" alt=" ">                                                                    
       <div class="price-range">
         <p>
@@ -90,13 +89,17 @@
     <div class="price">
       <strong class="pull-left"><?php echo number_format($product['vn_price']);?> đ </strong>
     </div>
-    <h4 class="capital"><a class="product-title" href=" " title=" " target="_blank"><?php echo $product['title']?></a></h4>
+    <h4 class="capital">
+		<a class="product-title" href="<?php echo site_url().url_title(cleanVietnamese($product['title']),'-',true).'-i'.$product['id'];?>" title="<?php echo $product['title'];?>" target="_blank">
+			<?php echo $product['title']?>
+		</a>
+	</h4>
     <div class="shop-info">
       <div class="shop-title-v2">
         <div class="shop-left">
-          <a class="shop-title" href="#" title="" target="_blank"><?php $shop = vkt_getShop($product['sid']); echo $shop['name'];?></a>                                        
+          <a class="shop-title" href="<?php echo site_url().url_title(cleanVietnamese($product['shop_name']),'-',true).'-s'.$product['shop_id'];?>" title="" target="_blank"><?php echo $product['shop_name'];?></a>                                        
           <div class="shop-info-pop">
-            <strong class="capital"><?php echo $shop['name']; ?></strong>
+            <strong class="capital"><?php echo $product['shop_name']; ?></strong>
             <div class="line">
               <span class="plh pull-left">Loại hình:</span>
               <span>Thời trang</span>
@@ -107,15 +110,15 @@
             </div>
             <div class="line">
               <span class="plh pull-left">Địa chỉ:</span>
-              <span>TP Hồ Chí Minh</span>
+              <span><?php echo $product['address'];?></span>
             </div>
           </div>
           <span class="shop-icon-vip"></span>
         </div>
         <div class="hz-star-rating">
           <?php 
-			if($shop['total_rate']>0 && $shop['count_rate']>0){
-				for($i=0; $i<($shop['total_rate']/$shop['count_rate']);$i++){ ?>
+			if($product['total_rate']>0 && $product['count_rate']>0){
+				for($i=0; $i<($product['total_rate']/$product['count_rate']);$i++){ ?>
 					<img src="<?php echo site_url('static/images/icon_shop.png')?>"/>
 		  <?php } } ?>	
 		</div>
