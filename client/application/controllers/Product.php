@@ -12,23 +12,6 @@ class Product extends CI_Controller {
 	}
 
 	public function detail($pid){
-		@session_start();
-		if(!isset($_SESSION["lastviewed"])) {
-		  $_SESSION["lastviewed"] = array();
-		}
-		$maxelements = 5;
-		if (isset($pid) && $pid <> "") {// if we have url parameter
-			if (in_array($pid, $_SESSION["lastviewed"])) { // if product id is already in the array
-				$_SESSION["lastviewed"] = array_diff($_SESSION["lastviewed"],array($pid)) ; // remove it
-				$_SESSION["lastviewed"] = array_values($_SESSION["lastviewed"]); //optionally, re-index the array
-			}
-			if (count($_SESSION["lastviewed"]) >= $maxelements) {//check the number of array elements
-			$_SESSION["lastviewed"] = array_slice($_SESSION["lastviewed"],1); // remove the first element if we have 5 already
-			array_push($_SESSION["lastviewed"],$pid);//add the current itemid to the array
-			} else {
-			array_push($_SESSION["lastviewed"],$pid);//add the current itemid to the array
-			}
-		}
 		
 		$product = $this->product_model->getProduct($pid);
 		$product_detail = $this->product_model->getProductAttributes(array('pid'=>$pid));
