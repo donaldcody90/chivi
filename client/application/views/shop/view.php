@@ -30,7 +30,7 @@
                 </div>
               </div>
               <div class="desc">
-                <span>Đang bán: </span> <?php echo count($listproducts);?> mặt hàng
+                <span>Đang bán: </span> <?php if(isset($listproducts)){echo count($listproducts);} ?> mặt hàng
               </div>
               <div class="desc">
                 <span>Loại hình:</span> Shop                
@@ -71,7 +71,9 @@
               <div class="title">SẢN PHẨM BÁN CHẠY</div>
             </div>
             <div class="wpc-panel-body">
-			<?php foreach($listproducts as $key=>$product){?>
+			<?php 
+			if(isset($listproducts)){
+			foreach($listproducts as $key=>$product){?>
               <div class="product-list-vertical">
                 <a target="_blank" href="<?php echo site_url().url_title(cleanVietnamese($product['title']),'-',true).'-i'.$product['id'];?>" title="<?php echo $product['title']; ?>">
                 <span class="responsive-img">
@@ -86,7 +88,7 @@
                   <a class="capital" href="<?php echo site_url().url_title(cleanVietnamese($product['title']),'-',true).'-i'.$product['id'];?>" title=" <?php echo $product['title']; ?>" target="_blank"><?php echo $product['title']; ?></a>        
                 </div>
               </div>
-			<?php } ?>  
+			<?php } }?>  
             </div>
           </div>
         </div>
@@ -121,7 +123,9 @@
           </div>
         </div>
         <div id="w0" class="list-view clearfix">
-		<?php foreach($listproducts as $key=>$product){?>
+		<?php 
+		if(isset($listproducts)){
+		foreach($listproducts as $key=>$product){?>
           <div class="col-xs-3" data-key="0">
             <div class="product-items product-shop-detail">
               <a target="_blank" href="<?php echo site_url().url_title(cleanVietnamese($product['title']),'-',true).'-i'.$product['id'];?>" class="responsive-img img-featured">
@@ -153,7 +157,7 @@
 			  </h4>
             </div>
           </div>
-		<?php } ?>  
+		<?php }} ?>  
         </div>
       </div>
     </div>

@@ -29,7 +29,7 @@ class Product extends CI_Controller {
 			array_push($_SESSION["lastviewed"],$pid);//add the current itemid to the array
 			}
 		}
-
+		
 		$product = $this->product_model->getProduct($pid);
 		$product_detail = $this->product_model->getProductAttributes(array('pid'=>$pid));
 		$shop_detail = $this->shop_model->findShop(array('id'=>$product['sid']));
