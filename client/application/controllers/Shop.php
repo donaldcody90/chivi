@@ -14,9 +14,10 @@ class Shop extends CI_Controller {
 		$this->load->view('layout/home', $data);
 	}
 	
+
 	// Show all product in one Category
-	public function view(){
-		$shop_id = $this->input->get('shop_id'); 
+	public function view($id){
+		if(isset($id)){$shop_id = $id;}
 		$param= array('sid'=> $shop_id);
 		$list_product = $this->shop_model->getAllProduct($param);
 		$data['list_product'] = $list_product;
