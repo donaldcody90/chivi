@@ -11,8 +11,10 @@ class Product extends CI_Controller {
 
 	}
 
-	public function detail($pid){
+	public function detail($slug){
 		
+		$p_info = $this->product_model->findProduct(array('slug' => $slug));
+		$pid = $p_info['id'];
 		$product = $this->product_model->getProduct($pid);
 		$product_detail = $this->product_model->getProductAttributes(array('pid'=>$pid));
 		$shop_detail = $this->shop_model->findShop(array('id'=>$product['sid']));
@@ -40,6 +42,13 @@ class Product extends CI_Controller {
 		$data['data'] = $product;
 	}
 
-	
+	public function updateSlug(){
+		$list_product = $this->product_model->getAllProduct();
+		foreach($list_product as $key=>$value){
+			$slug = cleanVietnamese($value['title']);
+			$data = array('slug'=>$slug);
+			$this->product_model->updateProduct($data, array('id'=>$value['id']));
+		}
+	}
 	
 }

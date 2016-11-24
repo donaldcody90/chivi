@@ -17,13 +17,14 @@ class Shop extends CI_Controller {
 
 	// Show all product in one Category
  
-	public function view($id){
+	public function view($slug){
+		$data['shop_detail'] = $this->shop_model->findShop(array('slug'=>$slug));
 		if(isset($id)){$shop_id = $id;}
-		$param= array('sid'=> $shop_id);
+		$param= array('sid'=> $data['shop_detail']['id']);
 		$list_product = $this->shop_model->getAllProduct($param);
 		
 		$data['list_product'] = $list_product;
-		$data['shop_detail'] = $this->shop_model->findShop(array('id'=>$shop_id));
+		
 		$data['template'] = 'shop/view';
 		$this->load->view('layout/home', $data);
 	}

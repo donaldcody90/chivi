@@ -394,14 +394,17 @@ if(!function_exists('cleanVietnamese')){
 		'O'=>'Ó|Ò|Ỏ|Õ|Ọ|Ô|Ố|Ồ|Ổ|Ỗ|Ộ|Ơ|Ớ|Ờ|Ở|Ỡ|Ợ',
 		'U'=>'Ú|Ù|Ủ|Ũ|Ụ|Ư|Ứ|Ừ|Ử|Ữ|Ự',
 		'Y'=>'Ý|Ỳ|Ỷ|Ỹ|Ỵ',
+		' '=>'-'
 		);
 		foreach($unicode as $nonUnicode=>$uni)
 		{
 			$str = preg_replace("/($uni)/i", $nonUnicode, $str);
 		}
-		return $str;
+		return strtolower(preg_replace(array('/[^a-zA-Z0-9 -]/','/[ -]+/','/^-|-$/'),array('','-',''),str_replace('','',$str)));
+
 	}
 }
+
 
 /*
 if(!function_exists('foreach_cat')){

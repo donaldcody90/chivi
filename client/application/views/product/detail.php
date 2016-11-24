@@ -190,7 +190,7 @@
             <div class="col-xs-12 col-sm-12" id="item-order-form" data-attr-id="1052825">
                <div class="sku-select">
                   <div class="sku-table col-xs-8 col-sm-8 item-select-sku">
-                     <?php if(!empty($product_detail)){
+                     <?php if(isset($product_detail) && !empty($product_detail)){
                         foreach($product_detail as $d_key => $detail){
                         if(isset($detail['attr_type']) && $detail['attr_type'] == 'color'){
                         ?>
@@ -205,14 +205,16 @@
                                  </td>
 								 
                                  <td style="border: none;">
-								 <?php foreach($detail['list_attr'] as $k=>$v) {?>
+								 <?php 
+								 if(isset($detail['list_attr'])){
+								 foreach($detail['list_attr'] as $k=>$v) {?>
                                     <a class="pf-item pf-cs item-selected tsf item-tooltip detail_attr" 
 									  title="<?php echo $v['attr_value']; ?>" id="<?php echo $v['pattr_id'];  ?>" data-attr-id="<?php echo $v['pattr_id'];  ?>" >
                                        <span class="tsf1 item-wrap">
                                           <p class="tsf tsf1"><?php echo $v['attr_value']; ?></p>
                                        </span>
                                     </a>
-									<?php } ?>
+									<?php } }?>
                                  </td>
                               </tr>
                            </tbody>
@@ -230,7 +232,9 @@
                               </tr>
                            </thead>
                            <tbody>
-                              <?php foreach($detail['list_attr'] as $k1=>$v1) { ?>
+                              <?php 
+							  if(isset($detail['list_attr'])){
+							  foreach($detail['list_attr'] as $k1=>$v1) { ?>
                               <tr class="ps-item" data-sku-id="1284709" data-property-id="<?php echo $v1['pattr_id']; ?>">
                                  <td>
                                     <p class="tsf"><?php echo $v1['attr_value']; ?></p>
@@ -250,7 +254,7 @@
                                     </span>
                                  </td>
                               </tr>
-                              <?php } ?>	
+                              <?php }} ?>	
                            </tbody>
                         </table>
                      </div>
@@ -307,7 +311,7 @@
                      <div class="wpc-panel-body">
                         <?php foreach($same_shop_products as $same_shop_product){ ?>
                         <div class="product-list-vertical">
-                           <a target="_blank" href="<?php echo site_url('product/detail/'.$same_shop_product['id']); ?>" title=" ">
+                           <a target="_blank" href="<?php echo site_url('product/detail/'.$same_shop_product['slug']); ?>" title=" ">
                            <span class="responsive-img">
                            <img class="media-object lazy"
                               src="<?php echo $same_shop_product['image']; ?>"
@@ -316,12 +320,12 @@
                            </a>
                            <div class="media-body m-product-info">
                               <strong class="price"> <?php echo number_format($same_shop_product['vn_price']);?> đ </strong>
-                              <a class="capital" href="<?php echo site_url('product/detail').'/'.$same_shop_product['id'];?>" title="#" target="_blank"><?php echo $same_shop_product['title']; ?></a>        
+                              <a class="capital" href="<?php echo site_url('product/detail').'/'.$same_shop_product['slug'];?>" title="#" target="_blank"><?php echo $same_shop_product['title']; ?></a>        
                            </div>
                         </div>
                         <?php } ?>
                      </div>
-                     <a class="btn btn-danger btn-shop-product-view-all" href="<?php echo site_url('shop');?>" target="_blank">Xem tất cả</a>        
+                     <a class="btn btn-danger btn-shop-product-view-all" href="<?php echo site_url('shop/detail/'.$shop['slug']);?>" target="_blank">Xem tất cả</a>        
                   </div>
                </div>
             </div>
@@ -393,7 +397,7 @@
          <div class="widget-shop-info-v2">
             <div class="content">
                <h5 class="brand-name">
-                  <a class="url-shop" href="<?php echo site_url('shop/view/'.$shop['id']);?>" target="_blank"><?php echo $shop['name'];?></a>                 
+                  <a class="url-shop" href="<?php echo site_url('shop/view/'.$shop['slug']);?>" target="_blank"><?php echo $shop['name'];?></a>                 
                </h5>
                <div class="shop-status">
                   <span class="label label-success">Kinh doanh hộ cá thể</span>
@@ -427,7 +431,7 @@
                   <a class="btn btn-default" href="#" target="_blank"><i class="glyphicon glyphicon-envelope"></i> Liên hệ với chúng tôi</a>            
                </div>
                <div class="btn-shop">
-                  <a class="btn btn-warning" href="<?php echo site_url('shop/view/'.$shop['id']);?>" target="_blank">Xem shop</a> 
+                  <a class="btn btn-warning" href="<?php echo site_url('shop/view/'.$shop['slug']);?>" target="_blank">Xem shop</a> 
                   <a class="btn btn-info hz-favorite" href="" title="">Yêu thích</a>     
                </div>
             </div>
@@ -440,7 +444,7 @@
                <div class="wpc-panel-body">
                   <?php foreach($newProducts as $newProduct){ ?>
                   <div class="product-list-vertical">
-                     <a target="_blank" href="<?php echo site_url('product').'/'.$newProduct['id'];?>" title="">
+                     <a target="_blank" href="<?php echo site_url('product').'/detail/'.$newProduct['slug'];?>" title="">
                      <span class="responsive-img">
                      <img class="media-object lazy"
                         src="<?php echo $newProduct['image']; ?>"
@@ -450,47 +454,10 @@
                      <div class="media-body m-product-info">
                         <strong class="price">
                         35.000 đ            </strong>
-                        <a class="capital" href="<?php echo site_url('product').'/'.$newProduct['id'];?>" title="" target="_blank"><?php echo $newProduct['title'];?></a>        
+                        <a class="capital" href="<?php echo site_url('product').'/detail/'.$newProduct['slug'];?>" title="" target="_blank"><?php echo $newProduct['title'];?></a>        
                      </div>
                   </div>
                   <?php } ?>
-               </div>
-            </div>
-         </div>
-         <div class="widget-product">
-            <div class="wp-panel-success  wpc-panel">
-               <div class="wpc-panel-heading-vs2">
-                  <div class="title">Sản phẩm vừa xem</div>
-               </div>
-               <div class="wpc-panel-body">
-                  <div class="product-list-vertical">
-                     <a target="_blank" href="#" title="Hạt giống cây trồng - hoa hồng tạo không gian sôi động">
-                     <span class="responsive-img">
-                     <img class="media-object lazy"
-                        src="static/images/c0e47da0c17534f6474aedc216187427.220x220.jpg"
-                        alt=""/>
-                     </span>
-                     </a>
-                     <div class="media-body m-product-info">
-                        <strong class="price">
-                        12.000 đ            </strong>
-                        <a class="capital" href="#" title="#" target="_blank">Hạt giống cây trồng - hoa hồng tạo không gian sôi động</a>        
-                     </div>
-                  </div>
-                  <div class="product-list-vertical">
-                     <a target="_blank" href="#" title="#">
-                     <span class="responsive-img">
-                     <img class="media-object lazy"
-                        src="static/images/c4693eb0ecad75958cafbfedfd9c2fcc.220x220.jpg"
-                        alt=""/>
-                     </span>
-                     </a>
-                     <div class="media-body m-product-info">
-                        <strong class="price">
-                        14.400 đ            </strong>
-                        <a class="capital" href="#" title="#" target="_blank">Hạt giống cây trồng - tai thỏ, không gian sống sôi động</a>        
-                     </div>
-                  </div>
                </div>
             </div>
          </div>
