@@ -9,6 +9,29 @@ class Product_model extends MY_Model
     private $table_attributes = 'vt_attributes';
     private $table_product_attributes = 'vt_product_attributes';
 
+	function findProduct($params_where){
+		$product = $this->_getwhere(array(
+			'table'        => $this->table_product,
+			'param_where'  => $params_where
+        ));
+        return $product;
+	}
+	
+	function getAllProduct(){
+		$this->db->select ('*');
+		$this->db->from($this->table_product);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+	
+	function updateProduct($data,$params_where){
+		$product = $this->_save(array(
+			'table'        	=> $this->table_product,
+			'data'  		=> $data,
+			'param_where'  	=> $params_where,
+        ));
+        return $product;
+	}
 	
 	function getProduct($pid=null, $where_in= null){
 		$this->db->select ('*');

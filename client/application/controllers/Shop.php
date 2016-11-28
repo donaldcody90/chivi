@@ -14,7 +14,9 @@ class Shop extends CI_Controller {
 		$this->load->view('layout/home', $data);
 	}
 	
+
 	// Show all product in one Category
+<<<<<<< HEAD
 	public function detail($shop_id){
 		$filterData= vst_filterData(
 				array('filter_title'),
@@ -34,6 +36,17 @@ class Shop extends CI_Controller {
 		$data['list_product'] = $list_product;
 		$data['shop_detail'] = $this->shop_model->findShop(array('id'=>$shop_id));
 		$data['shop_detail']['top_sales']= $top_sales;
+=======
+ 
+	public function view($slug){
+		$data['shop_detail'] = $this->shop_model->findShop(array('slug'=>$slug));
+		if(isset($id)){$shop_id = $id;}
+		$param= array('sid'=> $data['shop_detail']['id']);
+		$list_product = $this->shop_model->getAllProduct($param);
+		
+		$data['list_product'] = $list_product;
+		
+>>>>>>> 273f7a3a7cfa99e22587acb3a944bdcfbeeaf276
 		$data['template'] = 'shop/view';
 		$this->load->view('layout/home', $data);
 	}
