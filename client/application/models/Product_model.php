@@ -6,13 +6,9 @@ class Product_model extends MY_Model
 
     private $table_product = 'products';
     private $table_shop = 'shops';
-    private $table_attributes = 'attributes';
-    private $table_product_attributes = 'product_attributes';
- 
     private $table_property = 'properties';
     private $table_property_values = 'property_values';
     private $table_price_range = 'priceRanges';
-
 
 	function findProduct($params_where,$is_list=false){
 		$product = $this->_getwhere(array(
