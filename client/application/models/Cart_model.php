@@ -17,7 +17,6 @@ class Cart_model extends MY_Model
 	 // Lay thong tin tu bang Cart
 	 function getCartData($params_where)
 	 {
-		
 		$cartData = $this->_getwhere(array(
                     'table'        => $this->table_carts,
                     'param_where'  =>$params_where

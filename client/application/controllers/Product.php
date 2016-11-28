@@ -29,10 +29,10 @@ class Product extends CI_Controller {
 	
 		//$shop_detail =null;
 		//$param1= array('sid'=> $product_info['sid']);
-		//$param2= array('sid' => $product_info['sid'], 'id !=' => $product_info['id']);
+		$param2= array('sid' => $product_info['sid'], 'id !=' => $product_info['id']);
 		//$param3= $this->session->userdata('lastviewed');
 		//$product_total= count($this->shop_model->getAllProduct($param1));
-		//$data['data']['same_shop_products']= $this->shop_model->getAllProduct($param2, $limit=10);
+		$data['data']['same_shop_products']= $this->shop_model->getAllProduct($param2, $limit=10);
 		//$data['data']['newProducts']=$this->product_model->getNewProductList($limit=10);
 		//$data['data']['lastviewed']= $this->product_model->getProduct(null, $param3);
 		//$data['product_detail']= $product_info;
@@ -46,11 +46,6 @@ class Product extends CI_Controller {
 	
 	// Detail Order
 
-	public function detail2(){
-		$pid = $this->input->get('pid');
-		$product = $this->product_model->getProduct($pid);
-		$data['data'] = $product;
-	}
 
 	public function updateSlug(){
 		$list_product = $this->product_model->getAllProduct();

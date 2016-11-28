@@ -192,82 +192,7 @@
 				  </div>
 				  <div class="item-select-property-table">
 				  </div>
-				  <?php /*
-                     <?php if(isset($product_detail) && !empty($product_detail)){
-						 print_r($product_detail);
-                        foreach($product_detail as $d_key => $detail){
-                        if(isset($detail['attr_type']) && $detail['attr_type'] == 'color'){
-                        ?>
-                     <div class="item-select-property-list">
-                        <table class="table first-property-items" style="margin-bottom: 0;">
-                           <tbody>
-                              <tr>
-                                 <td style="width: 15%; border: none; white-space: nowrap;">
-                                    <strong>
-                                       <p class="tsf"><?php echo $detail['attr_name']; ?></p>
-                                    </strong>
-                                 </td>
-								 
-                                 <td style="border: none;">
-								 <?php 
-								 if(isset($detail['list_attr'])){
-								 foreach($detail['list_attr'] as $k=>$v) {?>
-                                    <a class="pf-item pf-cs item-selected tsf item-tooltip detail_attr" 
-									  title="<?php echo $v['attr_value']; ?>" id="<?php echo $v['pattr_id'];  ?>" data-attr-id="<?php echo $v['pattr_id'];  ?>" >
-                                       <span class="tsf1 item-wrap">
-                                          <p class="tsf tsf1"><?php echo $v['attr_value']; ?></p>
-                                       </span>
-                                    </a>
-									<?php } }?>
-                                 </td>
-                              </tr>
-                           </tbody>
-                        </table>
-                     </div>
-                     <?php }else if(isset($detail['attr_type']) && $detail['attr_type'] == 'size'){ ?>
-                     <div class="item-select-property-table">
-                        <table class="table property-items" style="margin-bottom: 0;">
-                           <thead>
-                              <tr>
-                                 <th class="tsf"><?php echo $detail['attr_name']; ?> </th>
-                                 <th style="width: 150px;" class="text-right">Giá</th>
-                                 
-                                 <th style="width: 200px;" class="text-center">Số lượng</th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <?php 
-							  if(isset($detail['list_attr'])){
-							  foreach($detail['list_attr'] as $k1=>$v1) { ?>
-                              <tr class="ps-item" data-sku-id="1284709" data-property-id="<?php echo $v1['pattr_id']; ?>">
-                                 <td>
-                                    <p class="tsf"><?php echo $v1['attr_value']; ?></p>
-                                 </td>
-                                 <td class="item-price text-right">
-                                    <?php echo number_format($product['vn_price']); ?>
-                                 </td>
-                                
-                                 <td class="text-center">
-                                    <span class="ui-spinner ui-widget ui-widget-content ui-corner-all" style="height: 28px;">
-                                    <input type="text" class="num-range ui-spinner-input txtQuantity" value="0" aria-valuemin="0" aria-valuenow="0" autocomplete="off" role="spinbutton" data-valuemax="5" aria-valuemax="5">
-                                    <a class="ui-spinner-button ui-spinner-up ui-corner-tr ui-button ui-widget ui-state-default ui-button-text-only btnIncrease" tabindex="-1" role="button">
-                                    <span class="ui-button-text">
-                                    <span class="ui-icon ui-icon-triangle-1-n">+</span></span></a>
-                                    <a class="ui-spinner-button ui-spinner-down ui-corner-br ui-button ui-widget ui-state-default ui-button-text-only btnDecrease" tabindex="-1" role="button"><span class="ui-button-text">
-                                    <span class="ui-icon ui-icon-triangle-1-s">-</span></span></a>
-                                    </span>
-                                 </td>
-                              </tr>
-                              <?php }} ?>	
-                           </tbody>
-                        </table>
-                     </div>
-                  
-                  <?php }
-					} 
-				  }
-				  ?>
-				   <?php */ ?>
+				 
 				  </div>
 				 
 				  
@@ -289,17 +214,6 @@
                         </div>
                      </div>
                      <form id="frm-add-cart" action="<?php echo site_url('cart/addToCart');?>" method="post">
-                        <!--<input type="hidden" name="pid" value="<?php echo $product['id']; ?>">
-                        <input type="hidden" name="name" value="<?php echo $product['title']; ?>">
-                        <input type="hidden" name="image" value="<?php echo $product['image']; ?>">
-                        <input type="hidden" name="link" value="<?php echo $product['link']; ?>">
-                        <input type="hidden" name="price" value="<?php echo number_format($product['vn_price']); ?>">
-                        <input type="hidden" name="title" value="<?php echo $product['title']; ?>">
-                        <input type="hidden" name="image" value="<?php echo $product['image']; ?>">
-                        <input type="hidden" name="link" value="<?php echo $product['link']; ?>">
-                        <input type="hidden" name="price" value="<?php echo $product['vn_price']; ?>">
-                        <input type="hidden" name="sid" value="<?php echo $product['sid']; ?>">
-                        <input type="hidden" name="qty" class="total_qty" value="">-->
                         <input type="submit" class="hz-btn hz-btn-red hz-btn-block hz-btn-uppercase hz-btn-bold btn-add-cart" value="Thêm vào giỏ hàng" />                            
                      </form>
                   </div>
