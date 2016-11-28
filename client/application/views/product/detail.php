@@ -1,4 +1,6 @@
+<?php 
 
+?>
 <div class="container p-full">
    <div class="product-item clearfix">
       <div class="product-detail-col-left">
@@ -225,99 +227,6 @@
 						 var product_info=<?php echo json_encode($product) ?>;
 						 console.log("product_info",product_info);
 						$('#item-order-form').itemOrderForm(product_info);
-						 
-							/*$('#item-order-form').itemOrderForm(
-								{product:
-									{"id":1073716,
-									"type":2,
-									"weight":0.3,
-									"price_min":145000,
-									"price_max":145000,
-									"quantity_min":1,
-									"ws_rule_number":1,
-									"is_selected":0},
-									properties:[
-										{  "id":"b4aca97983db90a346429bacf1a6b816",
-										   "name":"Màu sắc",
-										   "values":[
-												{
-												"id":"b4aca97983db90a346429bacf1a6b816",
-												"property_value_id":"1270375",
-												"value":"Màu đen",
-												"type":"0",
-												"type_value":null
-												},
-												{
-												"id":"b4aca97983db90a346429bacf1a6b816",
-												"property_value_id":"1270376",
-												"value":"Màu hồng",
-												"type":"0",
-												"type_value":null
-												}
-											]
-										},
-										{
-											"id":"ae8ab37856a6fed9400b1257d6f2da4b",
-											"name":"Size ",
-											"values":[
-											{
-												"id":"ae8ab37856a6fed9400b1257d6f2da4b",
-												"property_value_id":"1270377",
-												"value":"Freesize",
-												"type":"0",
-												"type_value":null
-											}
-											]
-										}
-									],
-									priceRanges:[
-										{
-											"quantity":1,
-											"price":145000
-										}
-									],
-									skus: [
-										{
-											"id":1292783,
-											"name":"Màu đen&gt;Freesize",
-											"price":0,
-											"quantity":500,
-											"quantity_min":0,
-											"quantity_max":0,
-											"selected":0,
-											"properties":[
-													{
-													"id":"b4aca97983db90a346429bacf1a6b816",
-													"value_id":1270375
-													},
-													{
-													"id":"ae8ab37856a6fed9400b1257d6f2da4b",
-													"value_id":1270377
-													}
-												]
-										},
-										{
-											"id":1292784,
-											"name":"Màu hồng&gt;Freesize",
-											"price":0,
-											"quantity":500,
-											"quantity_min":0,
-											"quantity_max":0,
-											"selected":0,
-											"properties":[
-												{
-													"id":"b4aca97983db90a346429bacf1a6b816",
-													"value_id":1270376
-												},
-												{
-													"id":"ae8ab37856a6fed9400b1257d6f2da4b",
-													"value_id":1270377}
-												]
-										}
-									]
-								}
-						) */
-						
 					 });
 			 </script>
          <!-- END Form đặt mua -->
@@ -332,7 +241,7 @@
                      <div class="wpc-panel-body">
                         <?php foreach($same_shop_products as $same_shop_product){ ?>
                         <div class="product-list-vertical">
-                           <a target="_blank" href="<?php echo site_url('product/detail/'.$same_shop_product['slug']); ?>" title=" ">
+                           <a target="_blank" href="<?php echo site_url(''.$same_shop_product['slug'].'-i'.$same_shop_product['id']); ?>" title="<?php echo $same_shop_product['title']; ?>">
                            <span class="responsive-img">
                            <img class="media-object lazy"
                               src="<?php echo $same_shop_product['image']; ?>"
@@ -341,12 +250,12 @@
                            </a>
                            <div class="media-body m-product-info">
                               <strong class="price"> <?php echo number_format($same_shop_product['vn_price']);?> đ </strong>
-                              <a class="capital" href="<?php echo site_url('product/detail').'/'.$same_shop_product['slug'];?>" title="#" target="_blank"><?php echo $same_shop_product['title']; ?></a>        
+                              <a class="capital" href="<?php echo site_url(''.$same_shop_product['slug'].'-i'.$same_shop_product['id']); ?>" title="<?php echo $same_shop_product['title']; ?>" target="_blank"><?php echo $same_shop_product['title']; ?></a>        
                            </div>
                         </div>
                         <?php } ?>
                      </div>
-                     <a class="btn btn-danger btn-shop-product-view-all" href="<?php echo site_url('shop/detail/'.$shop['slug']);?>" target="_blank">Xem tất cả</a>        
+                     <a class="btn btn-danger btn-shop-product-view-all" href="<?php if(isset($shop_detail)){echo site_url(''.$shop_detail['slug'].'-s'.$shop_detail['id']);}?>" target="_blank">Xem tất cả</a>        
                   </div>
                </div>
             </div>
@@ -418,7 +327,7 @@
          <div class="widget-shop-info-v2">
             <div class="content">
                <h5 class="brand-name">
-                  <a class="url-shop" href="<?php echo site_url('shop/view/'.$shop['slug']);?>" target="_blank"><?php echo $shop['name'];?></a>                 
+                  <a class="url-shop" href="<?php if(isset($shop_detail)){echo site_url(''.$shop_detail['slug'].'-s'.$shop_detail['id']);}?>" target="_blank"><?php if(isset($shop_detail)){echo  $shop_detail['name'] ;}?>  </a>                 
                </h5>
                <div class="shop-status">
                   <span class="label label-success">Kinh doanh hộ cá thể</span>
@@ -435,13 +344,13 @@
                      </div>
                   </div>
                   <div class="desc">
-                     <span>Đang bán: </span> <?php echo $product['shop_product_total'];?> mặt hàng
+                     <span>Đang bán: </span> <?php echo $shop_product_total;?> mặt hàng
                   </div>
                   <div class="desc">
                      <span>Loại hình:</span> Cửa hàng bán lẻ                
                   </div>
                   <div class="desc">
-                     <span>Địa chỉ:</span> <?php echo $shop['address'];?>                
+                     <span>Địa chỉ:</span> <?php if(isset($shop_detail)){echo  $shop_detail['address'] ;}?>               
                   </div>
                   <div class="desc">
                      <span>Mở shop:</span> 10-04-2016                  
@@ -451,7 +360,7 @@
                   <a class="btn btn-default" href="#" target="_blank"><i class="glyphicon glyphicon-envelope"></i> Liên hệ với chúng tôi</a>            
                </div>
                <div class="btn-shop">
-                  <a class="btn btn-warning" href="<?php echo site_url('shop/view/'.$shop['slug']);?>" target="_blank">Xem shop</a> 
+                  <a class="btn btn-warning" href="<?php if(isset($shop_detail)){echo site_url(''.$shop_detail['slug'].'-s'.$shop_detail['id']);}?>" target="_blank">Xem shop</a> 
                   <a class="btn btn-info hz-favorite" href="" title="">Yêu thích</a>     
                </div>
             </div>
@@ -462,22 +371,24 @@
                   <div class="title">Sản phẩm mới được bán</div>
                </div>
                <div class="wpc-panel-body">
-                  <?php  foreach($newProducts as $newProduct){ ?>
+                  <?php  
+				  if(isset($newProducts)){
+				  foreach($newProducts as $newProduct){ ?>
                   <div class="product-list-vertical">
-                     <a target="_blank" href="<?php echo site_url('product').'/detail/'.$newProduct['slug'];?>" title="">
+                     <a target="_blank" href="<?php echo site_url(''.$newProduct['slug'].'-i'.$newProduct['id']) ;?>" title="<?php echo $newProduct['title']; ?>">
                      <span class="responsive-img">
                      <img class="media-object lazy"
                         src="<?php echo $newProduct['image']; ?>"
-                        alt='Áo thun nam tay ngắn thời trang, họa tiết nổi bật'/>
+                        alt='<?php echo $newProduct['title']; ?>'/>
                      </span>
                      </a>
                      <div class="media-body m-product-info">
                         <strong class="price">
                         35.000 đ            </strong>
-                        <a class="capital" href="<?php echo site_url('product').'/detail/'.$newProduct['slug'];?>" title="" target="_blank"><?php echo $newProduct['title'];?></a>        
+                        <a class="capital" href="<?php echo site_url(''.$newProduct['slug'].'-i'.$newProduct['id']) ;?>" title="<?php echo $newProduct['title']; ?>" target="_blank"><?php echo $newProduct['title'];?></a>        
                      </div>
                   </div>
-                  <?php } ?>
+                  <?php } }?>
                </div>
             </div>
          </div>

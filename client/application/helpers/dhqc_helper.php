@@ -275,9 +275,6 @@ if(!function_exists('vst_buildFilter')){
                    case 'where':
                        $query = $CI->db->where(array($key=>$value['value']));
                        break;
-                   case 'order':
-                       $query = $CI->db->order_by(array($key=>$value['value']));
-                       break;
                    case 'date':
                    		if (strpos($key, 'startdate_') !== false) {
                    			$key=str_replace("startdate_","",$key);

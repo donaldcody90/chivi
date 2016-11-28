@@ -18,24 +18,20 @@ if(!function_exists('buildTree')){
 	}
 }
 
-
-if(!function_exists('buildMenu')){
-	function buildMenu(){
-		$CI =& get_instance();
-		
-		$CI->db->select ( '*' );
-		$CI->db->from('vt_categories');
-		$cat_list = $CI->db->get();
-		$cat_list1 = $cat_list->result_array();
-		
-		$cat_list2= buildTree($cat_list1);
-		$data['category_lists']= $cat_list2;
-		
-		$CI->load->view('_base/menu', $data);
-		
-		//echo '<pre>'; print_r($cat_list2); echo '</pre>';
-	}
+function buildMenu(){
+	$CI =& get_instance();
+	
+	$CI->db->select ( '*' );
+	$CI->db->from('vt_categories');
+	$cat_list = $CI->db->get();
+	$cat_list1 = $cat_list->result_array();
+	
+	$cat_list2= buildTree($cat_list1);
+	$data['category_lists']= $cat_list2;
+	
+	$CI->load->view('_base/menu', $data);
+	
+	//echo '<pre>'; print_r($cat_list2); echo '</pre>';
 }
-
 
 ?>	

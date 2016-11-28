@@ -25,20 +25,18 @@ class Product extends CI_Controller {
 		}else{
 			redirect(site_url("404"));
 		}
-		
 	
-		//$shop_detail =null;
-		//$param1= array('sid'=> $product_info['sid']);
+		$param1= array('id'=> $product_info['sid']);
+		$param= array('sid'=> $product_info['sid']);
+		$shop_detail = $this->shop_model->findShop($param1);
 		$param2= array('sid' => $product_info['sid'], 'id !=' => $product_info['id']);
-		//$param3= $this->session->userdata('lastviewed');
-		//$product_total= count($this->shop_model->getAllProduct($param1));
-		$data['data']['same_shop_products']= $this->shop_model->getAllProduct($param2, $limit=10);
-		//$data['data']['newProducts']=$this->product_model->getNewProductList($limit=10);
-		//$data['data']['lastviewed']= $this->product_model->getProduct(null, $param3);
-		//$data['product_detail']= $product_info;
-		//$data['shop_detail']= $shop_detail;
 		
-		//$product['shop_product_total']=$product_info;
+		$product_total= $this->shop_model->getAllProduct($param);
+		$data['data']['same_shop_products']= $this->shop_model->getAllProduct($param2,null,$limit=10);
+		$data['data']['newProducts']=$this->product_model->getNewProductList($limit=10);
+		
+		$data['shop_detail']= $shop_detail;
+		$data['shop_product_total']=count($product_total);
 		$data['data']['product'] = $product_info;
 		$data['template'] = 'product/detail';
 		$this->load->view('layout/home', $data);

@@ -163,7 +163,7 @@ class Product_model extends MY_Model
 	
 	
 	function getProduct($pid=null, $where_in= null){
-		$this->db->select('*');
+		$this->db->select ('*');
 		$this->db->from($this->table_shop);
 		$this->db->join($this->table_product, $this->table_shop.'.id = '.$this->table_product.'.sid');
 		if($pid){
