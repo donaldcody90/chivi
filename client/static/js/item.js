@@ -24,6 +24,7 @@
     }
 })(jQuery, jQuery(window));
 
+/* build order FORM */
 $.fn.itemOrderForm = function (opt) {
     var options = $.extend({}, opt);
 
@@ -411,6 +412,8 @@ $.fn.itemOrderForm = function (opt) {
     });
 };
 
+
+/* tab in product detail */
 $('body').on('click', '#tab-product-comment', function () {
     var _this = $(this);
     if ($('#product-comment').is(':empty')) {
@@ -526,6 +529,8 @@ $('body').on('click', '#tab-product-comment', function () {
         $.hzAlert('Bạn chưa đăng nhập', 'Quý khách vui lòng đăng nhập để gửi câu hỏi về sản phẩm này cho người bán.');
     }
 })
+
+/* product tabbb */
 $(window).load(function () {
     if (window.location.hash) {
         var hash = window.location.hash.substring(1);
@@ -589,3 +594,14 @@ $.fn.ajaxPagination = function () {
         });
     });
 }
+
+Number.prototype.formatMoney = function (c, d, t) {
+    var n = this,
+        c = isNaN(c = Math.abs(c)) ? 2 : c,
+        d = d == undefined ? "." : d,
+        t = t == undefined ? "," : t,
+        s = n < 0 ? "-" : "",
+        i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
+        j = (j = i.length) > 3 ? j % 3 : 0;
+    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+};

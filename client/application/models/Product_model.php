@@ -4,18 +4,58 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Product_model extends MY_Model
 {
 
-    private $table_product = 'vt_product';
-    private $table_shop = 'vt_shop';
-    private $table_attributes = 'vt_attributes';
-    private $table_product_attributes = 'vt_product_attributes';
+    private $table_product = 'products';
+    private $table_shop = 'shops';
+    private $table_property = 'properties';
+    private $table_property_values = 'property_values';
+    private $table_price_range = 'priceRanges';
 
-	function findProduct($params_where){
+	function findProduct($params_where,$is_list=false){
 		$product = $this->_getwhere(array(
 			'table'        => $this->table_product,
-			'param_where'  => $params_where
+			'param_where'  => $params_where,
+			'list'	=>$is_list
         ));
         return $product;
 	}
+	/*
+		Hàm lấy các thuộc tính của sản phẩm
+	*/
+	function getProductProperties($params_where,$is_list=false)
+	{
+		$properties = $this->_getwhere(array(
+			'table'        => $this->table_property,
+			'param_where'  => $params_where,
+			'list'	=>$is_list
+        ));
+        return $properties;
+	}
+	/*
+		Hàm lấy các giá trị của thộc tính
+	*/
+	function getPropertyValues($params_where,$is_list=false)
+	{
+		$properties = $this->_getwhere(array(
+			'table'        => $this->table_property_values,
+			'param_where'  => $params_where,
+			'list'	=>$is_list
+        ));
+        return $properties;
+	}
+	
+	/*
+		Hàm lấy các khoảng giá
+	*/
+	function getPriceRange($params_where,$is_list=false)
+	{
+		$properties = $this->_getwhere(array(
+			'table'        => $this->table_price_range,
+			'param_where'  => $params_where,
+			'list'	=>$is_list
+        ));
+        return $properties;
+	}
+	
 	
 	function getAllProduct(){
 		$this->db->select ('*');
@@ -32,6 +72,40 @@ class Product_model extends MY_Model
         ));
         return $product;
 	}
+	/*
+		function getProductInfo
+		Params:
+			$pid : Product ID
+			$extra_params : 
+					array(
+						priceRange=>0,
+						getShop=>0,
+						getProperties=>0,
+						getSkus=>0,
+					)
+	*/
+	function getProductInfo($pid,$extra_params)
+	{
+		
+		$productInfo=$this->findProduct(array('id'=>$pid));
+		
+		if($productInfo)
+		{
+			if(isset($extra_params['priceRange']))
+			{
+				$productInfo['priceRange']=$this->getPriceRange(array('pid'=>$pid),true);
+			}	
+			if(isset($extra_params['getProperties']))
+			{
+				$productInfo['properties']=$this->getProductProperties(array('pid'=>$pid),true);
+			}			
+			return $productInfo;
+		}else{
+			return null;
+		}
+	}
+	
+	
 	
 	function getProduct($pid=null, $where_in= null){
 		$this->db->select ('*');
