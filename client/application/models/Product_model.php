@@ -4,10 +4,10 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Product_model extends MY_Model
 {
 
-    private $table_product = 'vt_product';
-    private $table_shop = 'vt_shop';
-    private $table_attributes = 'vt_attributes';
-    private $table_product_attributes = 'vt_product_attributes';
+    private $table_product = 'products';
+    private $table_shop = 'shops';
+    private $table_attributes = 'attributes';
+    private $table_product_attributes = 'product_attributes';
 
 	function findProduct($params_where){
 		$product = $this->_getwhere(array(
