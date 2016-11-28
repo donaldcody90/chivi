@@ -27,7 +27,6 @@
 /* build order FORM */
 $.fn.itemOrderForm = function (opt) {
     var options = $.extend({}, opt);
-
     return this.each(function () {
         var itemOrderForm = $(this);
 
@@ -38,7 +37,6 @@ $.fn.itemOrderForm = function (opt) {
 
         itemOrderForm.buildForm = function () {
             itemOrderForm.calculateSkuPrice();
-
             var html = "";
             // Trường hợp chỉ có 1 Property
             if (options.properties.length == 1) {
@@ -53,7 +51,6 @@ $.fn.itemOrderForm = function (opt) {
                 itemOrderForm.addListActions();
                 // Lựa chọn PropertyListItem đầu tiên.
                 $('.first-property-items .item-selected:first', itemOrderForm).trigger('click');
-                itemOrderForm.calculateSkuPrice();
                 itemOrderForm.calculateSelectedQuantity();
 
             }
@@ -79,8 +76,7 @@ $.fn.itemOrderForm = function (opt) {
                             if (!ok)
                                 isSku = ok;
                         }
-
-                        if (isSku) {
+                       if (isSku) {
                             return sku;
                         }
                     }
@@ -103,7 +99,7 @@ $.fn.itemOrderForm = function (opt) {
             return 0;
         };
 
-        itemOrderForm.calculateSkuPrice = function () {
+        itemOrderForm.calculateSkuPrice = function () {			
             if (options.product.type == 2) {
                 var price = itemOrderForm.getCurrentPrice();
                 for (var i = 0; i < options.skus.length; i++) {
@@ -114,7 +110,7 @@ $.fn.itemOrderForm = function (opt) {
         };
 
         itemOrderForm.buildSkuPrice = function (price) {
-            $('.item-price', itemOrderForm).html(price.formatMoney(0, ',', '.'));
+            $('.item-price', itemOrderForm).html(parseFloat(price).formatMoney(0, ',', '.'));
         };
 
         itemOrderForm.setSkuQuantity = function (id, quantity) {
@@ -132,7 +128,7 @@ $.fn.itemOrderForm = function (opt) {
             itemOrderForm.amount = 0;
             // Tính tổng số đã được chọn.
             for (var i = 0; i < options.skus.length; i++) {
-                itemOrderForm.selected += options.skus[i].selected;
+                itemOrderForm.selected +=parseInt(options.skus[i].selected);
             }
             // Tính giá theo khoảng giá.
             itemOrderForm.calculateSkuPrice();
@@ -170,8 +166,8 @@ $.fn.itemOrderForm = function (opt) {
                 $('.sku-items', itemOrderForm).html('<li class="text-center">Chưa có sản phẩm nào được chọn</li>');
             }
 
-            $('.txtTotalQuantity', itemOrderForm).html(itemOrderForm.selected.formatMoney(0, ',', '.'));
-            $('.txtTotalMoney', itemOrderForm).html(itemOrderForm.amount.formatMoney(0, ',', '.'));
+            $('.txtTotalQuantity', itemOrderForm).html(parseInt(itemOrderForm.selected).formatMoney(0, ',', '.'));
+            $('.txtTotalMoney', itemOrderForm).html(parseFloat(itemOrderForm.amount).formatMoney(0, ',', '.'));
         };
 
         itemOrderForm.addListActions = function () {
@@ -331,8 +327,8 @@ $.fn.itemOrderForm = function (opt) {
                 }
                 html += '<tr class="ps-item" data-sku-id=' + sku.id + ' data-property-id="' + property.id + '" data-property-value-id="' + propertyValue.id + '" data-ws-rule-number="' + options.product.ws_rule_number + '" data-quantity-max="' + sku.quantity + '">' +
                     '<td>' + itemOrderForm.getFormattedValue(propertyValue, 'table') + '</td>' +
-                    '<td class="item-price text-right">' + sku.price.formatMoney(0, ',', '.') + '</td>' +
-                    '<td class="text-right item-quantity">' + sku.quantity.formatMoney(0, ',', '.') + '</td>' +
+                    '<td class="item-price text-right">' + parseFloat(sku.price).formatMoney(0, ',', '.') + '</td>' +
+                    '<td class="text-right item-quantity">' + parseInt(sku.quantity).formatMoney(0, ',', '.') + '</td>' +
                     '<td class="text-center">' +
                     '<span class="ui-spinner ui-widget ui-widget-content ui-corner-all" style="height: 28px;">' +
                     '<input type="text" class="num-range ui-spinner-input txtQuantity" value="' + sku.selected + '" aria-valuemin="0" aria-valuenow="0" autocomplete="off" role="spinbutton" data-valuemax="5" aria-valuemax="5">' +
@@ -373,6 +369,7 @@ $.fn.itemOrderForm = function (opt) {
                                 submitData.push({'id': sku.id, 'quantity': sku.selected});
                             }
                         }
+						console.log(submitData);
                         if (submitData.length) {
                             $.post(form.attr('action'), form.serialize() + '&data=' + JSON.stringify(submitData), function (res) {
                                 btnAddToCart.unlock();

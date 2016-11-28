@@ -4,11 +4,11 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Order_model extends MY_Model
 {
 
-     private $table_orders = 'vt_order';
-     private $table_customers = 'vt_customer';
-     private $table_order_items = 'vt_order_item';
-	 private $table_products='vt_product';
-	 private $table_shops='vt_shop';
+     private $table_orders = 'orders';
+     private $table_customers = 'customers';
+     private $table_order_items = 'order_items';
+	 private $table_products='products';
+	 private $table_shops='shops';
 
      function __construct()
      {

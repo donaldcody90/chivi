@@ -16,6 +16,7 @@ class Shop extends CI_Controller {
 	
 
 	// Show all product in one Category
+
 	public function detail($slug, $shop_id){
 		$shop_detail= $this->shop_model->findShop(array('id'=>$shop_id));
 		if($shop_detail['id']== $shop_id){
@@ -40,7 +41,7 @@ class Shop extends CI_Controller {
 			$data['shop_detail'] = $shop_detail;
 			$data['shop_detail']['top_sales']= $top_sales;
 			$data['template'] = 'shop/view';
-			print_r($data['shop_detail']);
+			print_r($list_product);
 			$this->load->view('layout/home', $data);
 		}else{
 			redirect(site_url('404'));
@@ -54,7 +55,6 @@ class Shop extends CI_Controller {
 		$list_product = $this->shop_model->getAllProduct($param);
 		
 		$data['list_product'] = $list_product;
-		
 		$data['template'] = 'shop/view';
 		$this->load->view('layout/home', $data);
 	}

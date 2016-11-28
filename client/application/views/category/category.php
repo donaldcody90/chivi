@@ -29,7 +29,7 @@
 				  <a class="" href="/search/index" title="Tất cả danh mục">TẤT CẢ DANH MỤC</a>
 				  <?php if( isset($list_subcat) && $list_subcat!=array() ){ 
 					foreach($list_subcat as $subcat){ ?>
-						<a class="tsf" href="<?php echo site_url($subcat['slug']);?>" title="<?php echo $subcat['name'];?>" ><?php echo $subcat['name'];?> <span>(<?php echo $subcat['total_product'];?>)</span></a>
+						<a class="tsf" href="<?php echo site_url($subcat['slug'].'-c'.$subcat['id']);?>" title="<?php echo $subcat['name'];?>" ><?php echo $subcat['name'];?> <span>(<?php echo $subcat['total_product'];?>)</span></a>
 				  <?php } } ?>
 				</div>
 			  </td>
@@ -80,7 +80,7 @@
 				?>
 				<div class="col-lg-15 col-sm-4 col-md-3 col-xs-6 col-vxs-12">
 				  <div class="product-items">
-					<a target="_blank" href="<?php echo site_url($product['slug']);?>" class="responsive-img img-featured" title=" ">
+					<a target="_blank" href="<?php echo site_url($product['slug'].'-i'.$product['id']);?>" class="responsive-img img-featured" title=" ">
 					  <img id="featured-1053957" src="<?php echo $product['image']?>" alt=" ">                                                                    
 					  <div class="price-range">
 						<p>
@@ -95,14 +95,14 @@
 					  <strong class="pull-left"><?php echo number_format($product['vn_price']);?> đ </strong>
 					</div>
 					<h4 class="capital">
-						<a class="product-title" href="<?php echo site_url($product['slug']);?>" title="<?php echo $product['title'];?>" target="_blank">
+						<a class="product-title" href="<?php echo site_url($product['slug'].'-i'.$product['id']);?>" title="<?php echo $product['title'];?>" target="_blank">
 							<?php echo $product['title']?>
 						</a>
 					</h4>
 					<div class="shop-info">
 					  <div class="shop-title-v2">
 						<div class="shop-left">
-						  <a class="shop-title" href="<?php echo site_url($product['shop_slug']);?>" title="<?php echo $product['shop_name'];?>" target="_blank"><?php echo $product['shop_name'];?></a>                                        
+						  <a class="shop-title" href="<?php echo site_url($product['shop_slug'].'-s'.$product['shop_id']);?>" title="<?php echo $product['shop_name'];?>" target="_blank"><?php echo $product['shop_name'];?></a>                                        
 						  <div class="shop-info-pop">
 							<strong class="capital"><?php echo $product['shop_name']; ?></strong>
 							<div class="line">

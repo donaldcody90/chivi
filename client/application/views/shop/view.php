@@ -74,14 +74,14 @@
 			<?php if(isset($shop_detail['top_sales']) && count($shop_detail['top_sales'])>0 ){
 			foreach($shop_detail['top_sales'] as $key=>$top_sale){ ?>
               <div class="product-list-vertical">
-                <a target="_blank" href="<?php echo site_url($top_sale['slug']);?>" title="<?php echo $top_sale['title']; ?>">
+                <a target="_blank" href="<?php echo site_url($top_sale['slug'].'-i'.$top_sale['id']);?>" title="<?php echo $top_sale['title']; ?>">
 					<span class="responsive-img">
 						<img class="media-object lazy" src="<?php echo $top_sale['image']; ?>" alt=<?php echo $top_sale['title']; ?> />
 					</span>
                 </a>
                 <div class="media-body m-product-info">
                   <strong class="price"><?php echo number_format($top_sale['vn_price']); ?> đ </strong>
-                  <a class="capital" href="<?php echo site_url($top_sale['slug']);?>" title=" <?php echo $top_sale['title']; ?>" target="_blank"><?php echo $top_sale['title']; ?></a>        
+                  <a class="capital" href="<?php echo site_url($top_sale['slug'].'-i'.$top_sale['id']);?>" title=" <?php echo $top_sale['title']; ?>" target="_blank"><?php echo $top_sale['title']; ?></a>        
                 </div>
               </div>
 			<?php } } ?>
@@ -148,7 +148,7 @@
 		foreach($list_product as $key=>$product){?>
           <div class="col-xs-3" data-key="0">
             <div class="product-items product-shop-detail">
-              <a target="_blank" href="<?php echo site_url($product['slug']);?>" class="responsive-img img-featured">
+              <a target="_blank" href="<?php echo site_url($product['slug'].'-i'.$product['id']);?>" class="responsive-img img-featured">
                 <img id="featured-1062862" src="<?php echo $product['image']; ?>" alt="<?php echo $product['title']; ?>">                    
                 <div class="price-range">
                   <p>
@@ -171,7 +171,7 @@
                 <strong><?php echo number_format($product['vn_price']); ?> đ</strong>
               </div>
               <h4 class="capital">
-			  <a class="product-title" href="<?php echo site_url($product['slug']);?>" title="<?php echo $product['title']; ?>" target="_blank">
+			  <a class="product-title" href="<?php echo site_url($product['slug'].'-i'.$product['id']);?>" title="<?php echo $product['title']; ?>" target="_blank">
 				<?php echo $product['title']; ?>
 			  </a>
 			  </h4>

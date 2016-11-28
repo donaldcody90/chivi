@@ -18,6 +18,7 @@ if(!function_exists('buildTree')){
 	}
 }
 
+
 if(!function_exists('buildMenu')){
 	function buildMenu(){
 		$CI =& get_instance();

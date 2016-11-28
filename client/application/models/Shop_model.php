@@ -8,6 +8,7 @@ class Shop_model extends MY_Model
     private $table_product = 'vt_products';
     private $table_order_item = 'vt_order_items';
 
+
 	function findShop($params_where){
         $shop = $this->_getwhere(array(
 			'table'        => $this->table_shop,

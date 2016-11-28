@@ -6,10 +6,10 @@
           <span class="welcome hello-user">Chào mừng quý khách đến với ChiVi</span>
           <ul class="login-signup">
             <li>
-              <a href="#" title="Đăng nhập"><i class="glyphicon glyphicon-log-in"></i> Đăng nhập</a>                        
+              <a href="<?php echo site_url();?>" title="Đăng nhập"><i class="glyphicon glyphicon-log-in"></i> Đăng nhập</a>                        
             </li>
             <li>
-              <a href="#" title="Đăng ký"><i class="glyphicon glyphicon-user"></i> Đăng ký</a>                        
+              <a href="<?php echo site_url('auth/register');?>" title="Đăng ký"><i class="glyphicon glyphicon-user"></i> Đăng ký</a>                        
             </li>
           </ul>
         </div>

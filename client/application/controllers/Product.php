@@ -11,48 +11,41 @@ class Product extends CI_Controller {
 
 	}
 
-	public function detail($pid){
-		$product_info = $this->product_model->getProductInfo($pid,array('getProperties'=>1,'priceRange'=>1));
+	public function detail($slug,$pid){
+		$extra_params=array(
+			'getPriceRange'=>true,
+			'getShop'=>true,
+			'getProperties'=>true,
+			'getSkus'=>true,
+			);
+		$product_info = $this->product_model->getProductInfo($pid,$extra_params);
 		if($product_info)
 		{
 			
 		}else{
 			redirect(site_url("404"));
 		}
-		echo "<pre>";
-		print_r($product_info);
-		die;
-		//$p_info = $this->product_model->findProduct(array('slug' => $slug));
-		//$pid = $p_info['id'];
-		
 		
 	
-		$product = $this->product_model->getProduct($pid);
-		$product_detail = $this->product_model->getProductAttributes(array('pid'=>$pid));
-		$shop_detail = $this->shop_model->findShop(array('id'=>$product['sid']));
-		$param1= array('sid'=> $product['sid']);
-		$param2= array('sid' => $product['sid'], 'id !=' => $product['id']);
-		$param3= $this->session->userdata('lastviewed');
-		$product_total= count($this->shop_model->getAllProduct($param1));
+		//$shop_detail =null;
+		//$param1= array('sid'=> $product_info['sid']);
+		$param2= array('sid' => $product_info['sid'], 'id !=' => $product_info['id']);
+		//$param3= $this->session->userdata('lastviewed');
+		//$product_total= count($this->shop_model->getAllProduct($param1));
 		$data['data']['same_shop_products']= $this->shop_model->getAllProduct($param2, $limit=10);
-		$data['data']['newProducts']= $this->product_model->getNewProductList($limit=10);
-		$data['data']['lastviewed']= $this->product_model->getProduct(null, $param3);
-		$data['product_detail']= $product_detail;
-		$data['shop_detail']= $shop_detail;
+		//$data['data']['newProducts']=$this->product_model->getNewProductList($limit=10);
+		//$data['data']['lastviewed']= $this->product_model->getProduct(null, $param3);
+		//$data['product_detail']= $product_info;
+		//$data['shop_detail']= $shop_detail;
 		
-		$product['shop_product_total']=$product_total;
-		$data['data']['product'] = $product;
+		//$product['shop_product_total']=$product_info;
+		$data['data']['product'] = $product_info;
 		$data['template'] = 'product/detail';
 		$this->load->view('layout/home', $data);
 	}
 	
 	// Detail Order
 
-	public function detail2(){
-		$pid = $this->input->get('pid');
-		$product = $this->product_model->getProduct($pid);
-		$data['data'] = $product;
-	}
 
 	public function updateSlug(){
 		$list_product = $this->product_model->getAllProduct();

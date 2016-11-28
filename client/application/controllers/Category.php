@@ -65,7 +65,7 @@ class Category extends CI_Controller {
 			$data['list_product']['total'] = $list_product_total;
 			$data['list_subcat'] = $listSubCat;
 			$data['template'] = 'category/category';
-			print_r($listSubCat);
+			print_r($list_product);
 			$this->load->view('layout/home', $data);
 		}else{
 			redirect(site_url('404'));

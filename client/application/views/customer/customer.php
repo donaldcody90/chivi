@@ -24,7 +24,7 @@
 					<li ><a data-toggle="tab" href="#favousrite_shop" onclick="loadAjax('<?php echo site_url('customer/favousrite_shop'); ?>','favousrite_shop')">Shop yêu thích</a></li>
 					<li ><a data-toggle="tab" href="#complain" onclick="loadAjax('<?php echo site_url('customer/complain'); ?>','complain')">Danh sách góp ý</a></li>
 					<li ><a data-toggle="tab" href="#notification" onclick="loadAjax('<?php echo site_url('customer/notification'); ?>','notification')">Danh sách thông báo</a></li>
-					<li ><a data-toggle="tab" href="#logout">Thoát</a></li>
+					<li ><a href="<?php echo site_url('customer/logout');?>">Thoát</a></li>
 				  </ul>
 				</div>
 				<div class="col-xs-9 profile-content" id="customer">
