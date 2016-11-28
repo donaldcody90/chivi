@@ -1,3 +1,7 @@
+<?php 
+echo "<pre>";
+print_r($product);
+?>
 <div class="container p-full">
    <div class="product-item clearfix">
       <div class="product-detail-col-left">
