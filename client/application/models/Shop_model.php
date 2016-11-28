@@ -4,14 +4,13 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Shop_model extends MY_Model
 {
 
-<<<<<<< HEAD
+ 
     private $table_shop = 'shops';
     private $table_product = 'products';
-=======
+
     private $table_shop = 'vt_shop';
     private $table_product = 'vt_product';
     private $table_order_item = 'vt_order_item';
->>>>>>> 0bd81939db053efbc8767725859c09dc8933f6a8
 
 	function findShop($params_where){
         $shop = $this->_getwhere(array(
