@@ -82,10 +82,10 @@ class Product_model extends MY_Model
 			$pid : Product ID
 			$extra_params : 
 					array(
-						priceRange=>0,
-						getShop=>0,
-						getProperties=>0,
-						getSkus=>0,
+						getPriceRange=>false,
+						getShop=>false,
+						getProperties=>false,
+						getSkus=>false,
 					)
 	*/
 	function getProductInfo($pid,$extra_params)
@@ -95,11 +95,11 @@ class Product_model extends MY_Model
 		
 		if($productInfo)
 		{
-			if(isset($extra_params['priceRange']))
+			if(isset($extra_params['getPriceRange']) && $extra_params['getPriceRange'])
 			{
 				$productInfo['priceRange']=$this->getPriceRange(array('pid'=>$pid),true);
 			}	
-			if(isset($extra_params['getProperties']))
+			if(isset($extra_params['getProperties']) && $extra_params['getProperties'])
 			{
 				$productInfo['properties']=$this->getProductProperties(array('pid'=>$pid),true);
 			}			
