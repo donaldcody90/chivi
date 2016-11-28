@@ -11,8 +11,9 @@ class Product extends CI_Controller {
 
 	}
 
-	public function detail($pid){
-		$product_info = $this->product_model->getProductInfo($pid,array('getProperties'=>1,'priceRange'=>1));
+	public function detail($slug,$pid){
+		$extra_params=array('getProperties'=>true,'getPriceRange'=>true);
+		$product_info = $this->product_model->getProductInfo($pid,$extra_params);
 		if($product_info)
 		{
 			
