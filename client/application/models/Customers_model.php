@@ -4,7 +4,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Customers_model extends MY_Model
 {
 
-     private $table_customers = 'vt_customer';
+     private $table_customers = 'customers';
     
 
      function __construct()

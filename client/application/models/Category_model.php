@@ -4,9 +4,9 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Category_model extends MY_Model
 {
 
-    private $table_category = 'vt_category';
-    private $table_product = 'vt_product';
-    private $table_shop = 'vt_shop';
+    private $table_category = 'categories';
+    private $table_product = 'products';
+    private $table_shop = 'shops';
 	
 	// function getShopProductTotal($shop_id){
 		// $this->db->select('*');

@@ -11,7 +11,7 @@
             <div class="product-detail-gallery">
                <div class="product-images">
                   <div class="image-featured responsive-img">
-                     <img src="<?php echo $product['image']; ?>" alt="Áo khoác caridigan nữ dáng ngắn"> 
+                     <img src="<?php echo $product['image']; ?>" alt="<?php echo $product['title']; ?>"> 
                   </div>
 				  <!--
                   <div class="image-slide hz-slider">
@@ -519,8 +519,7 @@
                      <span>Địa chỉ:</span> <?php echo $shop['address'];?>                
                   </div>
                   <div class="desc">
-                     <span>Mở shop:</span> 10-04-2016      
-                     <span>Loại hình:</span> Cửa hàng bán lẻ                
+                     <span>Mở shop:</span> 10-04-2016                  
                   </div>
                </div>
                <div class="contact-shop text-center">
