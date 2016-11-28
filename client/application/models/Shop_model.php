@@ -4,9 +4,9 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Shop_model extends MY_Model
 {
 
-    private $table_shop = 'vt_shop';
-    private $table_product = 'vt_product';
-    private $table_order_item = 'vt_order_item';
+    private $table_shop = 'vt_shops';
+    private $table_product = 'vt_products';
+    private $table_order_item = 'vt_order_items';
 
 	function findShop($params_where){
         $shop = $this->_getwhere(array(
@@ -30,7 +30,7 @@ class Shop_model extends MY_Model
 	}
 	
 	function getTopSales($param, $limit=0){
-		$this->db->select($this->table_product.'.id,'.$this->table_product.'.title,'.$this->table_product.'.image,'.$this->table_product.'.vn_price,'.'sum(vt_order_item.item_quantity) as order_total');
+		$this->db->select($this->table_product.'.id,'.$this->table_product.'.title,'.$this->table_product.'.image,'.$this->table_product.'.slug,'.$this->table_product.'.vn_price,'.'sum('.$this->table_order_item.'.item_quantity) as order_total');
 		$this->db->from($this->table_product);
 		$this->db->join($this->table_order_item, $this->table_order_item.'.pid = '.$this->table_product.'.id');
 		if($param){

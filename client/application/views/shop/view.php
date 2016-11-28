@@ -13,7 +13,7 @@
         <div class="widget-shop-info-v2">
           <div class="content">
             <h5 class="brand-name">
-              <a class="url-shop" href="#" target="_blank"><?php echo $shop_detail['name'];?></a>            
+              <a class="url-shop" href="#" target="_blank"><?php echo isset($shop_detail['name'])?$shop_detail['name']:'';?></a>            
             </h5>
             <div class="shop-status">
               <span class="label label-success">Kinh doanh hộ cá thể</span>
@@ -30,21 +30,17 @@
                 </div>
               </div>
               <div class="desc">
-<<<<<<< HEAD
-                <span>Đang bán: </span> <?php echo count($list_product);?> mặt hàng
-=======
                 <span>Đang bán: </span> <?php if(isset($listproducts)){echo count($listproducts);} ?> mặt hàng
->>>>>>> 273f7a3a7cfa99e22587acb3a944bdcfbeeaf276
               </div>
               <div class="desc">
                 <span>Loại hình:</span> Shop                
               </div>
               <div class="desc">
-                <span>Địa chỉ:</span> <?php echo $shop_detail['address'];?>               
+                <span>Địa chỉ:</span> <?php echo isset($shop_detail['address'])?$shop_detail['address']:'';?>               
               </div>
             </div>
             <div class="btn-shop">
-              <a class="btn btn-info hz-favorite" href="/" title="Thêm vào danh sách yêu thích" data-id="1000991" data-type="shop">Yêu thích</a>            
+              <a class="btn btn-info hz-favorite" href="/" title="Thêm vào danh sách yêu thích">Yêu thích</a>            
             </div>
           </div>
         </div>
@@ -75,33 +71,20 @@
               <div class="title">SẢN PHẨM BÁN CHẠY</div>
             </div>
             <div class="wpc-panel-body">
-<<<<<<< HEAD
 			<?php if(isset($shop_detail['top_sales']) && count($shop_detail['top_sales'])>0 ){
 			foreach($shop_detail['top_sales'] as $key=>$top_sale){ ?>
-=======
-			<?php 
-			if(isset($listproducts)){
-			foreach($listproducts as $key=>$product){?>
->>>>>>> 273f7a3a7cfa99e22587acb3a944bdcfbeeaf276
               <div class="product-list-vertical">
-                <a target="_blank" href="<?php echo site_url().url_title(cleanVietnamese($top_sale['title']),'-',true).'-i'.$top_sale['id'];?>" title="<?php echo $top_sale['title']; ?>">
-                <span class="responsive-img">
-                <img class="media-object lazy"
-                  src="<?php echo $top_sale['image']; ?>"
-                  alt=<?php echo $top_sale['title']; ?> />
-                </span>
+                <a target="_blank" href="<?php echo site_url($top_sale['slug']);?>" title="<?php echo $top_sale['title']; ?>">
+					<span class="responsive-img">
+						<img class="media-object lazy" src="<?php echo $top_sale['image']; ?>" alt=<?php echo $top_sale['title']; ?> />
+					</span>
                 </a>
                 <div class="media-body m-product-info">
-                  <strong class="price">
-                  <?php echo number_format($top_sale['vn_price']); ?> đ </strong>
-                  <a class="capital" href="<?php echo site_url().url_title(cleanVietnamese($top_sale['title']),'-',true).'-i'.$top_sale['id'];?>" title=" <?php echo $top_sale['title']; ?>" target="_blank"><?php echo $top_sale['title']; ?></a>        
+                  <strong class="price"><?php echo number_format($top_sale['vn_price']); ?> đ </strong>
+                  <a class="capital" href="<?php echo site_url($top_sale['slug']);?>" title=" <?php echo $top_sale['title']; ?>" target="_blank"><?php echo $top_sale['title']; ?></a>        
                 </div>
               </div>
-<<<<<<< HEAD
-			<?php } } ?>  
-=======
-			<?php } }?>  
->>>>>>> 273f7a3a7cfa99e22587acb3a944bdcfbeeaf276
+			<?php } } ?>
             </div>
           </div>
         </div>
@@ -114,10 +97,10 @@
             <div class="shop-filter clearfix well">
               <div class="shop-title">
                 <div class="shop-category-title">
-                  <?php echo $shop_detail['name'];?>            
+                  <?php echo isset($shop_detail['name'])?$shop_detail['name']:'';?>            
                 </div>
                 <div class="shop-total-product">
-                  Có <strong><?php echo count($list_product);?></strong> kết quả được tìm thấy
+                  Có <strong><?php echo isset($list_product)?count($list_product):'';?></strong> kết quả được tìm thấy
                 </div>
               </div>
               <form action="" method="get">
@@ -161,17 +144,11 @@
           </div>
         </div>
         <div id="w0" class="list-view clearfix">
-<<<<<<< HEAD
 		<?php if(isset($list_product) && count($list_product)>0 ){
 		foreach($list_product as $key=>$product){?>
-=======
-		<?php 
-		if(isset($listproducts)){
-		foreach($listproducts as $key=>$product){?>
->>>>>>> 273f7a3a7cfa99e22587acb3a944bdcfbeeaf276
           <div class="col-xs-3" data-key="0">
             <div class="product-items product-shop-detail">
-              <a target="_blank" href="<?php echo site_url().url_title(cleanVietnamese($product['title']),'-',true).'-i'.$product['id'];?>" class="responsive-img img-featured">
+              <a target="_blank" href="<?php echo site_url($product['slug']);?>" class="responsive-img img-featured">
                 <img id="featured-1062862" src="<?php echo $product['image']; ?>" alt="<?php echo $product['title']; ?>">                    
                 <div class="price-range">
                   <p>
@@ -194,19 +171,15 @@
                 <strong><?php echo number_format($product['vn_price']); ?> đ</strong>
               </div>
               <h4 class="capital">
-			  <a class="product-title" href="<?php echo site_url().url_title(cleanVietnamese($product['title']),'-',true).'-i'.$product['id'];?>" title="<?php echo $product['title']; ?>" target="_blank">
+			  <a class="product-title" href="<?php echo site_url($product['slug']);?>" title="<?php echo $product['title']; ?>" target="_blank">
 				<?php echo $product['title']; ?>
 			  </a>
 			  </h4>
             </div>
           </div>
-<<<<<<< HEAD
 		<?php } } else{ ?>
 		  <div class="empty">Không tìm thấy kết quả nào.</div>
 		<?php } ?>
-=======
-		<?php }} ?>  
->>>>>>> 273f7a3a7cfa99e22587acb3a944bdcfbeeaf276
         </div>
 		<div class="text-center">
 			<?php echo $this->pagination->create_links();?>
