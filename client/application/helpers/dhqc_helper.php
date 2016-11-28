@@ -144,8 +144,8 @@ if(!function_exists('vst_password')){
 }
 
 if(!function_exists('vst_pagination')){
-	function vst_Pagination(){
-		$config['full_tag_open'] = '<ul class="pagination">';
+	function vst_Pagination($total=20, $per_page=10){
+		$config['full_tag_open'] = '<ul class="pagination pagination-sm">';
 		$config['full_tag_close'] = '</ul>';
 		$config['first_link'] = '&laquo; ';
 		$config['first_tag_open'] = '<li>';
@@ -162,10 +162,11 @@ if(!function_exists('vst_pagination')){
 		$config['cur_tag_open'] = '<li class="active"><a>';
 		$config['cur_tag_close'] = '</a></li>';
 		$config['num_tag_open'] = '<li>';
-        $config['per_page'] =5;
+        $config['per_page'] =$per_page;
         $config['page_query_string'] =true;
         $config['query_string_segment'] ="page";
 		$config['base_url'] =vst_currentUrl();
+		$config['total_rows']= $total;
 		return $config;
 	}
 }
@@ -203,8 +204,9 @@ if(!function_exists('vst_currentUrl')){
 		$CI =& get_instance();
 		$url = $CI->config->site_url($CI->uri->uri_string());
 		$params=$CI->input->get();
-		if(isset($params['page']) && $withoutPage)
-			unset($params['page']);
+		if(isset($params['sort']) && isset($params['sortType']) && $withoutPage)
+			unset($params['sort']);
+			unset($params['sortType']);
 		$http_query=http_build_query($params, '', "&");
 		return $http_query ? $url.'?'.$http_query : $url;
 	}
@@ -217,6 +219,8 @@ if(!function_exists('vst_filterData')){
 		$params= $CI->input->get();
 		//print_r($params);
 		unset($params['page']);
+		unset($params['sortType']);
+		unset($params['sort']);
 		$filterData= array();
 		if($params){
 			foreach($params as $key=>$value){
@@ -281,6 +285,9 @@ if(!function_exists('vst_buildFilter')){
                         break;
                    case 'where':
                        $query = $CI->db->where(array($key=>$value['value']));
+                       break;
+                   case 'order':
+                       $query = $CI->db->order_by(array($key=>$value['value']));
                        break;
                    case 'date':
                    		if (strpos($key, 'startdate_') !== false) {
