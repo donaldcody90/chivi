@@ -379,10 +379,10 @@
     right: 5px;
     top: 5px;
 }
-
+/*
 .shop-filter .search-text-box input.form-control {
     width: 415px;
-}
+}*/
 
 .shop-filter .form-filter input {
     width: 91px;
@@ -403,6 +403,7 @@
 
 .shop-filter .form-filter button {
     margin-left: 10px;
+    margin-right: 5px;
     background-color: #ffffff;
     color: #c9302c;
 }

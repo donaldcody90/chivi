@@ -287,6 +287,17 @@ function list_ship_submit(self,message=""){
 		}
 	});
 	
+	/*------------order-------------*/
+	
+    $('.widget-product-list .product-filter .item a').each(function(){
+		var url= window.location.href;
+		if($(this).attr('href')== url){
+			$(this).parent().addClass('active');
+		}
+	});
+    
+	
 	
 
 	
+

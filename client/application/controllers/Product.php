@@ -11,10 +11,22 @@ class Product extends CI_Controller {
 
 	}
 
-	public function detail($slug){
+	public function detail($pid){
+		$product_info = $this->product_model->getProductInfo($pid,array('getProperties'=>1,'priceRange'=>1));
+		if($product_info)
+		{
+			
+		}else{
+			redirect(site_url("404"));
+		}
+		echo "<pre>";
+		print_r($product_info);
+		die;
+		//$p_info = $this->product_model->findProduct(array('slug' => $slug));
+		//$pid = $p_info['id'];
 		
-		$p_info = $this->product_model->findProduct(array('slug' => $slug));
-		$pid = $p_info['id'];
+		
+	
 		$product = $this->product_model->getProduct($pid);
 		$product_detail = $this->product_model->getProductAttributes(array('pid'=>$pid));
 		$shop_detail = $this->shop_model->findShop(array('id'=>$product['sid']));

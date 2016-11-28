@@ -191,6 +191,7 @@
                <div class="sku-select">
                   <div class="sku-table col-xs-8 col-sm-8 item-select-sku">
                      <?php if(isset($product_detail) && !empty($product_detail)){
+						 print_r($product_detail);
                         foreach($product_detail as $d_key => $detail){
                         if(isset($detail['attr_type']) && $detail['attr_type'] == 'color'){
                         ?>
@@ -264,6 +265,101 @@
 				  }
 				  ?>
 				  </div>
+				  <script>
+					 $(function() {
+							$('#item-order-form').itemOrderForm(
+								{product:
+									{"id":1073716,
+									"type":2,
+									"weight":0.3,
+									"price_min":145000,
+									"price_max":145000,
+									"quantity_min":1,
+									"ws_rule_number":1,
+									"is_selected":0},
+									properties:[
+										{  "id":"b4aca97983db90a346429bacf1a6b816",
+										   "name":"Màu sắc",
+										   "values":[
+												{
+												"id":"b4aca97983db90a346429bacf1a6b816",
+												"property_value_id":"1270375",
+												"value":"Màu đen",
+												"type":"0",
+												"type_value":null
+												},
+												{
+												"id":"b4aca97983db90a346429bacf1a6b816",
+												"property_value_id":"1270376",
+												"value":"Màu hồng",
+												"type":"0",
+												"type_value":null
+												}
+											]
+										},
+										{
+											"id":"ae8ab37856a6fed9400b1257d6f2da4b",
+											"name":"Size ",
+											"values":[
+											{
+												"id":"ae8ab37856a6fed9400b1257d6f2da4b",
+												"property_value_id":"1270377",
+												"value":"Freesize",
+												"type":"0",
+												"type_value":null
+											}
+											]
+										}
+									],
+									priceRanges:[
+										{
+											"quantity":1,
+											"price":145000
+										}
+									],
+									skus: [
+										{
+											"id":1292783,
+											"name":"Màu đen&gt;Freesize",
+											"price":0,
+											"quantity":500,
+											"quantity_min":0,
+											"quantity_max":0,
+											"selected":0,
+											"properties":[
+													{
+													"id":"b4aca97983db90a346429bacf1a6b816",
+													"value_id":1270375
+													},
+													{
+													"id":"ae8ab37856a6fed9400b1257d6f2da4b",
+													"value_id":1270377
+													}
+												]
+										},
+										{
+											"id":1292784,
+											"name":"Màu hồng&gt;Freesize",
+											"price":0,
+											"quantity":500,
+											"quantity_min":0,
+											"quantity_max":0,
+											"selected":0,
+											"properties":[
+												{
+													"id":"b4aca97983db90a346429bacf1a6b816",
+													"value_id":1270376
+												},
+												{
+													"id":"ae8ab37856a6fed9400b1257d6f2da4b",
+													"value_id":1270377}
+												]
+										}
+									]
+								}
+						)
+					 });
+				  </script>
                   <div class="sku-summary col-xs-4 col-sm-4">
                      <div class="summary">
                         <ul class="sku-items"></ul>

@@ -1,10 +1,10 @@
-<?php
+<?php /*
 	if(isset($list_product) && (count($list_product) > 0)){
 			$listproducts = $list_product;
 	}
 	if(isset($shop_detail) && (count($shop_detail) > 0)){
 			$shop = $shop_detail;
-	}
+	} */
 ?>
 <div class="container p-full">
   <div class="container page-site-width">
@@ -13,7 +13,7 @@
         <div class="widget-shop-info-v2">
           <div class="content">
             <h5 class="brand-name">
-              <a class="url-shop" href="#" target="_blank"><?php echo $shop['name'];?></a>            
+              <a class="url-shop" href="#" target="_blank"><?php echo $shop_detail['name'];?></a>            
             </h5>
             <div class="shop-status">
               <span class="label label-success">Kinh doanh hộ cá thể</span>
@@ -30,13 +30,17 @@
                 </div>
               </div>
               <div class="desc">
+<<<<<<< HEAD
+                <span>Đang bán: </span> <?php echo count($list_product);?> mặt hàng
+=======
                 <span>Đang bán: </span> <?php if(isset($listproducts)){echo count($listproducts);} ?> mặt hàng
+>>>>>>> 273f7a3a7cfa99e22587acb3a944bdcfbeeaf276
               </div>
               <div class="desc">
                 <span>Loại hình:</span> Shop                
               </div>
               <div class="desc">
-                <span>Địa chỉ:</span> <?php echo $shop['address'];?>               
+                <span>Địa chỉ:</span> <?php echo $shop_detail['address'];?>               
               </div>
             </div>
             <div class="btn-shop">
@@ -71,24 +75,33 @@
               <div class="title">SẢN PHẨM BÁN CHẠY</div>
             </div>
             <div class="wpc-panel-body">
+<<<<<<< HEAD
+			<?php if(isset($shop_detail['top_sales']) && count($shop_detail['top_sales'])>0 ){
+			foreach($shop_detail['top_sales'] as $key=>$top_sale){ ?>
+=======
 			<?php 
 			if(isset($listproducts)){
 			foreach($listproducts as $key=>$product){?>
+>>>>>>> 273f7a3a7cfa99e22587acb3a944bdcfbeeaf276
               <div class="product-list-vertical">
-                <a target="_blank" href="<?php echo site_url().url_title(cleanVietnamese($product['title']),'-',true).'-i'.$product['id'];?>" title="<?php echo $product['title']; ?>">
+                <a target="_blank" href="<?php echo site_url().url_title(cleanVietnamese($top_sale['title']),'-',true).'-i'.$top_sale['id'];?>" title="<?php echo $top_sale['title']; ?>">
                 <span class="responsive-img">
                 <img class="media-object lazy"
-                  src="<?php echo $product['image']; ?>"
-                  alt=<?php echo $product['title']; ?>/>
+                  src="<?php echo $top_sale['image']; ?>"
+                  alt=<?php echo $top_sale['title']; ?> />
                 </span>
                 </a>
                 <div class="media-body m-product-info">
                   <strong class="price">
-                  <?php echo $product['vn_price']; ?> đ </strong>
-                  <a class="capital" href="<?php echo site_url().url_title(cleanVietnamese($product['title']),'-',true).'-i'.$product['id'];?>" title=" <?php echo $product['title']; ?>" target="_blank"><?php echo $product['title']; ?></a>        
+                  <?php echo number_format($top_sale['vn_price']); ?> đ </strong>
+                  <a class="capital" href="<?php echo site_url().url_title(cleanVietnamese($top_sale['title']),'-',true).'-i'.$top_sale['id'];?>" title=" <?php echo $top_sale['title']; ?>" target="_blank"><?php echo $top_sale['title']; ?></a>        
                 </div>
               </div>
+<<<<<<< HEAD
+			<?php } } ?>  
+=======
 			<?php } }?>  
+>>>>>>> 273f7a3a7cfa99e22587acb3a944bdcfbeeaf276
             </div>
           </div>
         </div>
@@ -101,7 +114,7 @@
             <div class="shop-filter clearfix well">
               <div class="shop-title">
                 <div class="shop-category-title">
-                  <?php echo $shop['name'];?>            
+                  <?php echo $shop_detail['name'];?>            
                 </div>
                 <div class="shop-total-product">
                   Có <strong><?php echo count($list_product);?></strong> kết quả được tìm thấy
@@ -109,23 +122,53 @@
               </div>
               <form action="" method="get">
                 <div class="search-text-box pull-left">
-                  <input type="text" class="form-control" name="keyword" value="" placeholder="Tìm kiếm danh mục, sản phẩm thuộc Shop...">        
+                  <input type="text" class="form-control" name="filter_title" value="<?php echo isset($_GET['filter_title'])?$_GET['filter_title']:'' ;?>" placeholder="Tìm kiếm danh mục, sản phẩm thuộc Shop...">        
                 </div>
                 <div class="item">
                   <div class="form-filter">
                     <span>Lọc theo giá:</span>
-                    <input type="text" class="form-control" name="priceFrom" value="" placeholder="Từ"> <span>-</span>
-                    <input type="text" class="form-control" name="priceTo" value="" placeholder="Đến"> <button type="submit" class="btn btn-danger">Lọc</button>            
+                    <input type="number" class="form-control" name="filter_startdate_vn_price" value="<?php echo isset($_GET['filter_startdate_vn_price'])?$_GET['filter_startdate_vn_price']:''; ?>" placeholder="Từ">
+					<span>-</span>
+                    <input type="number" class="form-control" name="filter_enddate_vn_price" value="<?php echo isset($_GET['filter_enddate_vn_price'])?$_GET['filter_enddate_vn_price']:''; ?>" placeholder="Đến">
+					<button type="submit" class="btn btn-danger">Lọc</button>
+					<!--<a href="#" class="btn btn-danger" <?php// if((!isset($_GET['filter_title']) or $_GET['filter_title']=='') && (!isset($_GET['filter_startdate_vn_price']) or $_GET['filter_startdate_vn_price']=='') && (!isset($_GET['filter_enddate_vn_price']) or $_GET['filter_enddate_vn_price']=='') ){ echo 'style="display:none;"'; }?> >Xóa</a>-->
                   </div>
                 </div>
+				<div class="item" style="float: right;">
+					<div class="dropdown">
+						<button class="btn btn-default dropdown-toggle form-sort-dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Sản phẩm mới nhất
+							<i class="fa fa-sort-desc"></i>
+						</button>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="<?php echo current_url().'?name=xuongquanaochuyensi&amp;sortType=desc&amp;sort=product_id';?>">Sản phẩm mới nhất</a>
+							</li>
+							<li>
+								<a href="<?php echo current_url().'?name=xuongquanaochuyensi&amp;sortType=desc&amp;sort=count_sold';?>">Sản phẩm bán chạy</a>
+							</li>
+							<li>
+								<a href="<?php echo current_url().'?name=xuongquanaochuyensi&amp;sortType=desc&amp;sort=price';?>">Giá giảm dần</a>
+							</li>
+							<li>
+								<a href="<?php echo current_url().'?name=xuongquanaochuyensi&amp;sortType=asc&amp;sort=price';?>">Giá tăng dần</a>
+							</li>
+						</ul>
+					</div>
+				</div>
               </form>
             </div>
           </div>
         </div>
         <div id="w0" class="list-view clearfix">
+<<<<<<< HEAD
+		<?php if(isset($list_product) && count($list_product)>0 ){
+		foreach($list_product as $key=>$product){?>
+=======
 		<?php 
 		if(isset($listproducts)){
 		foreach($listproducts as $key=>$product){?>
+>>>>>>> 273f7a3a7cfa99e22587acb3a944bdcfbeeaf276
           <div class="col-xs-3" data-key="0">
             <div class="product-items product-shop-detail">
               <a target="_blank" href="<?php echo site_url().url_title(cleanVietnamese($product['title']),'-',true).'-i'.$product['id'];?>" class="responsive-img img-featured">
@@ -157,8 +200,17 @@
 			  </h4>
             </div>
           </div>
+<<<<<<< HEAD
+		<?php } } else{ ?>
+		  <div class="empty">Không tìm thấy kết quả nào.</div>
+		<?php } ?>
+=======
 		<?php }} ?>  
+>>>>>>> 273f7a3a7cfa99e22587acb3a944bdcfbeeaf276
         </div>
+		<div class="text-center">
+			<?php echo $this->pagination->create_links();?>
+		</div>
       </div>
     </div>
   </div>
