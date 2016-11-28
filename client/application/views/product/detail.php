@@ -1,9 +1,3 @@
-<?php 
-   if(isset($shop_detail)){
-    $shop = $shop_detail;
-   }
-
-   ?>
 <div class="container p-full">
    <div class="product-item clearfix">
       <div class="product-detail-col-left">
@@ -188,8 +182,16 @@
          <!-- Form đặt mua -->
          <div class="row">
             <div class="col-xs-12 col-sm-12" id="item-order-form" data-attr-id="1052825">
-               <div class="sku-select">
+            
+			   <div class="sku-select">
+				
                   <div class="sku-table col-xs-8 col-sm-8 item-select-sku">
+				  <div class="item-select-property-list">
+					 
+				  </div>
+				  <div class="item-select-property-table">
+				  </div>
+				  <?php /*
                      <?php if(isset($product_detail) && !empty($product_detail)){
 						 print_r($product_detail);
                         foreach($product_detail as $d_key => $detail){
@@ -264,10 +266,52 @@
 					} 
 				  }
 				  ?>
+				   <?php */ ?>
 				  </div>
-				  <script>
+				 
+				  
+                  <div class="sku-summary col-xs-4 col-sm-4">
+                     <div class="summary">
+                        <ul class="sku-items"></ul>
+                        <div class="total">
+                           <p>
+                              <span class="s-name">Số lượng:</span>
+                              <span class="s-quantity">
+                              <b class="quantity txtTotalQuantity">0</b> chiếc</span>
+                           </p>
+                           <p>
+                              <span class="s-name">Tổng tiền:</span>
+                              <span class="s-quantity">
+                              <b class="total-price txtTotalMoney">0</b>đ
+                              </span>
+                           </p>
+                        </div>
+                     </div>
+                     <form id="frm-add-cart" action="<?php echo site_url('cart/addToCart');?>" method="post">
+                        <!--<input type="hidden" name="pid" value="<?php echo $product['id']; ?>">
+                        <input type="hidden" name="name" value="<?php echo $product['title']; ?>">
+                        <input type="hidden" name="image" value="<?php echo $product['image']; ?>">
+                        <input type="hidden" name="link" value="<?php echo $product['link']; ?>">
+                        <input type="hidden" name="price" value="<?php echo number_format($product['vn_price']); ?>">
+                        <input type="hidden" name="title" value="<?php echo $product['title']; ?>">
+                        <input type="hidden" name="image" value="<?php echo $product['image']; ?>">
+                        <input type="hidden" name="link" value="<?php echo $product['link']; ?>">
+                        <input type="hidden" name="price" value="<?php echo $product['vn_price']; ?>">
+                        <input type="hidden" name="sid" value="<?php echo $product['sid']; ?>">
+                        <input type="hidden" name="qty" class="total_qty" value="">-->
+                        <input type="submit" class="hz-btn hz-btn-red hz-btn-block hz-btn-uppercase hz-btn-bold btn-add-cart" value="Thêm vào giỏ hàng" />                            
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+		 <script>
 					 $(function() {
-							$('#item-order-form').itemOrderForm(
+						 var product_info=<?php echo json_encode($product) ?>;
+						 console.log("product_info",product_info);
+						$('#item-order-form').itemOrderForm(product_info);
+						 
+							/*$('#item-order-form').itemOrderForm(
 								{product:
 									{"id":1073716,
 									"type":2,
@@ -357,44 +401,10 @@
 										}
 									]
 								}
-						)
+						) */
+						
 					 });
-				  </script>
-                  <div class="sku-summary col-xs-4 col-sm-4">
-                     <div class="summary">
-                        <ul class="sku-items"></ul>
-                        <div class="total">
-                           <p>
-                              <span class="s-name">Số lượng:</span>
-                              <span class="s-quantity">
-                              <b class="quantity txtTotalQuantity">0</b> chiếc</span>
-                           </p>
-                           <p>
-                              <span class="s-name">Tổng tiền:</span>
-                              <span class="s-quantity">
-                              <b class="total-price txtTotalMoney">0</b>đ
-                              </span>
-                           </p>
-                        </div>
-                     </div>
-                     <form id="frm-add-cart" action="<?php echo site_url('cart/addToCart');?>" method="post">
-                        <input type="hidden" name="pid" value="<?php echo $product['id']; ?>">
-                        <input type="hidden" name="name" value="<?php echo $product['title']; ?>">
-                        <input type="hidden" name="image" value="<?php echo $product['image']; ?>">
-                        <input type="hidden" name="link" value="<?php echo $product['link']; ?>">
-                        <input type="hidden" name="price" value="<?php echo number_format($product['vn_price']); ?>">
-                        <input type="hidden" name="title" value="<?php echo $product['title']; ?>">
-                        <input type="hidden" name="image" value="<?php echo $product['image']; ?>">
-                        <input type="hidden" name="link" value="<?php echo $product['link']; ?>">
-                        <input type="hidden" name="price" value="<?php echo $product['vn_price']; ?>">
-                        <input type="hidden" name="sid" value="<?php echo $product['sid']; ?>">
-                        <input type="hidden" name="qty" class="total_qty" value="">
-                        <input type="submit" class="hz-btn hz-btn-red hz-btn-block hz-btn-uppercase hz-btn-bold btn-add-cart" value="Thêm vào giỏ hàng" />                            
-                     </form>
-                  </div>
-               </div>
-            </div>
-         </div>
+			 </script>
          <!-- END Form đặt mua -->
          <div class="product-content-big clearfix">
             <div class="product-content-left">
@@ -537,7 +547,7 @@
                   <div class="title">Sản phẩm mới được bán</div>
                </div>
                <div class="wpc-panel-body">
-                  <?php foreach($newProducts as $newProduct){ ?>
+                  <?php  foreach($newProducts as $newProduct){ ?>
                   <div class="product-list-vertical">
                      <a target="_blank" href="<?php echo site_url('product').'/detail/'.$newProduct['slug'];?>" title="">
                      <span class="responsive-img">

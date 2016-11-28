@@ -7,9 +7,6 @@ class Shop_model extends MY_Model
  
     private $table_shop = 'shops';
     private $table_product = 'products';
-
-    private $table_shop = 'vt_shop';
-    private $table_product = 'vt_product';
     private $table_order_item = 'vt_order_item';
 
 	function findShop($params_where){

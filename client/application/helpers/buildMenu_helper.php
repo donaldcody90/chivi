@@ -22,7 +22,7 @@ function buildMenu(){
 	$CI =& get_instance();
 	
 	$CI->db->select ( '*' );
-	$CI->db->from('vt_category');
+	$CI->db->from('vt_categories');
 	$cat_list = $CI->db->get();
 	$cat_list1 = $cat_list->result_array();
 	
