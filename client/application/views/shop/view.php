@@ -30,11 +30,11 @@
                 </div>
               </div>
               <div class="desc">
-<<<<<<< HEAD
+ 
                 <span>Đang bán: </span> <?php echo count($list_product);?> mặt hàng
-=======
+ 
                 <span>Đang bán: </span> <?php if(isset($listproducts)){echo count($listproducts);} ?> mặt hàng
->>>>>>> 273f7a3a7cfa99e22587acb3a944bdcfbeeaf276
+ 
               </div>
               <div class="desc">
                 <span>Loại hình:</span> Shop                
@@ -75,14 +75,14 @@
               <div class="title">SẢN PHẨM BÁN CHẠY</div>
             </div>
             <div class="wpc-panel-body">
-<<<<<<< HEAD
+ 
 			<?php if(isset($shop_detail['top_sales']) && count($shop_detail['top_sales'])>0 ){
 			foreach($shop_detail['top_sales'] as $key=>$top_sale){ ?>
-=======
+ 
 			<?php 
 			if(isset($listproducts)){
 			foreach($listproducts as $key=>$product){?>
->>>>>>> 273f7a3a7cfa99e22587acb3a944bdcfbeeaf276
+ 
               <div class="product-list-vertical">
                 <a target="_blank" href="<?php echo site_url().url_title(cleanVietnamese($top_sale['title']),'-',true).'-i'.$top_sale['id'];?>" title="<?php echo $top_sale['title']; ?>">
                 <span class="responsive-img">
@@ -97,11 +97,11 @@
                   <a class="capital" href="<?php echo site_url().url_title(cleanVietnamese($top_sale['title']),'-',true).'-i'.$top_sale['id'];?>" title=" <?php echo $top_sale['title']; ?>" target="_blank"><?php echo $top_sale['title']; ?></a>        
                 </div>
               </div>
-<<<<<<< HEAD
+ 
 			<?php } } ?>  
-=======
+ 
 			<?php } }?>  
->>>>>>> 273f7a3a7cfa99e22587acb3a944bdcfbeeaf276
+ 
             </div>
           </div>
         </div>
@@ -161,14 +161,14 @@
           </div>
         </div>
         <div id="w0" class="list-view clearfix">
-<<<<<<< HEAD
+ 
 		<?php if(isset($list_product) && count($list_product)>0 ){
 		foreach($list_product as $key=>$product){?>
-=======
+ 
 		<?php 
 		if(isset($listproducts)){
 		foreach($listproducts as $key=>$product){?>
->>>>>>> 273f7a3a7cfa99e22587acb3a944bdcfbeeaf276
+ 
           <div class="col-xs-3" data-key="0">
             <div class="product-items product-shop-detail">
               <a target="_blank" href="<?php echo site_url().url_title(cleanVietnamese($product['title']),'-',true).'-i'.$product['id'];?>" class="responsive-img img-featured">
@@ -200,13 +200,13 @@
 			  </h4>
             </div>
           </div>
-<<<<<<< HEAD
+ 
 		<?php } } else{ ?>
 		  <div class="empty">Không tìm thấy kết quả nào.</div>
 		<?php } ?>
-=======
+ 
 		<?php }} ?>  
->>>>>>> 273f7a3a7cfa99e22587acb3a944bdcfbeeaf276
+ 
         </div>
 		<div class="text-center">
 			<?php echo $this->pagination->create_links();?>
