@@ -11,10 +11,10 @@ class Category extends CI_Controller {
 	
 	// Show all product in one Category
 	public function index($cat_id){
-		//$cat_id = $this->input->get('cat_id'); 
+		
 		$listCategory= $this->category_model->getCategory(null, $is_list= true);
-		$listCategory1= buildTree($listCategory, 8);
-		$listCategory3= $this->category_model->getCategoryTreeForParentId($cat_id);
+		$listCategory1= buildTree($listCategory, $cat_id);
+		
 		$listCatId= array();
 		if(isset($listCategory1) && $listCategory1!= array('')){
 			foreach($listCategory1 as $cat){
@@ -32,13 +32,34 @@ class Category extends CI_Controller {
 			}
 		}
 		
-		$param= array('cat_id'=>$cat_id);
-		$list_product = $this->category_model->getAllProduct($param,$listCatId);
-		$abc= $this->category_model->getShopProductTotal(1);
-		print_r($list_product);
-		//print_r($listCategory1);
-		$data['data']['list_product'] = $list_product;
+		$listSubCat=array();
+		if( $listCatId!=array() ){
+			$listSubCat= $this->category_model->getSubCategories($listCatId);
+		}
+		
+		array_push($listCatId, $cat_id);
+		
+		$sort_field= $this->input->get('sort');
+		$sort_type= $this->input->get('sortType');
+		$filter= vst_filterData(
+				array(),
+				array('filter_startdate_vn_price', 'filter_enddate_vn_price'),
+				array('enddate_vn_price'=>'vt_product', 'startdate_vn_price'=>'vt_product')
+			);
+		$list_product_total=count( $this->category_model->getAllProduct($listCatId, $filter) );
+		$per_page= 40;
+		$limit= $per_page;
+		$start= $this->input->get('page');
+		$config= vst_Pagination($list_product_total, $per_page);
+		$this->pagination->initialize($config);
+		
+		$list_product = $this->category_model->getAllProduct($listCatId, $filter, $sort_field, $sort_type, $limit, $start);
+		//print_r($listSubCat);
+		$data['list_product']['data'] = $list_product;
+		$data['list_product']['total'] = $list_product_total;
+		$data['list_subcat'] = $listSubCat;
 		$data['template'] = 'category/category';
+		print_r($listCategory1);
 		$this->load->view('layout/home', $data);
 	}
 	

@@ -205,8 +205,8 @@
 }
 
 .shop-filter .search-text-box input.form-control {
-    width: 398px;
-    background-image: url("../../images/v2/shop/find.png");
+    width: 399px;
+    background-image: url("../images/find.png");
     background-repeat: no-repeat;
     background-position: 372px 8px;
 }
