@@ -17,10 +17,11 @@ class Shop_model extends MY_Model
         return $shop;
     }
 	
-	function getAllProduct($param=null, $filter=null, $limit=0, $start=0){
+	function getAllProduct($param=null, $filter=array(), $limit=0, $start=0){
+		vst_buildFilter($filter);
 		$this->db->select ( '*' );
 		$this->db->from($this->table_product);
-		vst_buildFilter($filter);
+		
 		if($param){
 			$this->db->where($param);
 		}
