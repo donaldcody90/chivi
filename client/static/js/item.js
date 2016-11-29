@@ -22,6 +22,67 @@
             }
         });
     }
+	
+	
+	hzDialogInit = function () {
+            if ($('.hz-dialog').length === 0) {
+                $('body').append('<div class="hz-dialog" title=""></div>');
+            }
+            $("body").on('click', '.btn-dialog-close', function () {
+                $(this).closest(".hz-dialog").dialog('close');
+            }).on('click', '.btn-redirect-cart', function () {
+                $(this).closest(".hz-dialog").dialog('close');
+            });
+            return $('.hz-dialog');
+        };
+		
+    hzAlert = function (title, msg) {
+            var dialog = hzDialogInit();
+            dialog.html(msg).dialog({
+                title: title,
+                resizable: false,
+                modal: true,
+                width: 400,
+                dialogClass: 'fixed-dialog',
+                show: {
+                    effect: "fade",
+                    duration: 200
+                },
+                buttons: {
+                    close: {
+                        text: 'Đóng',
+                        class: 'btn hz-btn-warning btn-sm',
+                        click: function () {
+                            $(this).dialog('close');
+                        }
+                    }
+                }
+            });
+        };
+    
+	hzConfirm =function (title, msg, buttons) {
+            var dialog = hzDialogInit();
+            dialog.attr('title', title)
+                .html(msg)
+                .dialog({
+                    title: title,
+                    resizable: false,
+                    modal: true,
+                    width: 400,
+                    dialogClass: 'fixed-dialog',
+                    show: {
+                        effect: "fade",
+                        duration: 200
+                    },
+                    buttons: buttons
+                });
+        };
+		
+    hzPrompt = function () {
+
+    };
+	
+	
 })(jQuery, jQuery(window));
 
 /* build order FORM */
@@ -345,60 +406,7 @@ $.fn.itemOrderForm = function (opt) {
         };
 
 		
-		hzDialogInit = function () {
-            if ($('.hz-dialog').length === 0) {
-                $('body').append('<div class="hz-dialog" title=""></div>');
-            }
-            $("body").on('click', '.btn-dialog-close', function () {
-                $(this).closest(".hz-dialog").dialog('close');
-            }).on('click', '.btn-redirect-cart', function () {
-                $(this).closest(".hz-dialog").dialog('close');
-            });
-            return $('.hz-dialog');
-        };
-        hzAlert = function (title, msg) {
-            var dialog = hzDialogInit();
-            dialog.html(msg).dialog({
-                title: title,
-                resizable: false,
-                modal: true,
-                width: 400,
-                dialogClass: 'fixed-dialog',
-                show: {
-                    effect: "fade",
-                    duration: 200
-                },
-                buttons: {
-                    close: {
-                        text: 'Đóng',
-                        class: 'btn hz-btn-warning btn-sm',
-                        click: function () {
-                            $(this).dialog('close');
-                        }
-                    }
-                }
-            });
-        };
-        hzConfirm =function (title, msg, buttons) {
-            var dialog = hzDialogInit();
-            dialog.attr('title', title)
-                .html(msg)
-                .dialog({
-                    title: title,
-                    resizable: false,
-                    modal: true,
-                    width: 400,
-                    dialogClass: 'fixed-dialog',
-                    show: {
-                        effect: "fade",
-                        duration: 200
-                    },
-                    buttons: buttons
-                });
-        };
-        hzPrompt = function () {
-
-        };
+		
 		
 		
 		
@@ -446,7 +454,7 @@ $.fn.itemOrderForm = function (opt) {
                                 } else {
                                     hzAlert('Giỏ hàng', res.message);
                                 }
-                            });
+                            },'JSON');
                         }
                     } else {
                         error = 'Quý khách vui lòng đặt mua từ ' + options.product.quantity_min + ' sản phẩm trở lên.';
@@ -460,7 +468,9 @@ $.fn.itemOrderForm = function (opt) {
 
             if (error !== null) {
                 hzAlert('Giỏ hàng', error);
-                btnAddToCart.unlock();
+				btnAddToCart.unlock();
+				return false;
+                
             }
 
         });

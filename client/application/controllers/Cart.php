@@ -33,8 +33,10 @@ class Cart extends CI_Controller {
 	
 	// Detail Order
 	public function addToCart(){
-		var_dump($this->input->post());
-		die('xxx');
+		//var_dump($this->input->post());
+		$rs= array('status'=>'success','message'=>'Sản phẩm quý khách chọn mua đã được thêm vào giỏ hàng thành công.');
+		echo json_encode($rs);
+		die;
 		if (is_logged_in()) { 
 		$array_product = array(
 			'id' => $this->input->post('pid'),
