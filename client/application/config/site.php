@@ -30,7 +30,9 @@ $config['site'] = array(
 	// Default scripts to embed at page head / end
 	'scripts' => array(
 		'head'	=> array(
-			'static/js/jquery-1.9.1.min.js',
+			'static/js/jquery-1.11.1.js',
+			'static/js/jquery-ui.js',
+			
 			'static/js/ajax_handle.js',
 			'static/js/custom.js',
 			'static/js/skype.js',
@@ -38,7 +40,7 @@ $config['site'] = array(
 				
 		),
 		'foot'	=> array(
-			'static/js/jquery-min.js',
+			
 			'static/js/bootstrap.min.js',
 			'static/js/profile.js',
 			'static/js/slick.min.js',

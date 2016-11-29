@@ -33,7 +33,8 @@ class Cart extends CI_Controller {
 	
 	// Detail Order
 	public function addToCart(){
-		
+		var_dump($this->input->post());
+		die('xxx');
 		if (is_logged_in()) { 
 		$array_product = array(
 			'id' => $this->input->post('pid'),
@@ -87,6 +88,7 @@ class Cart extends CI_Controller {
 		}
 		 
 		$result = $this->cart_model->updateCartData($cartdata_arr,$current_customer['id']);
+		
 		if($result){
 			message_flash('Bạn đã thêm thành công!','success');
 			redirect(site_url('cart'));

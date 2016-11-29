@@ -344,6 +344,66 @@ $.fn.itemOrderForm = function (opt) {
             return html;
         };
 
+		
+		hzDialogInit = function () {
+            if ($('.hz-dialog').length === 0) {
+                $('body').append('<div class="hz-dialog" title=""></div>');
+            }
+            $("body").on('click', '.btn-dialog-close', function () {
+                $(this).closest(".hz-dialog").dialog('close');
+            }).on('click', '.btn-redirect-cart', function () {
+                $(this).closest(".hz-dialog").dialog('close');
+            });
+            return $('.hz-dialog');
+        };
+        hzAlert = function (title, msg) {
+            var dialog = hzDialogInit();
+            dialog.html(msg).dialog({
+                title: title,
+                resizable: false,
+                modal: true,
+                width: 400,
+                dialogClass: 'fixed-dialog',
+                show: {
+                    effect: "fade",
+                    duration: 200
+                },
+                buttons: {
+                    close: {
+                        text: 'Đóng',
+                        class: 'btn hz-btn-warning btn-sm',
+                        click: function () {
+                            $(this).dialog('close');
+                        }
+                    }
+                }
+            });
+        };
+        hzConfirm =function (title, msg, buttons) {
+            var dialog = hzDialogInit();
+            dialog.attr('title', title)
+                .html(msg)
+                .dialog({
+                    title: title,
+                    resizable: false,
+                    modal: true,
+                    width: 400,
+                    dialogClass: 'fixed-dialog',
+                    show: {
+                        effect: "fade",
+                        duration: 200
+                    },
+                    buttons: buttons
+                });
+        };
+        hzPrompt = function () {
+
+        };
+		
+		
+		
+		
+		
         var form = $('#frm-add-cart');
         var error = null;
         var btnAddToCart = $('.btn-add-cart', itemOrderForm);
@@ -382,9 +442,9 @@ $.fn.itemOrderForm = function (opt) {
                                         '</div>' +
                                         '</div>' +
                                         '</div>';
-                                    $.hzConfirm('Giỏ hàng', res.message + '<p>* Lưu ý: Quý khách nên đặt mua nhiều sản phẩm cùng một shop, trong cùng một đơn hàng để được phí vận chuyển rẻ hơn!</p>' + newHtml, {});
+                                    hzConfirm('Giỏ hàng', res.message + '<p>* Lưu ý: Quý khách nên đặt mua nhiều sản phẩm cùng một shop, trong cùng một đơn hàng để được phí vận chuyển rẻ hơn!</p>' + newHtml, {});
                                 } else {
-                                    $.hzAlert('Giỏ hàng', res.message);
+                                    hzAlert('Giỏ hàng', res.message);
                                 }
                             });
                         }
@@ -399,7 +459,7 @@ $.fn.itemOrderForm = function (opt) {
             }
 
             if (error !== null) {
-                $.hzAlert('Giỏ hàng', error);
+                hzAlert('Giỏ hàng', error);
                 btnAddToCart.unlock();
             }
 

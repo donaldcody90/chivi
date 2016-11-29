@@ -8,12 +8,7 @@ class Cart_model extends MY_Model
      private $table_seller = 'order_sellers';
      private $table_order_item = 'order_items';
      private $table_carts = 'carts';
-
-     function __construct()
-     {
-          parent::__construct();
-     }
-	
+ 
 	 // Lay thong tin tu bang Cart
 	 function getCartData($params_where)
 	 {
@@ -39,7 +34,8 @@ class Cart_model extends MY_Model
 			$cid=$currentCustomer['id'];
 		}
 		
-		$is_check=$this->haveCartData($cid);
+		$is_check=$this->haveCartData(array('cid'=>$cid));
+		
 		if($is_check)
 		{
 			$data=array('cartdata'=>serialize($cartData));
@@ -65,11 +61,13 @@ class Cart_model extends MY_Model
 	 }
 	 
 	 // Lấy thông tin trường cartdata
-	 function haveCartData($cid)
+	 function haveCartData($params_where)
 	 {
-		 $sql="SELECT * FROM ".$this->table_carts." WHERE cid=".$cid;
-		 $query = $this->db->query($sql);
-		 return $query->result_array();
+		$cartData = $this->_getwhere(array(
+                    'table'        => $this->table_carts,
+                    'param_where'  =>$params_where
+        ));
+		return $cartData;
 	 }
 	 
 	 // Tạo order
