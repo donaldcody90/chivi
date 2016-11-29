@@ -26,6 +26,7 @@
 			
             <tbody>
 			<?php foreach($array_product as $key=>$value){ ?>
+			
 			  <tr class="tr_seller">
 				<td colspan="5">
 					<span>Người Bán:</span>
@@ -33,10 +34,10 @@
 				</td>
 			  </tr>
 			  <?php foreach($value['items'] as $k=>$v){?>
-			  
+			 
               <tr class="sku-items">
 				<td>
-					<input class="product_checkbox" type="checkbox" class="check_box" name="checkbox[]" value="<?php echo $value['sid'].'{:::}'.$v['id'];?>">
+					<input class="product_checkbox" type="checkbox" class="check_box" name="checkbox[]" value="<?php echo $value['sid'].'{:::}'.$k ;?>">
 				</td>
                 <td>
                   <div class="media">
@@ -54,16 +55,23 @@
 					  </strong>
                       <div class="p-info clearfix">
                         <div class="property-list">
-                          <div class="f">
-                            <span class="pfl">màu sắc:</span>
+						<?php
+						 
+							foreach($v['attrs']['properties'] as $k1 => $attr){
+								$property_title = vst_getProperty($attr['id']);
+								$property_value = vst_getPropertyValue($attr['value_id']);
+							?>
+							<div class="f">
+                            <span class="pfl"><?php echo $property_title['name'];?></span>
                             <strong
-                              class="pfv">đen</strong>
-                          </div>
-                          <div class="f">
-                            <span class="pfl">size:</span>
-                            <strong
-                              class="pfv">35</strong>
-                          </div>
+                              class="pfv"><?php echo $property_value['value'];?></strong>
+							</div>
+								
+						<?php		
+							}
+						?>
+						
+                         
                         </div>
                       </div>
                     </div>

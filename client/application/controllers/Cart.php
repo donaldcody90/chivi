@@ -9,6 +9,7 @@ class Cart extends CI_Controller {
 		$this->load->model("cart_model");
 		$this->load->model("customers_model");
 		$this->load->model("shop_model");
+		$this->load->model("product_model");
 	}
 
 	public function index(){
@@ -17,7 +18,7 @@ class Cart extends CI_Controller {
 		$params_where=array('cid'=>$cid);
 		
 		$data['array_product'] = $this->cart_model->getCartData($params_where);
-		
+		 
 		$bill_total=null;
 		foreach($data['array_product'] as $data2){
 			foreach($data2['items'] as $data3){
@@ -33,75 +34,93 @@ class Cart extends CI_Controller {
 	
 	// Detail Order
 	public function addToCart(){
-		//var_dump($this->input->post());
-		$rs= array('status'=>'success','message'=>'Sản phẩm quý khách chọn mua đã được thêm vào giỏ hàng thành công.');
-		echo json_encode($rs);
-		die;
-		if (is_logged_in()) { 
-		$array_product = array(
-			'id' => $this->input->post('pid'),
-			'title' => $this->input->post('title'),
-			'image' => $this->input->post('image'),
-			'link' => $this->input->post('link'),
-			'price' => $this->input->post('price'),
-			'qty' => $this->input->post('qty'),
-			'sid' => $this->input->post('sid'),
-			'attrs' => $this->input->post('submitattr[]'),
-		);
+		$attr_array = $this->input->post();
+		if($attr_array){
+		$extra_params = array(
+					'getPriceRange'=>true,
+					'getSkus'=>true,
+					);
+		$p_info = $this->product_model->getProductInfo($attr_array['pid'],$extra_params);
 		
-		$current_customer = vst_getCurrentCustomer();
-		
-		$params_where = array('cid'=>$current_customer['id']);
-		$cartdata_arr = $this->cart_model->getCartData($params_where);
-		
-		if(!empty($cartdata_arr)){
-			
-			if(isset($cartdata_arr[$array_product['sid']]))
-			{
-				if(isset($cartdata_arr[$array_product['sid']]['items'][$array_product['id']]))
-				{
-					$cartdata_arr[$array_product['sid']]['items'][$array_product['id']]['qty'] += $array_product['qty'];
-				}else{
-					$cartdata_arr[$array_product['sid']]['items'][$array_product['id']]=$array_product;	
-				}
-			}else{
-				$shop = $this->shop_model->findShop(array('id'=>$array_product['sid']));
-				$sid = $array_product['sid'];
-				$cartdata_arr[$sid] = array(	 
-					'sid' => $array_product['sid'],
-					'shop_name' => $shop['name'],
-					'items' => array(
-					$array_product['id'] => $array_product,	
-					),
-				);
-			}
-		}
-		else
-		{
-			$shop = $this->shop_model->findShop(array('id'=>$array_product['sid']));
-			$sid = $array_product['sid'];
-			$cartdata_arr[$sid] = array(	 
-				'sid' => $array_product['sid'],
-				'shop_name' => $shop['name'],
-				'items' => array(
-				$array_product['id'] => $array_product,	
-				),
-			);
-		}
+		$data = json_decode($attr_array['data'] ,true);
 		 
-		$result = $this->cart_model->updateCartData($cartdata_arr,$current_customer['id']);
+			foreach($data as $key=>$value){
+			 
+				foreach($p_info['skus'] as $k=>$v){
+					if($v['id'] == $value['id']){
+						$attrs = $v;
+					}
+				}
+				 
+				$array_product = array(
+					'id' => $attr_array['pid'],
+					'title' => $p_info['title'],
+					'image' => $attr_array['image'],
+					'link' => $p_info['link'],
+					'price' => $value['price'],
+					'qty' => $value['quantity'],
+					'sid' => $p_info['sid'],
+					'attrs' => $attrs,
+				);
+				 
+				$current_customer = vst_getCurrentCustomer();
+				
+				$params_where = array('cid'=>$current_customer['id']);
+				$cartdata_arr = $this->cart_model->getCartData($params_where);
+				
+				if(!empty($cartdata_arr)){
+					 
+					if(isset($cartdata_arr[$array_product['sid']]))
+					{
+						if(isset($cartdata_arr[$array_product['sid']]['items'][$array_product['id'].$value['id']]['attrs']['id']  ))
+						{
+							 
+							$cartdata_arr[$array_product['sid']]['items'][$array_product['id'].$value['id']]['qty'] += $array_product['qty'];	
+						}else{
+							$cartdata_arr[$array_product['sid']]['items'][$array_product['id'].$value['id']]=$array_product;	
+						}
+					}else{
+						$shop = $this->shop_model->findShop(array('id'=>$array_product['sid']));
+						$sid = $array_product['sid'];
+						$cartdata_arr[$sid] = array(	 
+							'sid' => $array_product['sid'],
+							'shop_name' => $shop['name'],
+							'items' => array(
+							$array_product['id'].$value['id'] => $array_product,	
+							),
+						);
+					}
+				}
+				else
+				{
+					$shop = $this->shop_model->findShop(array('id'=>$array_product['sid']));
+					$sid = $array_product['sid'];
+					$cartdata_arr[$sid] = array(	 
+						'sid' => $array_product['sid'],
+						'shop_name' => $shop['name'],
+						'items' => array(
+						$array_product['id'].$value['id'] => $array_product,	
+						),
+					);
+				}
+				 
+				$result = $this->cart_model->updateCartData($cartdata_arr,$current_customer['id']);
+				
+				if($result){
+					$rs= array('status'=>'success','message'=>'Sản phẩm quý khách chọn mua đã được thêm vào giỏ hàng thành công.');
+					 
+				}else{
+					$rs= array('status'=>'error','message'=>'Đặt hàng không thành công. Vui lòng thử đặt lại sản phẩm!');
+					 
+				}
+				 
+
+			}
+		}else{
+			$rs= array('status'=>'error','message'=>'Đặt hàng không thành công. Vui lòng thử đặt lại sản phẩm!');
+		}
+		echo json_encode($rs);
 		
-		if($result){
-			message_flash('Bạn đã thêm thành công!','success');
-			redirect(site_url('cart'));
-		}else{
-			message_flash('Bạn chưa thêm thành công!','error');
-			redirect(site_url('cart'));
-		}
-		}else{
-			message_flash('Bạn phải đăng nhập để mua hàng!','error');
-			redirect(site_url('auth'));
-		}
 	}
 	
 	
@@ -115,29 +134,26 @@ class Cart extends CI_Controller {
 	
 		if($this->input->post('confirm_order')){
 		$checkbox = $this->input->post('checkbox');
-		//print_r($checkbox);die;
+		 
 			if(count($checkbox)){
-				//$vkt_cart = $this->session->userdata('vkt_cart');
-				
+				 
 				if(!count($vkt_cart)){
 					message_flash('Giỏ hàng trống!','error');
-					//redirect(site_url('cart'));
+					 
 				}
-				
-				
+ 
 				$seller_item_selected=array();
 				foreach($checkbox as $checked_items){
 					$temp=explode('{:::}',$checked_items);
 					$seller_item_selected[$temp[0]]['items'][]=$temp[1];
 				}
-				
+				 
 				if(!count($seller_item_selected))
 				{
 					message_flash('Bạn chưa chọn mua sản phẩm nào!','error');
-					//redirect(site_url('cart'));
+					 
 				}
-				var_dump($seller_item_selected);
-				//$currentCustomer=vst_getCurrentUser();
+				 
 				
 				$username  = $currentCustomer['username'];				
 				$invoiceid = $this->created_invoiceid($username);
@@ -154,6 +170,7 @@ class Cart extends CI_Controller {
 				if($oid){
 					foreach($vkt_cart as $seller_id=>$sellers_info)
 					{
+ 
 						if(isset($seller_item_selected[$seller_id]) && count($seller_item_selected[$seller_id]['items'])){
 							// Insert Item Info
 								$items_selected=$seller_item_selected[$seller_id]['items'];
@@ -165,13 +182,13 @@ class Cart extends CI_Controller {
 										 {
 											 $item_data=array(
 												'oid'=>$oid,
-												'pid'=>$outer_id,
+												'pid'=>$item['id'],
 												//'item_title'=>$item['name'],
 												'item_image'=>$item['image'],
 												//'item_link'=>$item['link'],
 												//'item_price'=>$item['price'],
 												'item_quantity'=>$item['qty'],
-												'item_attrs'=>'',
+												'item_attrs'=>json_encode($item['attrs']),
 												'item_note'=>'',
 												
 											);
@@ -289,7 +306,7 @@ class Cart extends CI_Controller {
 		
 		$qty=$this->input->post('qty');
 		$item_note=$this->input->post('item_note');
-
+		
 		$outer_id=$this->input->post('outer_id');
 		$shop_id=$this->input->post('shop_id');
 		

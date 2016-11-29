@@ -24,25 +24,15 @@ class Order extends CI_Controller {
 		$this->load->view('layout/home', $data);
 	}
 	
-	// Detail Order
+	// List Order
 	public function lists(){
 		$currentCustomer =  vst_getCurrentCustomer();
 		$cid= $currentCustomer['id'];
-		$param=array('vt_order.cid'=>$cid);
+		$param=array('cid'=>$cid);
 		$list_order = $this->order_model->listOrder(array(), 0, 0, $param);
-		$list_order_new= array();
-		//print_r($list_order);
-		foreach($list_order['list'] as $row){
-			$newkey= $row['id'];
-			$list_order_new[$newkey]['invoiceid']=$row['invoiceid'];
-			$list_order_new[$newkey]['create_date']=$row['create_date'];
-			//$list_order_new[$newkey]['seller_name']=$row['seller_name'];
-			//$list_order_new[$newkey]['seller_link']=$row['seller_link'];
-			$list_order_new[$newkey]['status']=$row['status'];
-			$list_order_new[$newkey]['data'][]=$row;
-		}
-		print_r($list_order_new);
-		$data['data']['list_order']=$list_order_new;
+		 var_dump($list_order);
+		 
+		$data['list_orders']=$list_order;
 		$data['template'] = 'order/list';
 		$this->load->view('layout/home', $data);
 	}

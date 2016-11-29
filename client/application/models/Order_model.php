@@ -18,22 +18,10 @@ class Order_model extends MY_Model
 	 // List Order
      function listOrder($filter=array(),$total=0,$start=0, $param){
           vst_buildFilter($filter);
-          $query = $this->db->select 
-			($this->table_orders.'.*,'
-			.$this->table_shops.'.name as shop_name,'.$this->table_shops.'.id as shop_id,'
-			.$this->table_order_items.'.*,'
-			.$this->table_products.'.*,'
-			.$this->table_customers.'.*');
+          $query = $this->db->select($this->table_orders.'.*,');
           $query = $this->db->from($this->table_orders);
-          $query = $this->db->join ($this->table_customers, $this->table_customers.'.id = '.$this->table_orders.'.cid');
-          $query = $this->db->join ($this->table_order_items, $this->table_order_items.'.oid = '.$this->table_orders.'.id');
-          
-          $query = $this->db->join ($this->table_products, $this->table_products.'.id = '.$this->table_order_items.'.pid');
-		  $query = $this->db->join ($this->table_shops, $this->table_shops.'.id = '.$this->table_products.'.sid');
           $query = $this->db->where($param);
-          $query = $this->db->order_by($this->table_orders.'.id', 'desc'); 
-          $query = $this->db->group_by($this->table_shops.'.id', 'desc'); 
-          
+          $query = $this->db->order_by($this->table_orders.'.id', 'desc');          
           $query = $this->db->limit($total, $start);
           $query = $this->db->get();
 
@@ -49,7 +37,7 @@ class Order_model extends MY_Model
                }
           }
 		  */	
-          $results = array( 'list'=> $list,'records'=> $records );
+          $results = array( 'lists'=> $list,'records'=> $records );
           return $results;
      }
 

@@ -216,6 +216,9 @@
                         </div>
                      </div>
                      <form id="frm-add-cart" action="<?php echo site_url('cart/addToCart');?>" method="post">
+						<input type="hidden" name="pid" value="<?php echo $product['id']; ?>">
+						 
+						<input type="hidden" name="image" value="<?php echo $product['image']; ?>">
                         <input type="submit" class="hz-btn hz-btn-red hz-btn-block hz-btn-uppercase hz-btn-bold btn-add-cart" value="Thêm vào giỏ hàng" />                            
                      </form>
                   </div>

@@ -28,6 +28,10 @@
 	}
 	?>
 	<title><?php echo $siteSconfig['title']; ?></title>
+	<script type="text/javascript">
+        var LT_ROOT_URL = '//chivi.vn';
+        var MODULE_ROOT_URL = '//chivi.vn';
+    </script>
   </head>
   <body class="skin-red">
     <div class="wrapper">

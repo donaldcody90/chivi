@@ -82,83 +82,64 @@
 				  
 				  <div id="w1" class="list-view-orders list-view">
 					<div class="item-view" data-key="1004979">
-					<?php foreach($list_order as $key => $row){ ?>
+					 
 					  <div class="order-item">
-						<div class="order-item-header item-header">
-						  ĐH: <a href="<?php echo site_url('order/detail').'/'.$key;?>"><span class="order-id"><?php echo $row['invoiceid'];?></span></a> <span class="order-time-created"><?php echo $row['create_date'];?></span>
-						  Gian hàng: <a class="shop-name" href="<?php echo $row['seller_link'];?>" target="_blank"><?php echo $row['seller_name'];?></a>                    
-						  <div class="pull-right"><?php echo order_status($row['status']);?></div>
-						</div>
+						 
 						<div class="order-item-middle item-middle">
 						  <table class="order-detail full-width">
 							<thead>
 							  <tr class="bg-order-item">
 								<th class="text-center" style="width: 8%;">STT</th>
-								<th class="text-center" style="width: 15%;">Sản phẩm</th>
-								<th class="text-center" style="width: 15%;">Giá</th>
-								<th class="text-center" style="width: 5%;">Số lượng</th>
+								<th class="text-center" style="width: 15%;">Mã đơn</th>
+								<th class="text-center" style="width: 15%;">Ngày đặt</th>
+								<th class="text-center" style="width: 5%;">Số SP</th>
 								<th class="text-center" style="width: 15%;">Thành tiền</th>
+								<th class="text-center" style="width: 15%;"></th>
 							  </tr>
 							</thead>
 							<tbody>
-							<?php $total_price= 0; 
-								foreach($row['data'] as $row_data){ ?>
+							<?php if($list_orders){
+								$stt = 1;
+								foreach($list_orders['lists'] as $key=>$order){
+								echo "<pre>";
+								print_r($order);	
+									
+							?> 
 							  <tr class="">
 								<td class="order-detail-image">
-								  <!-- image -->
-								  <a class="thumbs-product-image responsive-img" href="<?php echo $row_data['item_link'];?>" target="_blank">
-									<img src="<?php echo $row_data['item_image'];?>" alt="">
-								  </a>                            
+								    <?php echo $stt;?>                         
 								</td>
 								<td class="oder-detail-product-info">
-								  <a class="product-name" href="#" target="_blank"><?php echo $row_data['item_title'];?></a>                                                                                
-								  <p style="margin-top: 5px; margin-bottom: 5px; font-weight: bold;">
-									<label>Size</label>:&nbsp;<label>--unknown--</label>
-								  </p>
-								  <p style="margin-top: 5px; margin-bottom: 5px; font-weight: bold;">
-									<label>Màu sắc</label>&nbsp;:<label>--unknown--</label>
-								  </p>
+								   <?php echo $order['invoiceid'];?>
 								</td>
 								<td class="order-detail-price text-price text-bold">
-								  <span><?php echo number_format($row_data['item_price']);?>đ</span>
+								   <?php echo $order['create_date'];?>
 								</td>
 								<td class="order-detail-quantity">
-								  <span><?php echo $row_data['item_quantity'];?></span>
+								 
 								</td>
 								<td class="order-detail-total text-price">
-								  <span><?php echo number_format($row_data['item_price']*$row_data['item_quantity']);?>đ</span>
+								  
+								</td>
+								<td class="order-detail-total text-price">
+									<div class="text-right button-checkout">
+									  <a class=" " href="#" >Hủy đơn</a><br/>
+									  <a class=" " href="#" data-method="post">Chi tiết</a>                                            
+									</div>		
 								</td>
 							  </tr>
-							<?php $total_price+=($row_data['item_price']*$row_data['item_quantity']); 
-								} ?>
+							<?php 
+								$stt++;
+								}
+							}
+							?>
 							</tbody>
 						  </table>
 						</div>
-						<div class="order-item-footer clearfix">
-						  <ul class="pull-right">
-							<li class="label-title">Tiền hàng:</li>
-							<li class="value">
-							  <span
-								class="total-money text-bold text-price"><?php echo number_format($total_price);?>đ</span>
-							</li>
-							<li class="label-title">Phí vận chuyển:</li>
-							<li class="value">
-							  <span
-								class="total-transporting">--unknown--</span>
-							</li>
-							<li class="label-title">Thành tiền:</li>
-							<li class="value">
-							  <span
-								class="final-money text-bold text-price">--unknown--</span>
-							</li>
-						  </ul>
-						</div>
-						<div class="text-right button-checkout">
-						  <a class="btn btn-danger" href="#" style="margin-right: 5px;">Hủy đơn hàng</a>
-						  <a class="btn btn-primary" href="/my-order/payment?id=1004979" data-method="post">Thanh toán đơn hàng</a>                                            
-						</div>
+						
+						
 					  </div>
-					<?php } ?>
+ 
 					</div>
 				  </div>
 				</div>

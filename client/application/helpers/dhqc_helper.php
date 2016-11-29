@@ -16,6 +16,45 @@ if ( ! function_exists('is_logged_in'))
 		}
 	}
 }
+if ( ! function_exists('vst_getPropertyValue'))
+{
+	function vst_getPropertyValue($id) {
+		
+	    $CI =& get_instance();
+		$property_values_table = $CI->db->dbprefix('property_values'); 
+		$CI->db->select("*");
+		$CI->db->from($property_values_table);
+		$CI->db->where(array('property_value_id'=>$id));
+		$query=$CI->db->get();
+		$row=$query->row_array();
+		if($row){
+			return $row;
+		}else{
+			return false;
+		}
+	}
+}
+
+if ( ! function_exists('vst_getProperty'))
+{
+	function vst_getProperty($id) {
+		
+	    $CI =& get_instance();
+		$properties_table = $CI->db->dbprefix('properties'); 
+		$CI->db->select("*");
+		$CI->db->from($properties_table);
+		$CI->db->where(array('id'=>$id));
+		$query=$CI->db->get();
+		$row=$query->row_array();
+		if($row){
+			return $row;
+		}else{
+			return false;
+		}
+	}
+}
+
+
 
 if ( ! function_exists('vst_getShop'))
 {

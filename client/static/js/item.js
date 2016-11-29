@@ -434,7 +434,7 @@ $.fn.itemOrderForm = function (opt) {
                         for (var i = 0; i < options.skus.length; i++) {
                             var sku = options.skus[i];
                             if (sku.selected > 0) {
-                                submitData.push({'id': sku.id, 'quantity': sku.selected});
+                                submitData.push({'id': sku.id, 'quantity': sku.selected,'price':sku.price});
                             }
                         }
 						console.log(submitData);
@@ -445,7 +445,7 @@ $.fn.itemOrderForm = function (opt) {
                                     var newHtml = '<div class="row-option">' +
                                         '<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">' +
                                         '<div class="ui-dialog-buttonset">' +
-                                        '<a href="/shopping-cart" target="_blank" title="Giỏ hàng" class="btn hz-btn-info btn-sm ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only btn-redirect-cart"><span class="ui-button-text">Giỏ hàng</span>  </a>' +
+                                        '<a href="cart" target="_blank" title="Giỏ hàng" class="btn hz-btn-info btn-sm ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only btn-redirect-cart"><span class="ui-button-text">Giỏ hàng</span>  </a>' +
                                         '<button type="button" class="btn hz-btn-primary btn-sm ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only btn-dialog-close" role="button"><span class="ui-button-text">Mua tiếp</span></button>' +
                                         '</div>' +
                                         '</div>' +
