@@ -11,6 +11,7 @@ class Category extends CI_Controller {
 	
 	// Show all product in one Category
 	public function detail($slug, $cat_id){
+		
 		$param=array('id'=>$cat_id);
 		$listCategory= $this->category_model->getCategory($param);
 		if($listCategory['id']== $cat_id){
@@ -19,6 +20,8 @@ class Category extends CI_Controller {
 			}
 			
 			$listCategory0= $this->category_model->getCategory(null, $is_list= true);
+			$breadcrumb= buildBreadcrumb123($listCategory0, 8);
+			
 			$listCategory1= buildTree($listCategory0, $cat_id);
 			
 			$listCatId= array();
@@ -50,7 +53,7 @@ class Category extends CI_Controller {
 			$filter= vst_filterData(
 					array(),
 					array('filter_startdate_vn_price', 'filter_enddate_vn_price'),
-					array('enddate_vn_price'=>'vt_product', 'startdate_vn_price'=>'vt_product')
+					array('enddate_vn_price'=>'vt_products', 'startdate_vn_price'=>'vt_products')
 				);
 			$list_product_total=count( $this->category_model->getAllProduct($listCatId, $filter) );
 			$per_page= 40;

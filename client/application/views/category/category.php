@@ -45,30 +45,23 @@
 	<div class="widget-product-list">
 		<div class="product-filter">
 		  <div class="item ">
-			<a href="<?php echo vst_currentUrl().'?sortType=desc&amp;sort=hot';?>" title="Sản phẩm hot"><i class="glyphicon glyphicon-fire"></i> Sản phẩm hot</a>            
+			<a href="<?php echo current_url().'?sortType=desc&amp;sort=is_featured';?>" title="Sản phẩm hot"><i class="glyphicon glyphicon-fire"></i> Sản phẩm hot</a>            
 		  </div>
 		  <div class="item ">
-			<a href="<?php echo vst_currentUrl().'?sortType=asc&sort=vn_price';?>" title="Giá tăng dần"><i class="glyphicon glyphicon-arrow-up"></i> Giá tăng dần</a>            
+			<a href="<?php echo current_url().'?sortType=asc&sort=vn_price';?>" title="Giá tăng dần"><i class="glyphicon glyphicon-arrow-up"></i> Giá tăng dần</a>            
 		  </div>
 		  <div class="item ">
-			<a href="<?php echo vst_currentUrl().'?sortType=desc&amp;sort=vn_price';?>" title="Giá giảm dần"><i class="glyphicon glyphicon-arrow-down"></i> Giá giảm dần</a>            
+			<a href="<?php echo current_url().'?sortType=desc&amp;sort=vn_price';?>" title="Giá giảm dần"><i class="glyphicon glyphicon-arrow-down"></i> Giá giảm dần</a>            
 		  </div>
 		  <div class="item ">
-			<a href="<?php echo vst_currentUrl().'?sortType=desc&amp;sort=id';?>" title="Sản phẩm mới nhất"><i class="glyphicon glyphicon-star"></i> Sản phẩm mới nhất</a>            
+			<a href="<?php echo current_url().'?sortType=desc&amp;sort=id';?>" title="Sản phẩm mới nhất"><i class="glyphicon glyphicon-star"></i> Sản phẩm mới nhất</a>            
 		  </div>
 		  <div class="item">
 			<form class="form-filter" action="" method="get">
 			  <span>Lọc theo giá:</span>
 			  <input type="text" class="top-filter-input" name="filter_startdate_vn_price" placeholder="Từ">
 			  <span>-</span>
-			  <input type="text" class="top-filter-input" name="filter_enddate_vn_price" placeholder="Đến">                
-			  <select class="select-province" name="">
-				<option value="">-- Lọc theo tỉnh thành --</option>
-				<option value="1">Hà Nội</option>
-				<option value="31">Vĩnh Phúc</option>
-				<option value="41">Bắc Ninh</option>
-				<option value="50">Quảng Ninh</option>
-			  </select>
+			  <input type="text" class="top-filter-input" name="filter_enddate_vn_price" placeholder="Đến">
 			  <button type="submit" class="filter-btn" title="Lọc">Lọc</button>                
 			</form>
 		  </div>

@@ -11,6 +11,7 @@ class Product_model extends MY_Model
     private $table_price_range = 'priceRanges';
     private $table_product_skus = 'product_skus';
     private $table_sku_properties = 'product_sku_properties';
+    private $table_product_images = 'product_images';
 
 	function findProduct($params_where,$is_list=false){
 		$product = $this->_getwhere(array(
@@ -210,5 +211,13 @@ class Product_model extends MY_Model
 		$this->db->from($this->table_attributes);
 		$query= $this->db->get();
 		return $query->result_array();
+	}
+	
+	function getProductImages($param_where, $is_list= true){
+		$this->_getwhere(array(
+			'table'			=>	$this->table_product_images,
+			'param_where'	=>	$param_where,
+			'list'			=>	$is_list
+		));
 	}
 }	

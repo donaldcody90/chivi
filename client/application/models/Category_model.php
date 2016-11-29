@@ -8,16 +8,8 @@ class Category_model extends MY_Model
     private $table_product = 'products';
     private $table_shop = 'shops';
 	
-	// function getShopProductTotal($shop_id){
-		// $this->db->select('*');
-		// $this->db->from($this->db->dbprefix.$this->table_product);
-		// $this->db->join($this->db->dbprefix.$this->table_shop, $this->db->dbprefix.$this->table_product.'.sid = '.$this->db->dbprefix.$this->table_shop.'.id');
-		// $this->db->where($this->db->dbprefix.$this->table_shop.'.id ='.$shop_id);
-		// $query= $this->db->get();
-		// return $query->num_rows();
-	// }
 	
-	function getAllProduct($param=null, $filter=null, $sort_field='id', $sort_type='desc', $limit=0, $start=0){
+	function getAllProduct($param=null, $filter=null, $sort_field='is_featured', $sort_type='desc', $limit=0, $start=0){
 		$result = $this->db->query("SHOW COLUMNS FROM `".$this->db->dbprefix.$this->table_product."` LIKE '".$sort_field."'");
 		$sortField = ($result->num_rows())?$sort_field:'id';
 		$this->db->select( $this->db->dbprefix.$this->table_product.'.id,'.$this->db->dbprefix.$this->table_product.'.title,'.$this->db->dbprefix.$this->table_product.'.image,'.$this->db->dbprefix.$this->table_product.'.vn_price,'.$this->db->dbprefix.$this->table_product.'.slug,'.$this->db->dbprefix.$this->table_category.'.id as cat_id,'.$this->db->dbprefix.$this->table_category.'.parent_id,'.$this->db->dbprefix.$this->table_shop.'.id as shop_id,'.$this->db->dbprefix.$this->table_shop.'.name as shop_name,'.$this->db->dbprefix.$this->table_shop.'.address,'.$this->db->dbprefix.$this->table_shop.'.count_rate,'.$this->db->dbprefix.$this->table_shop.'.total_rate,'.$this->db->dbprefix.$this->table_shop.'.slug as shop_slug' );

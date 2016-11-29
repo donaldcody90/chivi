@@ -205,14 +205,10 @@
 }
 
 .shop-filter .search-text-box input.form-control {
-<<<<<<< HEAD
-    width: 399px;
-=======
     width: 398px;
->>>>>>> 273f7a3a7cfa99e22587acb3a944bdcfbeeaf276
     background-image: url("../images/find.png");
     background-repeat: no-repeat;
-    background-position: 388px 8px;
+    background-position: 372px 8px;
 }
 
 .shop-total-product {

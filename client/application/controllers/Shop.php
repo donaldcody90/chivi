@@ -23,20 +23,35 @@ class Shop extends CI_Controller {
 			if($shop_detail['slug']!=$slug){
 				redirect(site_url($shop_detail['slug'].'-s'.$shop_detail['id']));
 			}
+			
+			
 			$filterData= vst_filterData(
 					array('filter_title'),
 					array('filter_startdate_vn_price', 'filter_enddate_vn_price')
 				);
 			$param= array('sid'=> $shop_id);
-			$list_product_total= count( $this->shop_model->getAllProduct($param, $filterData) );
 			$per_page= 4;
-			$config= vst_Pagination($list_product_total, $per_page);
-			$this->pagination->initialize($config);
 			$start= $this->input->get('page');
 			$limit= $per_page;
+			$params= array( 
+					'param'		=>		$param,
+					'filter'	=>		$filterData,
+					'limit'		=>		$limit,
+					'start'		=>		$start 
+				);
+			$extra_params= array(
+					'getPriceRange'=>true,
+					'getImages'=>true
+				);
 			
-			$list_product = $this->shop_model->getAllProduct($param, $filterData, $limit, $start);
+			
+			$list_product_total= count( $this->shop_model->getAllProduct($params, $extra_params) );
+			$config= vst_Pagination($list_product_total, $per_page);
+			$this->pagination->initialize($config);
+			$list_product = $this->shop_model->getAllProduct($params, $extra_params);
 			$top_sales = $this->shop_model->getTopSales($param, 10);
+			
+			
 			$data['list_product'] = $list_product;
 			$data['shop_detail'] = $shop_detail;
 			$data['shop_detail']['top_sales']= $top_sales;

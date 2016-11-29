@@ -295,6 +295,21 @@ function list_ship_submit(self,message=""){
 			$(this).parent().addClass('active');
 		}
 	});
+	if($('.widget-product-list .product-filter .item').hasClass('active')==false){
+		$('.widget-product-list .product-filter .item:first').addClass('active');
+	}
+	
+	/*---------price-range---------*/
+	
+	$('.price-range').each(function(){
+		$('p',this).each(function(){
+			var nextElementText= ($(this).next()).find('.pull-left').text();
+			if(nextElementText){
+				$('.pull-left',this).append(' - ' + nextElementText);
+			}
+		});
+		$('p',this).last().find('.pull-left').prepend('≥ ');
+    });
     
 	
 	
