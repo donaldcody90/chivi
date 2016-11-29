@@ -186,7 +186,7 @@ class Cart extends CI_Controller {
 												//'item_title'=>$item['name'],
 												'item_image'=>$item['image'],
 												//'item_link'=>$item['link'],
-												//'item_price'=>$item['price'],
+												'item_price'=>$item['price'],
 												'item_quantity'=>$item['qty'],
 												'item_attrs'=>json_encode($item['attrs']),
 												'item_note'=>'',

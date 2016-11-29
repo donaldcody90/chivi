@@ -16,7 +16,7 @@ class Order_model extends MY_Model
      }
 
 	 // List Order
-     function listOrder($filter=array(),$total=0,$start=0, $param){
+    function listOrder($filter=array(),$total=0,$start=0, $param){
           vst_buildFilter($filter);
           $query = $this->db->select($this->table_orders.'.*,');
           $query = $this->db->from($this->table_orders);
@@ -24,53 +24,71 @@ class Order_model extends MY_Model
           $query = $this->db->order_by($this->table_orders.'.id', 'desc');          
           $query = $this->db->limit($total, $start);
           $query = $this->db->get();
-
           $records = $query->num_rows();
           $list = $query->result_array();
-          /*
+          
 		  if($list)
           {
                foreach($list as $key=>$order){
-                 $items=$this->getItems($order['id']);
-                 $sellers=$this->getSellers($order['id']);
-                 $list[$key]['order_summary']=$this->get_Order_Seller_Summary($order,$items,$sellers);
+                 $items=$this->getItems(array('oid' => $order['id']));
+				 $total_amount = 0;
+				 foreach($items as $k => $item){
+					 $item_amount = $item['item_price'] * $item['item_quantity'];
+					 $total_amount = $total_amount + $item_amount;
+				 }
+				 $list[$key]['total_amount'] = $total_amount;
+				 $list[$key]['total_item'] = count($items);
                }
           }
-		  */	
+		  
           $results = array( 'lists'=> $list,'records'=> $records );
+           
           return $results;
      }
-
-    function totalOrder($filter){
-        vst_buildFilter($filter);
-        $query = $this->db->select ($this->table_orders.'.*,'.$this->table_customers.'.*');
-        $query = $this->db->from($this->table_orders);
-        $query = $this->db->join ($this->table_customers, $this->table_customers.'.cid = '.$this->table_orders.'.cid');
-        $query = $this->db->get();
-		return $query->num_rows();
-    }
+	function findCustomer($params_where){
+           $customer = $this->_getwhere(array(
+                    'table'        => $this->table_customers,
+                    'param_where'  => $params_where
+        ));
+          return $customer;
+       }
 	
-	/*chi tiết đơn hàng
-	
-	function orderDetail($param){
-		$this->db->select('*');
-		$this->db->from($this->table_orders);
-		$this->db->join($this->table_customers, $this->table_orders.'.cid = '.$this->table_customers'.cid');
-		$this->db->join($this->table_items, $this->table_orders.'.id = '.$this->table_items.'.oid');
-		$this->db->join($this->table_order_seller, $this->table_orders.'.id = '.$this->table_items.'.oid');
+	 
+	function orderDetail($param,$filter=null){
+		  vst_buildFilter($filter);
+          $query = $this->db->select($this->table_orders.'.*,');
+          $query = $this->db->from($this->table_orders);
+          $query = $this->db->where($param);
+          $query = $this->db->get();
+        
+          $order = $query->row_array();
+          
+		  if($order)
+			{
+                
+                 $items=$this->getItems(array('oid' => $order['id']));
+				 $total_amount = 0;
+				 foreach($items as $k => $item){
+					 $item_amount = $item['item_price'] * $item['item_quantity'];
+					 $total_amount = $total_amount + $item_amount;
+				 }
+				 $order['total_amount'] = $total_amount;
+				 $order['total_item'] = count($items);
+				 $order['items'] = $items;
+				 $order['customer'] = $this->findCustomer($order['cid']);
+			}
+           
+          return $order;
 	}
-	*/
+	 
 	/*
     lấy danh sách sản phẩm trong một đơn hàng hoặc người bán
    */
-   function getItems($oid,$sid=0)
+   function getItems($params_where)
    {
     $this->db->select ( '*' );
-    $this->db->from($this->table_items);
-    $this->db->where(array('oid'=>$oid));
-    if($sid){
-      $this->db->where(array('sid'=>$sid)); 
-    }
+    $this->db->from($this->table_order_items);
+    $this->db->where($params_where);
     $query = $this->db->get();
     $res = $query->result_array();
     return $res;

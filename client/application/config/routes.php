@@ -61,5 +61,6 @@ $route['translate_uri_dashes'] = TRUE;
 $route['(:any)-c(:num)'] = 'category/detail/$1/$2'; // Example 4
 $route['(:any)-s(:num)'] = 'shop/detail/$1/$2'; // Example 4
 $route['(:any)-i(:num)'] = 'product/detail/$1/$2'; // Example 4
+$route['(:any)-o(:num)'] = 'order/detail/$1/$2'; // Example 4
 $route['api/example/users/(:num)'] = 'api/example/users/id/$1'; // Example 4
 $route['api/example/users/(:num)(\.)([a-zA-Z0-9_-]+)(.*)'] = 'api/example/users/id/$1/format/$3$4'; // Example 8

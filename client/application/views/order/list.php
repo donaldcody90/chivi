@@ -101,9 +101,7 @@
 							<?php if($list_orders){
 								$stt = 1;
 								foreach($list_orders['lists'] as $key=>$order){
-								echo "<pre>";
-								print_r($order);	
-									
+ 
 							?> 
 							  <tr class="">
 								<td class="order-detail-image">
@@ -116,15 +114,15 @@
 								   <?php echo $order['create_date'];?>
 								</td>
 								<td class="order-detail-quantity">
-								 
+									<?php echo $order['total_item'];?>
 								</td>
 								<td class="order-detail-total text-price">
-								  
+									<?php echo $order['total_amount'];?>
 								</td>
 								<td class="order-detail-total text-price">
 									<div class="text-right button-checkout">
 									  <a class=" " href="#" >Hủy đơn</a><br/>
-									  <a class=" " href="#" data-method="post">Chi tiết</a>                                            
+									  <a class=" " href="<?php echo site_url(''.$order['invoiceid'].'-o'.$order['id']);?>" data-method="post">Chi tiết</a>                                            
 									</div>		
 								</td>
 							  </tr>

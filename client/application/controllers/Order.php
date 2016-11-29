@@ -15,12 +15,12 @@ class Order extends CI_Controller {
 	}
 	
 	// Detail Order
-	public function detail($order_id){
-		$param= array('vt_order.id'=>$order_id);
-		$info= $this->order_model->listOrder(array(), 0, 0, $param);
+	public function detail($oid){
+		$param= array('id' => $oid);
+		$info= $this->order_model->orderDetail($param);
+		echo "<pre>";
 		print_r($info);
 		$data['template'] = 'order/detail';
-		$data['data']['info'] = 'order/detail';
 		$this->load->view('layout/home', $data);
 	}
 	
@@ -30,7 +30,7 @@ class Order extends CI_Controller {
 		$cid= $currentCustomer['id'];
 		$param=array('cid'=>$cid);
 		$list_order = $this->order_model->listOrder(array(), 0, 0, $param);
-		 var_dump($list_order);
+		var_dump($list_order);
 		 
 		$data['list_orders']=$list_order;
 		$data['template'] = 'order/list';
