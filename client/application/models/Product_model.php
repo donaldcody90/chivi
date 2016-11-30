@@ -4,18 +4,18 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Product_model extends MY_Model
 {
 
-    private $table_product = 'products';
+    private $table_products = 'products';
     private $table_shop = 'shops';
     private $table_property = 'properties';
     private $table_property_values = 'property_values';
     private $table_price_range = 'priceRanges';
-    private $table_product_skus = 'product_skus';
+    private $table_products_skus = 'product_skus';
     private $table_sku_properties = 'product_sku_properties';
-    private $table_product_images = 'product_images';
+    private $table_products_images = 'product_images';
 
 	function findProduct($params_where,$is_list=false){
 		$product = $this->_getwhere(array(
-			'table'        => $this->table_product,
+			'table'        => $this->table_products,
 			'param_where'  => $params_where,
 			'list'	=>$is_list
         ));
@@ -65,7 +65,7 @@ class Product_model extends MY_Model
 	function getProductSKUS($params_where,$is_list=false)
 	{
 		$properties = $this->_getwhere(array(
-			'table'        => $this->table_product_skus,
+			'table'        => $this->table_products_skus,
 			'param_where'  => $params_where,
 			'list'	=>$is_list
         ));
@@ -85,16 +85,18 @@ class Product_model extends MY_Model
         return $properties;
 	}
 	
-	function getAllProduct(){
+	function getAllProduct($params_where,$limit = 0){
 		$this->db->select ('*');
-		$this->db->from($this->table_product);
+		$this->db->from($this->table_products);
+		$this->db->where($params_where);
+		$query = $this->db->limit($limit);
 		$query = $this->db->get();
 		return $query->result_array();
 	}
 	
 	function updateProduct($data,$params_where){
 		$product = $this->_save(array(
-			'table'        	=> $this->table_product,
+			'table'        	=> $this->table_products,
 			'data'  		=> $data,
 			'param_where'  	=> $params_where,
         ));
@@ -166,11 +168,11 @@ class Product_model extends MY_Model
 	function getProduct($pid=null, $where_in= null){
 		$this->db->select ('*');
 		$this->db->from($this->table_shop);
-		$this->db->join($this->table_product, $this->table_shop.'.id = '.$this->table_product.'.sid');
+		$this->db->join($this->table_products, $this->table_shop.'.id = '.$this->table_products.'.sid');
 		if($pid){
-			$this->db->where(array($this->table_product.'.id'=>$pid));
+			$this->db->where(array($this->table_products.'.id'=>$pid));
 		}
-		$this->db->where_in($this->table_product.'.id', $where_in);
+		$this->db->where_in($this->table_products.'.id', $where_in);
 		$query = $this->db->get();
 		return $query->row_array();
 	}
@@ -178,7 +180,7 @@ class Product_model extends MY_Model
 	
 	function getNewProductList($limit=null){
 		$this->db->select('*');
-		$this->db->from($this->table_product);
+		$this->db->from($this->table_products);
 		$this->db->order_by('id', 'desc');
 		$this->db->limit($limit);
 		$query= $this->db->get();
@@ -189,9 +191,9 @@ class Product_model extends MY_Model
 		
 		$list_attr = $this->getAllAttributes();
 
-		$this->db->select ($this->table_product_attributes.'.*');
-		$this->db->from($this->table_product_attributes);
-		$this->db->join($this->table_product, $this->table_product.'.id = '.$this->table_product_attributes.'.pid');
+		$this->db->select ($this->table_products_attributes.'.*');
+		$this->db->from($this->table_products_attributes);
+		$this->db->join($this->table_products, $this->table_products.'.id = '.$this->table_products_attributes.'.pid');
 		$this->db->where($params_where);
 		$query = $this->db->get();
 
@@ -215,7 +217,7 @@ class Product_model extends MY_Model
 	
 	function getProductImages($param_where, $is_list= true){
 		$this->_getwhere(array(
-			'table'			=>	$this->table_product_images,
+			'table'			=>	$this->table_products_images,
 			'param_where'	=>	$param_where,
 			'list'			=>	$is_list
 		));

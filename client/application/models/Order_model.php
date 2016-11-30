@@ -15,7 +15,7 @@ class Order_model extends MY_Model
           parent::__construct();
      }
 
-	 // List Order
+	// List Order
     function listOrder($filter=array(),$total=0,$start=0, $param){
           vst_buildFilter($filter);
           $query = $this->db->select($this->table_orders.'.*,');
@@ -45,6 +45,8 @@ class Order_model extends MY_Model
            
           return $results;
      }
+	 
+	// Tìm khách hàng
 	function findCustomer($params_where){
            $customer = $this->_getwhere(array(
                     'table'        => $this->table_customers,
@@ -53,7 +55,16 @@ class Order_model extends MY_Model
           return $customer;
        }
 	
-	 
+	// Tìm sản phẩm
+	function findProduct($params_where){
+		$query = $this->db->select($this->table_products.'.title,'.$this->table_products.'.link,'.$this->table_products.'.sid,');
+		$query = $this->db->from($this->table_products);
+		$query = $this->db->where($params_where);
+		$query = $this->db->get();
+		return $query->row_array() ;
+    }
+
+	
 	function orderDetail($param,$filter=null){
 		  vst_buildFilter($filter);
           $query = $this->db->select($this->table_orders.'.*,');
@@ -68,19 +79,39 @@ class Order_model extends MY_Model
                 
                  $items=$this->getItems(array('oid' => $order['id']));
 				 $total_amount = 0;
+				 
 				 foreach($items as $k => $item){
 					 $item_amount = $item['item_price'] * $item['item_quantity'];
 					 $total_amount = $total_amount + $item_amount;
+					 $product = $this->findProduct(array('id' => $item['pid']));
+					 $items[$k]['title'] =  $product['title'];
+					 $items[$k]['link'] =  $product['link'];
+					 $items[$k]['sid'] =  $product['sid'];
+					 $sids[$product['sid']] = array(
+							'sid' => $product['sid'],
+							'items' => array(),
+					 );
 				 }
 				 $order['total_amount'] = $total_amount;
 				 $order['total_item'] = count($items);
-				 $order['items'] = $items;
+				  
+				  
 				 $order['customer'] = $this->findCustomer($order['cid']);
+				 if($sids){
+					foreach($sids as $k => $sid){
+						foreach($items as $k1 => $item){
+							if( $item['sid'] == $sid['sid'] ){
+								$sids[$k]['items'][$k1] = $item;
+							}
+						}
+					}
+				 }
+				 $order['shops'] = $sids;
+				 
 			}
            
           return $order;
-	}
-	 
+}
 	/*
     lấy danh sách sản phẩm trong một đơn hàng hoặc người bán
    */

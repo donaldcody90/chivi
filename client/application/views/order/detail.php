@@ -1,3 +1,7 @@
+<?php if($order){
+	$info_order = $order;	
+} 
+?>
 <div class="container p-full">
     <div class="container-profile">
 		<nav class="navbar navbar-default profile-menu-top">
@@ -24,7 +28,7 @@
 				</ul>
 			</div>
 			<div class="col-xs-9 profile-content">
-				<div class="profile-title">Thông tin đơn hàng #1005791</div>
+				<div class="profile-title">Thông tin đơn hàng <?php if(!empty($info_order['invoiceid'])){ echo $info_order['invoiceid']; }?></div>
 				<div>    
 					<table class="table table-bordered table-striped no-margin" style="background-color: #fff; margin-bottom: 0;">
 						<tbody>
@@ -33,33 +37,32 @@
 							</tr>
 							<tr>
 								<td style="width: 90px;">Người nhận:</td>
-								<td>Quan Van Hoa</td>
+								<td><?php $customer =  $info_order['customer'];
+									if($customer['fullname']) echo $customer['fullname'];
+								?></td>
 							</tr>
 							<tr>
 								<td>Số di động:</td>
-								<td>0979337604</td>
+								<td><?php if($customer['phone']) echo $customer['phone']; ?></td>
 							</tr>
 							<tr>
 								<td>Địa chỉ:</td>
 								<td>
 									<p>
-										139 - K3, Cầu Diễn, Nam Từ Liêm, Hà Nội                </p>
+										<?php if($customer['address']) echo $customer['address']; ?>               </p>
 								</td>
 							</tr>
 							<tr>
 								<td>Ghi chú:</td>
-								<td></td>
+								<td> </td>
 							</tr>
 						</tbody>
 					</table>
 					<div class="my-account-orders">
 						<div class="item-view">
 							<div class="order-item">
-								<div class="order-item-header item-header clearfix">
-									ĐH:  <span class="order-id">1005791</span>
-									<span class="order-time-created">16-11-2016 16:05</span>
-									Gian hàng: <a class="shop-name" href="http://aothunart.luuthong.vn" target="_blank">Shop thời trang Aothunart</a>                                            <div class="pull-right">Chờ thanh toán</div>
-								</div>
+								
+								
 								<div class="order-item-middle item-middle">
 									<table class="order-detail full-width">
 										<thead>
@@ -72,9 +75,29 @@
 											</tr>
 										</thead>
 										<tbody>
+										<?php 
+											if($info_order['shops'])
+											foreach($info_order['shops'] as $key=>$shop){
+											$shop_info = vst_getShop($shop['sid']);
+											 
+										?>
+											<tr>
+												<td colspan="5">
+												<div class="order-item-header item-header clearfix ">
+												<span class="pull-left">
+													Shop: <a class="shop-name " href="<?php echo $shop_info['link'];?>" target="_blank"><?php echo $shop_info['name'];?></a> 
+												</span>	
+												</div>
+												</td>	
+											</tr>
+										<?php										
+										if($shop['items']){
+											foreach($shop['items'] as $key_items=> $item) {
+										?>
 											<tr class="">
 												<td class="order-detail-image"> <!-- image -->
-													<a class="thumbs-product-image responsive-img" href="//luuthong.vn/ao-thun-nam-phoi-hoa-tiet-bull-dogs-phong-cach-sanh-dieu-i1070900" target="_blank"><img src="http://luuthong.vn/uploads/media/20161116/1f4295e887315cd2127150fb0b397487.100x100.jpg" alt=""></a>                                        </td>
+													<a class="thumbs-product-image responsive-img" href="<?php  ?>" target="_blank">
+													<img src="<?php if($item['item_image']) echo $item['item_image']; ?>" alt=""></a>                                        </td>
 												<td class="oder-detail-product-info">
 													<a class="product-name" href="//luuthong.vn/ao-thun-nam-phoi-hoa-tiet-bull-dogs-phong-cach-sanh-dieu-i1070900" target="_blank">
 														Áo thun nam phối họa tiết bull dogs, phong cách sành điệu
@@ -84,22 +107,30 @@
 													</p>
 												</td>
 												<td class="order-detail-price text-price text-bold">
-													<span>50.000 đ</span>
+													<span><?php if($item['item_price']) echo $item['item_price']; ?></span>
 												</td>
 												<td class="order-detail-quantity">
-													<span>10</span>
+													<span><?php if($item['item_quantity']) echo $item['item_quantity']; ?></span>
 												</td>
 												<td class="order-detail-total text-price">
-													<span>500.000 đ</span>
+													<span><?php if($item['item_quantity'] && $item['item_price']) echo $item['item_quantity']*$item['item_price']; ?></span>
 												</td>
 											</tr>
+											
+										<?php		
+											}
+										}
+										?>
+										<?php } ?>		
+										
 										</tbody>
 									</table>
 								</div>
+								
 								<div class="order-item-footer">
 									<ul class="pull-right">
 										<li class="label-title">Tiền hàng:</li>
-										<li class="value"><span class="total-money text-bold text-price">500.000đ</span>
+										<li class="value"><span class="total-money text-bold text-price"><?php if($info_order['total_amount']) echo $info_order['total_amount']; ?></span>
 										</li>
 										<li class="label-title">Phí vận chuyển:</li>
 										<li class="value"><span class="total-transporting">107.900đ</span>
