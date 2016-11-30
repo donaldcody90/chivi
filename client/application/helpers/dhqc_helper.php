@@ -248,10 +248,10 @@ if(!function_exists('vst_filterData')){
 	{
 		$CI =& get_instance();
 		$params= $CI->input->get();
-		//print_r($params);
+		print_r($params);
 		unset($params['page']);
-		unset($params['sortType']);
-		unset($params['sort']);
+		#unset($params['sortType']);
+		#unset($params['sort']);
 		$filterData= array();
 		if($params){
 			foreach($params as $key=>$value){

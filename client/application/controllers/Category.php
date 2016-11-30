@@ -11,11 +11,21 @@ class Category extends CI_Controller {
 	
 	// Show all product in one Category
 	public function detail($slug, $cat_id){
-		
 		$param=array('id'=>$cat_id);
+		// Get category detail
+		// Validate slug ,redirect 
+		// Function get Category, Subcategory
+		$categories=array();
+		$categoriesRevert=array();
+		$this->category_model->getSubCategories1($cat_id,$categories);
+		$this->category_model->getCategoryRevert(9,$categoriesRevert);
+		///echo "<pre>";
+		//print_r($categoriesRevert);
+		
+		//die;
 		$listCategory= $this->category_model->getCategory($param);
 		if($listCategory['id']== $cat_id){
-			if($listCategory['slug']!= $slug){
+			if($listCategory['slug'] != $slug){
 				redirect(site_url($listCategory['slug'].'-c'.$listCategory['id']));
 			}
 			
@@ -50,11 +60,23 @@ class Category extends CI_Controller {
 			
 			$sort_field= $this->input->get('sort');
 			$sort_type= $this->input->get('sortType');
-			$filter= vst_filterData(
+			/* $filter= vst_filterData(
 					array(),
 					array('filter_startdate_vn_price', 'filter_enddate_vn_price'),
 					array('enddate_vn_price'=>'vt_products', 'startdate_vn_price'=>'vt_products')
-				);
+				); */
+			
+			
+			$filter=array(
+				'sortType'=>$this->input->get('sortType'),
+				'sort'=>$this->input->get('sort'),
+				'priceFrom'=>$this->input->get('priceFrom'),
+				'priceTo'=>$this->input->get('priceTo')
+			);
+			
+			$products=$this->category_model->getProductFilter($filter);
+			echo "<pre>";
+			print_r($products); 
 			$per_page= 4;
 			$limit= $per_page;
 			$start= $this->input->get('page');

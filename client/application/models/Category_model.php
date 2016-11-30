@@ -10,6 +10,43 @@ class Category_model extends MY_Model
     private $table_price_range = 'priceranges';
     private $table_product_images = 'product_images';
 	
+	function findCategory($param=null, $is_list= false){
+		return $this->_getwhere(array(
+				'table'			=>	$this->table_category,
+				'param_where'	=>	$param,
+				'list'			=>	$is_list
+			));
+	}
+	function getCategoryRevert($cat_id,&$categories=array())
+	{
+		$category=$this->findCategory(array('id'=>$cat_id));
+		if($category)
+		{
+			
+			if($category['parent_id'])
+			{
+				$this->getCategoryRevert($category['parent_id'],$categories);
+			}
+			$categories[$category['id']]=$category;
+		}
+	}
+	
+	function getSubCategories1($parent_id = 0,&$categories=array())
+	{
+		$subcategories=$this->findCategory(array('parent_id'=>$parent_id),true);
+		if($subcategories)
+		{
+			foreach($subcategories as $cat)
+			{
+				#$categories[$cat['id']]=$cat;
+				#$categories[$cat['id']]['subItems']=array();
+				$categories[$cat['id']]=$cat;
+				$this->getSubCategories1($cat['id'],$categories);
+				
+			}
+		}
+		#return $categories;
+	}
 	
 	function getProductList($param=null, $filter=null, $sort_field='is_featured', $sort_type='desc', $limit=0, $start=0){
 		$result = $this->db->query("SHOW COLUMNS FROM `".$this->db->dbprefix.$this->table_product."` LIKE '".$sort_field."'");
@@ -69,6 +106,55 @@ class Category_model extends MY_Model
 						getImages=>false
 					);
 	*/
+	function getProductFilter($filter=array())
+	{
+		$this->db->select();
+		$this->db->from($this->db->dbprefix.$this->table_product);
+		/* WHERE */
+		if(isset($filter['priceFrom']))
+		{
+			if(!empty($filter['priceFrom']))
+			{
+				$this->db->where('price_min >=',$filter['priceFrom']);
+			}
+		}
+		if(isset($filter['priceTo']))
+		{
+			if(!empty($filter['priceTo']))
+			{
+				$this->db->where('price_max <=',$filter['priceTo']);
+			}
+		}
+		/* ORDER BY */
+		if(isset($filter['sort']))
+		{
+			if(!empty($filter['sort']))
+			{
+				if(empty($filter['sortType']))
+				{
+					$filter['sortType']="DESC";
+				}
+				switch($filter['sort'])
+				{
+					case 'hot':
+						#$this->db->order_by('total_product');
+						$this->db->order_by('price_min',$filter['sortType']);
+						break;
+					case 'price':
+						$this->db->order_by('vn_price',$filter['sortType']);
+						break;
+					case 'date':
+						$this->db->order_by('id',"DESC");
+						break;
+						
+						
+				}
+			}
+		}
+		$query= $this->db->get();
+		echo  $this->db->last_query();
+		return $query->result_array();
+	}
 	function getAllProduct($params, $extra_params){
 		$product_list= $this->getProductList(isset($params['param'])?$params['param']:null, isset($params['filter'])?$params['filter']:null, isset($params['sort_field'])?$params['sort_field']:'is_featured', isset($params['sort_type'])?$params['sort_type']:'desc', isset($params['limit'])?$params['limit']:0, isset($params['start'])?$params['start']:0);
 		if(isset($extra_params) && $extra_params!= array()){
@@ -90,7 +176,7 @@ class Category_model extends MY_Model
 	
 	function getCategory($param=null, $is_list= false){
 		return $this->_getwhere(array(
-				'table'			=>	$this->db->dbprefix.$this->table_category,
+				'table'			=>	$this->table_category,
 				'param_where'	=>	$param,
 				'list'			=>	$is_list
 			));
