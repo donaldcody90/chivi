@@ -15,11 +15,12 @@ class Order extends CI_Controller {
 	}
 	
 	// Detail Order
-	public function detail($oid){
+	public function detail($slug,$oid){
 		$param= array('id' => $oid);
-		$info= $this->order_model->orderDetail($param);
-		echo "<pre>";
-		print_r($info);
+		$order= $this->order_model->orderDetail($param);
+		//echo "<pre>";
+		//print_r($info);
+		$data['order'] = $order;
 		$data['template'] = 'order/detail';
 		$this->load->view('layout/home', $data);
 	}

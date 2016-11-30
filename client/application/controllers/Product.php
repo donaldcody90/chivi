@@ -30,9 +30,12 @@ class Product extends CI_Controller {
 		$param= array('sid'=> $product_info['sid']);
 		$shop_detail = $this->shop_model->findShop($param1);
 		$param2= array('sid' => $product_info['sid'], 'id !=' => $product_info['id']);
-		
-		$product_total= $this->shop_model->getAllProduct($param);
-		$data['data']['same_shop_products']= $this->shop_model->getAllProduct($param2,null,$limit=10);
+		$extra_params= array(
+					'getPriceRange'=>true,
+					'getImages'=>true
+				);
+		$product_total= $this->product_model->getAllProduct($param );
+		$data['data']['same_shop_products']= $this->product_model->getAllProduct($param2, $limit=5);
 		$data['data']['newProducts']=$this->product_model->getNewProductList($limit=10);
 		
 		$data['shop_detail']= $shop_detail;
