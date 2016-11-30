@@ -100,7 +100,7 @@
                   <?php echo isset($shop_detail['name'])?$shop_detail['name']:'';?>            
                 </div>
                 <div class="shop-total-product">
-                  Có <strong><?php echo isset($list_product)?count($list_product):'';?></strong> kết quả được tìm thấy
+                  Có <strong><?php echo isset($list_product['total'])?$list_product['total']:'';?></strong> kết quả được tìm thấy
                 </div>
               </div>
               <form action="" method="get">
@@ -118,9 +118,9 @@
                   </div>
                 </div>
 				<div class="item" style="float: right;">
-					<div class="dropdown">
+					<div class="shop-order dropdown">
 						<button class="btn btn-default dropdown-toggle form-sort-dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Sản phẩm mới nhất
+							<span>Sản phẩm mới nhất</span>
 							<i class="fa fa-sort-desc"></i>
 						</button>
 						<ul class="dropdown-menu">
@@ -128,7 +128,7 @@
 								<a href="<?php echo current_url().'?sortType=desc&amp;sort=id';?>">Sản phẩm mới nhất</a>
 							</li>
 							<li>
-								<a href="<?php echo current_url().'';?>">Sản phẩm bán chạy</a>
+								<a href="<?php echo current_url().'?sortType=desc&amp;sort=is_featured';?>">Sản phẩm hot</a>
 							</li>
 							<li>
 								<a href="<?php echo current_url().'?sortType=desc&amp;sort=vn_price';?>">Giá giảm dần</a>
@@ -144,8 +144,8 @@
           </div>
         </div>
         <div id="w0" class="list-view clearfix">
-		<?php if(isset($list_product) && count($list_product)>0 ){
-		foreach($list_product as $key=>$product){?>
+		<?php if(isset($list_product['data']) && count($list_product['data'])>0 ){
+		foreach($list_product['data'] as $key=>$product){?>
           <div class="col-xs-3" data-key="0">
             <div class="product-items product-shop-detail">
               <a target="_blank" href="<?php echo site_url($product['slug'].'-i'.$product['id']);?>" class="responsive-img img-featured">
@@ -155,12 +155,12 @@
 						foreach($product['price_range'] as $price_range){   ?>
 						<p>
 							<span class="pull-left"><?php echo $price_range['quantity']?$price_range['quantity']:'' ;?></span>
-							<span class="pull-right"><?php echo $price_range['price']?$price_range['price']:'' ;?> đ</span>
+							<span class="pull-right"><?php echo $price_range['price']?number_format($price_range['price']):'' ;?> đ</span>
 						</p>
 					<?php } } else{ ?>
 						<p>
 							<span class="pull-left">1</span>
-							<span class="pull-right"><?php echo $product['vn_price'];?> đ</span>
+							<span class="pull-right"><?php echo number_format($product['vn_price']);?> đ</span>
 						</p>
 					<?php } ?>
                 </div>

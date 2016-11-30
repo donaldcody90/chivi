@@ -76,12 +76,19 @@
 					<a target="_blank" href="<?php echo site_url($product['slug'].'-i'.$product['id']);?>" class="responsive-img img-featured" title=" ">
 					  <img id="featured-1053957" src="<?php echo $product['image']?>" alt=" ">                                                                    
 					  <div class="price-range">
-						<p>
-						  <span
-							class="pull-left"></span>
-						  <span
-							class="pull-right"><?php echo number_format($product['vn_price']);?> đ </span>
-						</p>
+						<?php if(isset($product['price_range']) && !empty($product['price_range'])){
+							foreach($product['price_range'] as $price_range){ ?>
+								<p>
+								  <span class="pull-left"><?php echo $price_range['quantity'];?></span>
+								  <span class="pull-right"><?php echo number_format($price_range['price']);?> đ </span>
+								</p>
+						<?php } } 
+							else{ ?>
+								<p>
+								  <span class="pull-left">1</span>
+								  <span class="pull-right"><?php echo number_format($product['vn_price']);?> đ </span>
+								</p>
+						<?php } ?>
 					  </div>
 					</a>
 					<div class="price">
@@ -135,6 +142,9 @@
 				<div class="empty">Không tìm thấy kết quả nào.</div>
 			<?php } ?>
 			</div>
+		</div>
+		<div class="text-center">
+			<?php echo $this->pagination->create_links();?>
 		</div>
 	</div>
 </div>

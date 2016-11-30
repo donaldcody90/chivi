@@ -19,13 +19,16 @@ class Shop_model extends MY_Model
         return $shop;
     }
 	
-	function getProductList($param=null, $filter=array(), $limit=0, $start=0){
+	function getProductList($param=null, $filter=array(), $sort_field='id', $sort_type='desc', $limit=0, $start=0){
+		$result = $this->db->query("SHOW COLUMNS FROM `".$this->table_product."` LIKE '".$sort_field."'");
+		$sortField = ($result->num_rows())?$sort_field:'id';
 		vst_buildFilter($filter);
 		$this->db->select ( '*' );
 		$this->db->from($this->table_product);
 		if($param){
 			$this->db->where($param);
 		}
+		$this->db->order_by($sortField, $sort_type);
 		$this->db->limit($limit, $start);
 		
 		$query = $this->db->get();
@@ -58,15 +61,20 @@ class Shop_model extends MY_Model
 		function getProductInfo
 		Params:
 			$params : 
-					array( param, filter, limit, start )
+					array( 
+						param => $param, 
+						filter => $filter,
+						limit => $limit, 
+						start => $start
+						);
 			$extra_params : 
 					array(
 						getPriceRange=>false,
 						getImages=>false
-					)
+					);
 	*/
 	function getAllProduct($params, $extra_params){
-		$product_list= $this->getProductList($params['param']?$params['param']:null, $params['filter']?$params['filter']:array(), $params['limit']?$params['limit']:0, $params['start']?$params['start']:0);
+		$product_list= $this->getProductList(isset($params['param'])?$params['param']:null, isset($params['filter'])?$params['filter']:null, isset($params['sort_field'])?$params['sort_field']:'id', isset($params['sort_type'])?$params['sort_type']:'desc', isset($params['limit'])?$params['limit']:0, isset($params['start'])?$params['start']:0);
 		if(isset($product_list) && !empty($product_list)){
 			if(isset($extra_params['getPriceRange']) && $extra_params['getPriceRange']){
 				foreach($product_list as $product_list_id=>$product_list_data){

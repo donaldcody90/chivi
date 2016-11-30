@@ -232,9 +232,12 @@ if(!function_exists('vst_currentUrl')){
 		$CI =& get_instance();
 		$url = $CI->config->site_url($CI->uri->uri_string());
 		$params=$CI->input->get();
-		if(isset($params['sort']) && isset($params['sortType']) && $withoutPage)
+		if(isset($params['sort']) && isset($params['sortType'])){
 			unset($params['sort']);
 			unset($params['sortType']);
+		}
+		if(isset($params['page']) && $withoutPage)
+			unset($params['page']);
 		$http_query=http_build_query($params, '', "&");
 		return $http_query ? $url.'?'.$http_query : $url;
 	}

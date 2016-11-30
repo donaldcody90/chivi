@@ -55,14 +55,30 @@ class Category extends CI_Controller {
 					array('filter_startdate_vn_price', 'filter_enddate_vn_price'),
 					array('enddate_vn_price'=>'vt_products', 'startdate_vn_price'=>'vt_products')
 				);
-			$list_product_total=count( $this->category_model->getAllProduct($listCatId, $filter) );
-			$per_page= 40;
+			$per_page= 4;
 			$limit= $per_page;
 			$start= $this->input->get('page');
+			$params= array(
+						'listCatId' => $listCatId,
+						'filter' => $filter,
+						'sort_field' => $sort_field,
+						'sort_type' => $sort_type,
+						'limit' => $limit,
+						'start' => $start
+					);
+			$params2= array(
+						'listCatId' => $listCatId,
+						'filter' => $filter
+					);
+			$extra_params= array(
+						'getPriceRange'=>true
+					);
+				
+			$list_product_total=count( $this->category_model->getAllProduct($params2, $extra_params) );
 			$config= vst_Pagination($list_product_total, $per_page);
 			$this->pagination->initialize($config);
 			
-			$list_product = $this->category_model->getAllProduct($listCatId, $filter, $sort_field, $sort_type, $limit, $start);
+			$list_product = $this->category_model->getAllProduct($params, $extra_params);
 			//print_r($listSubCat);
 			$data['list_product']['data'] = $list_product;
 			$data['list_product']['total'] = $list_product_total;

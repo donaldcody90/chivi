@@ -299,6 +299,14 @@ function list_ship_submit(self,message=""){
 		$('.widget-product-list .product-filter .item:first').addClass('active');
 	}
 	
+	$('.shop-filter .shop-order .dropdown-menu a').each(function(){
+		var url= window.location.href;
+		var text= $(this).text();
+		if($(this).attr('href')==url){
+			$('.shop-filter .shop-order button span').text(text);
+		}
+	});
+	
 	/*---------price-range---------*/
 	
 	$('.price-range').each(function(){
