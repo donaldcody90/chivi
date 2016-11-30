@@ -657,7 +657,7 @@
     right: -1px;
 }
 
-.widget-product-list .pagination > .active > a {
+/*.widget-product-list*/ .pagination > .active > a {
     background-color: #e74c3c;
     border-color: #e74c3c;
 }
