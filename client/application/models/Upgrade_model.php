@@ -10,14 +10,20 @@ class Upgrade_model extends MY_Model
 	function v1()
 	{
 		/* Modify table */
-		$this->db->query("ALTER TABLE ".$this->db->dbprefix.$this->table_product." ADD `is_featured` INT(2) NOT NULL DEFAULT '0'");
-		$this->db->query("ALTER TABLE ".$this->db->dbprefix.$this->table_category." ADD `slug` VARCHAR(255) NULL");
-		$name= $this->db->query("SELECT 'id','name' FROM ".$this->db->dbprefix.$this->table_category);
-		foreach($name as $data){
-			$slug= url_title(cleanVietnamese($data['name']),'-',true);
-			$this->db->query("UPDATE ".$this->db->dbprefix.$this->table_category." SET 'slug'= $slug WHERE 'id'= $data['id']");
-		}
+		$this->db->query('ALTER TABLE '.$this->db->dbprefix.$this->table_product.' DROP is_featured');
+		$this->db->query("ALTER TABLE ".$this->db->dbprefix.$this->table_product." ADD `is_featured` INT(1) NULL DEFAULT '0'");
+		
 	} 
+	function v2()
+	{
+		$this->db->query('ALTER TABLE '.$this->db->dbprefix.$this->table_category.' DROP slug');
+		$this->db->query("ALTER TABLE ".$this->db->dbprefix.$this->table_category." ADD `slug` VARCHAR(255) NULL");
+		$data_resuts= $this->db->query("SELECT * FROM ".$this->db->dbprefix.$this->table_category);
+		foreach($data_resuts->result() as $data){
+			$slug= url_title(cleanVietnamese($data->name),'-',true);
+			$this->db->query("UPDATE ".$this->db->dbprefix.$this->table_category." SET slug='$slug' WHERE id= $data->id");
+		}
+	}
 }
 
 ?>
