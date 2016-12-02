@@ -4,7 +4,7 @@
     <div>
       <div class="clearfix">
         <div class="box-search-order">
-          <form id="w0" class="order-search" action="/my-order/index" method="get">
+          <form id="w0" class="order-search" action="#" method="get">
             <div class="clearfix">
               <div class="form-group field-searchorderform-order_id">
                 <label class="control-label" for="searchorderform-order_id">Mã đơn hàng</label>

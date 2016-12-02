@@ -50,17 +50,16 @@ class Customer extends CI_Controller {
 					if($result >= 1){
 					message_flash('Cập nhật mật khẩu thành công','success');
 					}
-					redirect(site_url('customer/changepass'));
+					redirect(site_url('customer'));
 				}else{
 					message_flash('Mật khẩu hiện tại chưa đúng','errors');
-					redirect(site_url('customer/changepass'));
+					redirect(site_url('customer'));
 				}
 			}
 		}
 		$data['result']  = $this->customers_model->findCustomer($param_where);
         $data['template'] = 'customer/changepass';
 		$content=$this->load->view('layout/ajax',$data,true);
-
 		$res=array('Response'=>"Success","Message"=>$content);
 		echo json_encode($res); 
 	}

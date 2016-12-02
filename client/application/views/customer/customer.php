@@ -23,6 +23,7 @@
 				</div>
 				<div class="col-xs-9 profile-content" id="customer">
 				  <div id="profile"  class="tab-pane active customer_div">
+				   <?php $this->load->view('_base/message'); ?>
 				  </div>
 				</div>
 			</div>
