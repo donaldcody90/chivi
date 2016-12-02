@@ -150,7 +150,18 @@
     line-height: 25px;
     padding: 0 10px;
     /*float: left;*/
-    margin: 4px 10px;
+    margin: 4px 5px 4px 10px;
+}
+.product-filter .form-filter a.filter-btn {
+    display: inline-block;
+    border: solid #C40000 1px;
+    background-color: #C40000;
+    color: #fff;
+    height: 25px;
+    line-height: 25px;
+    padding: 0 10px;
+    /*float: left;*/
+    margin: 4px 5px 4px 0;
 }
 .product-filter .form-filter .select-province {
     margin: 4px 10px;

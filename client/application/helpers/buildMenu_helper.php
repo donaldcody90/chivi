@@ -18,23 +18,6 @@ if(!function_exists('buildTree')){
 	}
 }
 
-if(!function_exists('buildBreadcrumb123')){
-	function buildBreadcrumb123($elements, $parentId){
-		$array= array();
-		
-			foreach($elements as $element){
-				if($element['id']== $parentId){
-					return $element;
-					$parent= buildBreadcrumb123($elements, $element['parent_id']);
-					
-					$array[]= $parent;
-				}
-			}
-		
-		return $array;
-	}
-}
-
 if(!function_exists('buildMenu')){
 	function buildMenu(){
 		$CI =& get_instance();

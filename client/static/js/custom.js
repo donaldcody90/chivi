@@ -307,6 +307,22 @@ function list_ship_submit(self,message=""){
 		}
 	});
 	
+	/*---------images-slide----------*/
+	
+	$('.product-items').each(function(){
+		firstSmallImage= $('.hz-slider .item-slide img',this).first().attr('src');
+		$(this).find('.img-featured img').attr('src', firstSmallImage);
+	});
+	$('.hz-slider').click(function(){
+		$('.hz-slider .item-slide').each(function(){
+			var smallImage= '';
+			if($(this).hasClass('slick-current')==true){
+				smallImage= $('img',this).attr('src');
+				$(this).parents('.product-items').find('.img-featured img').attr('src', smallImage);
+			}
+		});
+	});
+	
 	/*---------price-range---------*/
 	
 	$('.price-range').each(function(){

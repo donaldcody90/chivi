@@ -11,11 +11,11 @@
 					<li>
 					  <a href="/" title="Trang chủ">Trang chủ</a> <i class="icon-breadcrumb"></i>
 					</li>
-					<li><a href="/thoi-trang-c1000011" title="Thời trang">Thời trang</a><i class="icon-breadcrumb"></i></li>
-					<li><a href="/quan-ao-c1000012" title="Quần áo">Quần áo</a><i class="icon-breadcrumb"></i></li>
-					<li><a href="/quan-ao-nu-c1000017" title="Quần áo Nữ">Quần áo Nữ</a><i class="icon-breadcrumb"></i></li>
-					<li><a href="/ao-nu-c1000025" title="Áo nữ">Áo nữ</a><i class="icon-breadcrumb"></i></li>
-					<li>Áo khoác Nữ</li>
+					<?php if(isset($links['breadcrumbs']['parent_cats']) && !empty($links['breadcrumbs']['parent_cats'])){
+						foreach($links['breadcrumbs']['parent_cats'] as $breadcrumb){ ?>
+							<li><a href="<?php echo site_url($breadcrumb['slug'].'-c'.$breadcrumb['id']);?>" title="<?php echo $breadcrumb['name'];?>"><?php echo $breadcrumb['name'];?></a><i class="icon-breadcrumb"></i></li>
+					<?php } } ?>
+					<li><?php echo $links['breadcrumbs']['current_cat']?$links['breadcrumbs']['current_cat']['name']:'';?></li>
 				  </ol>
 				</div>
 				<div class="pull-right">
@@ -26,15 +26,15 @@
 			  <th class="bg-warning filter-head">Danh mục: </th>
 			  <td class="filter-content">
 				<div class="filter-items content-collapse" id="filter-categories">
-				  <a class="" href="/search/index" title="Tất cả danh mục">TẤT CẢ DANH MỤC</a>
-				  <?php if( isset($list_subcat) && $list_subcat!=array() ){ 
-					foreach($list_subcat as $subcat){ ?>
-						<a class="tsf" href="<?php echo site_url($subcat['slug'].'-c'.$subcat['id']);?>" title="<?php echo $subcat['name'];?>" ><?php echo $subcat['name'];?> <span>(<?php echo $subcat['total_product'];?>)</span></a>
+				  <a class="" href="<?php echo current_url();?>" title="Tất cả danh mục">TẤT CẢ DANH MỤC</a>
+				  <?php if( isset($links['list_subcat']) && $links['list_subcat']!=array() ){ 
+					foreach($links['list_subcat'] as $subcat){ ?>
+						<a class="tsf" href="<?php echo site_url($subcat['slug'].'-c'.$subcat['id']);?>" title="<?php echo $subcat['name'];?>" ><?php echo $subcat['name'];?> <span>(<?php echo $subcat['product_total'];?>)</span></a>
 				  <?php } } ?>
 				</div>
 			  </td>
 			  <td style="width: 1%;">
-				<a href="#" class="filter-toggle is-close" data-type="categories">
+				<a href="#" class="filter-toggle is-close">
 				<i class="glyphicon glyphicon-collapse-down"></i>
 				</a>
 			  </td>
@@ -45,24 +45,25 @@
 	<div class="widget-product-list">
 		<div class="product-filter">
 		  <div class="item ">
-			<a href="<?php echo current_url().'?sortType=desc&amp;sort=is_featured';?>" title="Sản phẩm hot"><i class="glyphicon glyphicon-fire"></i> Sản phẩm hot</a>            
+			<a href="<?php echo current_url().'?sortType=desc&amp;sort=hot';?>" title="Sản phẩm hot"><i class="glyphicon glyphicon-fire"></i> Sản phẩm hot</a>            
 		  </div>
 		  <div class="item ">
-			<a href="<?php echo current_url().'?sortType=asc&sort=vn_price';?>" title="Giá tăng dần"><i class="glyphicon glyphicon-arrow-up"></i> Giá tăng dần</a>            
+			<a href="<?php echo current_url().'?sortType=asc&sort=price';?>" title="Giá tăng dần"><i class="glyphicon glyphicon-arrow-up"></i> Giá tăng dần</a>            
 		  </div>
 		  <div class="item ">
-			<a href="<?php echo current_url().'?sortType=desc&amp;sort=vn_price';?>" title="Giá giảm dần"><i class="glyphicon glyphicon-arrow-down"></i> Giá giảm dần</a>            
+			<a href="<?php echo current_url().'?sortType=desc&amp;sort=price';?>" title="Giá giảm dần"><i class="glyphicon glyphicon-arrow-down"></i> Giá giảm dần</a>            
 		  </div>
 		  <div class="item ">
-			<a href="<?php echo current_url().'?sortType=desc&amp;sort=id';?>" title="Sản phẩm mới nhất"><i class="glyphicon glyphicon-star"></i> Sản phẩm mới nhất</a>            
+			<a href="<?php echo current_url().'?sortType=desc&amp;sort=date';?>" title="Sản phẩm mới nhất"><i class="glyphicon glyphicon-star"></i> Sản phẩm mới nhất</a>            
 		  </div>
 		  <div class="item">
 			<form class="form-filter" action="" method="get">
 			  <span>Lọc theo giá:</span>
-			  <input type="text" class="top-filter-input" name="filter_startdate_vn_price" placeholder="Từ">
+			  <input type="text" class="top-filter-input" name="priceFrom" value="<?php echo isset($_GET['priceFrom'])?$_GET['priceFrom']:''; ?>" placeholder="Từ">
 			  <span>-</span>
-			  <input type="text" class="top-filter-input" name="filter_enddate_vn_price" placeholder="Đến">
+			  <input type="text" class="top-filter-input" name="priceTo" value="<?php echo isset($_GET['priceTo'])?$_GET['priceTo']:''; ?>" placeholder="Đến">
 			  <button type="submit" class="filter-btn" title="Lọc">Lọc</button>                
+			  <a href="<?php echo current_url();?>" class="filter-btn" title="Xóa">Xóa</a>
 			</form>
 		  </div>
 		</div>
@@ -74,7 +75,12 @@
 				<div class="col-lg-15 col-sm-4 col-md-3 col-xs-6 col-vxs-12">
 				  <div class="product-items">
 					<a target="_blank" href="<?php echo site_url($product['slug'].'-i'.$product['id']);?>" class="responsive-img img-featured" title=" ">
-					  <img id="featured-1053957" src="<?php echo $product['image']?>" alt=" ">                                                                    
+					  <?php if(isset($product['images']) && !empty($product['images'])){
+						foreach($product['images'] as $image){ 
+							if($image['is_default']==1){ ?>
+								<img id="featured-1053957" src="<?php echo $image['image_src']; ?>" alt="<?php echo $image['alt']; ?>">
+					  <?php } break;
+							} } ?>
 					  <div class="price-range">
 						<?php if(isset($product['price_range']) && !empty($product['price_range'])){
 							foreach($product['price_range'] as $price_range){ ?>

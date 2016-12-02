@@ -9,6 +9,8 @@ class Category_model extends MY_Model
     private $table_shop = 'shops';
     private $table_price_range = 'priceranges';
     private $table_product_images = 'product_images';
+    private $table_order_items = 'order_items';
+    private $table_orders = 'orders';
 	
 	function findCategory($param=null, $is_list= false){
 		return $this->_getwhere(array(
@@ -31,38 +33,21 @@ class Category_model extends MY_Model
 		}
 	}
 	
-	function getSubCategories1($parent_id = 0,&$categories=array())
+	function getSubCategories($parent_id = 0,&$categories=array())
 	{
 		$subcategories=$this->findCategory(array('parent_id'=>$parent_id),true);
 		if($subcategories)
 		{
 			foreach($subcategories as $cat)
 			{
-				#$categories[$cat['id']]=$cat;
 				#$categories[$cat['id']]['subItems']=array();
-				$categories[$cat['id']]=$cat;
-				$this->getSubCategories1($cat['id'],$categories);
+				#$categories[$cat['id']]=$cat;
+				$categories[]=$cat['id'];
+				$this->getSubCategories($cat['id'],$categories);
 				
 			}
 		}
 		#return $categories;
-	}
-	
-	function getProductList($param=null, $filter=null, $sort_field='is_featured', $sort_type='desc', $limit=0, $start=0){
-		$result = $this->db->query("SHOW COLUMNS FROM `".$this->db->dbprefix.$this->table_product."` LIKE '".$sort_field."'");
-		$sortField = ($result->num_rows())?$sort_field:'is_featured';
-		$this->db->select( $this->db->dbprefix.$this->table_product.'.id,'.$this->db->dbprefix.$this->table_product.'.title,'.$this->db->dbprefix.$this->table_product.'.image,'.$this->db->dbprefix.$this->table_product.'.vn_price,'.$this->db->dbprefix.$this->table_product.'.slug,'.$this->db->dbprefix.$this->table_category.'.id as cat_id,'.$this->db->dbprefix.$this->table_category.'.parent_id,'.$this->db->dbprefix.$this->table_shop.'.id as shop_id,'.$this->db->dbprefix.$this->table_shop.'.name as shop_name,'.$this->db->dbprefix.$this->table_shop.'.address,'.$this->db->dbprefix.$this->table_shop.'.count_rate,'.$this->db->dbprefix.$this->table_shop.'.total_rate,'.$this->db->dbprefix.$this->table_shop.'.slug as shop_slug' );
-		$this->db->from($this->db->dbprefix.$this->table_product);
-		$this->db->join($this->db->dbprefix.$this->table_shop, $this->db->dbprefix.$this->table_product.'.sid = '.$this->db->dbprefix.$this->table_shop.'.id');
-		$this->db->join($this->db->dbprefix.$this->table_category, $this->db->dbprefix.$this->table_product.'.cat_id = '.$this->db->dbprefix.$this->table_category.'.id');
-		if($param){
-			$this->db->or_where_in($this->db->dbprefix.$this->table_product.'.cat_id', $param);
-		}
-		vst_buildFilter($filter);
-		$this->db->order_by($sortField, $sort_type);
-		$this->db->limit($limit, $start);
-		$query = $this->db->get();
-		return $query->result_array();
 	}
 	
 	/*
@@ -80,49 +65,61 @@ class Category_model extends MY_Model
 	/*
 		Hàm lấy ảnh
 	*/
-	function getProductImages($param_where, $is_list= true){
-		$this->_getwhere(array(
+	function getProductImages($param_where, $is_list= false){
+		return $this->_general(array(
 			'table'			=>	$this->db->dbprefix.$this->table_product_images,
 			'param_where'	=>	$param_where,
+			'orderby'		=>	'is_default DESC',
 			'list'			=>	$is_list
 		));
 	}
 	
 	/*
-		function getProductInfo
+		function getProductFilter
 		Params:
-			$params : 
-					array( 
-						param => $param, 
-						filter => $filter, 
-						sort_field => $sort_field, 
-						sort_type => $sort_type, 
-						limit => $limit, 
-						start => $start
-						);
-			$extra_params : 
-					array(
-						getPriceRange=>false,
-						getImages=>false
-					);
+			$param: array(
+				'field' => array($cat_id1, $cat_id2,...)
+			)
+			$filter: array(
+				'sortType'
+				'sort'
+				'priceFrom'
+				'priceTo'
+			)
+			
 	*/
-	function getProductFilter($filter=array())
+	function getProductFilter($param=array(), $filter=array(), $limit=0, $start=0)
 	{
-		$this->db->select();
+		if($param!=array()){
+			foreach($param as $id=>$data){
+				$field= $id;
+				$param_in= $data;
+			}
+		}
+		$this->db->select($this->db->dbprefix.$this->table_product.'.id,'.$this->db->dbprefix.$this->table_product.'.title,'.$this->db->dbprefix.$this->table_product.'.vn_price,'.$this->db->dbprefix.$this->table_product.'.slug,'.$this->db->dbprefix.$this->table_shop.'.id as shop_id,'.$this->db->dbprefix.$this->table_shop.'.name as shop_name,'.$this->db->dbprefix.$this->table_shop.'.address,'.$this->db->dbprefix.$this->table_shop.'.count_rate,'.$this->db->dbprefix.$this->table_shop.'.total_rate,'.$this->db->dbprefix.$this->table_shop.'.slug as shop_slug');
 		$this->db->from($this->db->dbprefix.$this->table_product);
+		$this->db->join($this->db->dbprefix.$this->table_shop, $this->db->dbprefix.$this->table_product.'.sid = '.$this->db->dbprefix.$this->table_shop.'.id');
+		$this->db->where_in($field, $param_in);
 		/* WHERE */
 		if(isset($filter['priceFrom']))
 		{
 			if(!empty($filter['priceFrom']))
 			{
-				$this->db->where('price_min >=',$filter['priceFrom']);
+				$this->db->where('vn_price >=',$filter['priceFrom']);
 			}
 		}
 		if(isset($filter['priceTo']))
 		{
 			if(!empty($filter['priceTo']))
 			{
-				$this->db->where('price_max <=',$filter['priceTo']);
+				$this->db->where('vn_price <=',$filter['priceTo']);
+			}
+		}
+		if(isset($filter['keyword']))
+		{
+			if(!empty($filter['keyword']))
+			{
+				$this->db->like('title', $filter['keyword']);
 			}
 		}
 		/* ORDER BY */
@@ -132,31 +129,38 @@ class Category_model extends MY_Model
 			{
 				if(empty($filter['sortType']))
 				{
-					$filter['sortType']="DESC";
+					$filter['sortType']='DESC';
 				}
 				switch($filter['sort'])
 				{
 					case 'hot':
-						#$this->db->order_by('total_product');
-						$this->db->order_by('price_min',$filter['sortType']);
+						$this->db->order_by('views',$filter['sortType']);
+						break;
+					case 'count_sold':
+						$this->db->order_by('sales',$filter['sortType']);
 						break;
 					case 'price':
 						$this->db->order_by('vn_price',$filter['sortType']);
 						break;
 					case 'date':
-						$this->db->order_by('id',"DESC");
+						$this->db->order_by('id',$filter['sortType']);
 						break;
-						
-						
+					default: 
+						#CODE
+					;	
 				}
 			}
+		}else if(!isset($filter['sort'])){
+			$this->db->order_by('views','DESC');
 		}
+		$this->db->limit($limit, $start);
 		$query= $this->db->get();
-		echo  $this->db->last_query();
+		//echo  $this->db->last_query();
 		return $query->result_array();
 	}
+	
 	function getAllProduct($params, $extra_params){
-		$product_list= $this->getProductList(isset($params['param'])?$params['param']:null, isset($params['filter'])?$params['filter']:null, isset($params['sort_field'])?$params['sort_field']:'is_featured', isset($params['sort_type'])?$params['sort_type']:'desc', isset($params['limit'])?$params['limit']:0, isset($params['start'])?$params['start']:0);
+		$product_list= $this->getProductFilter(isset($params['param_in'])?$params['param_in']:null, isset($params['filter'])?$params['filter']:null, isset($params['limit'])?$params['limit']:0, isset($params['start'])?$params['start']:0);
 		if(isset($extra_params) && $extra_params!= array()){
 			if(isset($extra_params['getPriceRange']) && $extra_params['getPriceRange']){
 				foreach($product_list as $product_list_id=>$product_list_data){
@@ -174,39 +178,15 @@ class Category_model extends MY_Model
 		return $product_list;
 	}
 	
-	function getCategory($param=null, $is_list= false){
-		return $this->_getwhere(array(
-				'table'			=>	$this->table_category,
-				'param_where'	=>	$param,
-				'list'			=>	$is_list
-			));
-	}
 	
-	function getSubCategories($param_where_in){
-		$this->db->select($this->db->dbprefix.$this->table_category.'.id,'.$this->db->dbprefix.$this->table_category.'.name,'.$this->db->dbprefix.$this->table_category.'.slug, count(*) as total_product');//tiếp tục ở đây
+	function getSubCatTotalProduct($param_where_in){
+		$this->db->select('count(*) as product_total');
 		$this->db->from($this->db->dbprefix.$this->table_category);
 		$this->db->join($this->db->dbprefix.$this->table_product, $this->db->dbprefix.$this->table_product.'.cat_id = '.$this->db->dbprefix.$this->table_category.'.id');
 		$this->db->where_in($this->db->dbprefix.$this->table_category.'.id',$param_where_in);
-		$this->db->group_by($this->db->dbprefix.$this->table_category.'.id');
-		$this->db->order_by('total_product');
 		$query= $this->db->get();
-		return $query->result_array();
+		return $query->row_array();
 	}
 	
-	public function getCategoryTreeForParentId($parent_id = 0) {
-	  $categories = array();
-	  $this->db->from($this->db->dbprefix.$this->table_category);
-	  $this->db->where('parent_id', $parent_id);
-	  $result = $this->db->get()->result();
-	  foreach ($result as $mainCategory) {
-		$category = array();
-		$category['id'] = $mainCategory->id;
-		
-		$category['name'] = $mainCategory->name;
-		$category['parent_id'] = $mainCategory->parent_id;
-		$category['sub_categories'] = $this->getCategoryTreeForParentId($category['id']);
-		$categories[$mainCategory->id] = $category;
-	  }
-	  return $categories;
-	}
+	
 }	
