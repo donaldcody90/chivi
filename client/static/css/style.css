@@ -3,7 +3,7 @@ body {
     font-size: 12px;
 
 }
-
+a{cursor:pointer;}
 .p-full {
     padding-left: 0px;
     padding-right: 0px;

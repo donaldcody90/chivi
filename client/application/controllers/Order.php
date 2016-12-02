@@ -71,4 +71,19 @@ class Order extends CI_Controller {
 		 
 	}
 	
+	public function updateOrderStatus(){
+		 
+		$status = $this->input->post('status');
+		$data = array( 'status' =>  $status );
+		$param_where = array( 'id' => $this->input->post('oid'));
+		$result = $this->order_model->updateOrder( $data,$param_where );
+		if($result >= 1){
+		  $res=array('Response'=>"Success","Message"=>"Đã thay đổi thành công");
+		}else{
+		  $res=array('Response'=>"Error","Error"=>"Thao tác không thành công");
+		}
+		echo json_encode($res);	
+	}
+	
+	
 }

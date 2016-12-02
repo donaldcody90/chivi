@@ -80,11 +80,12 @@
 							<thead>
 							  <tr class="bg-order-item">
 								<th class="text-center" style="width: 8%;">STT</th>
-								<th class="text-center" style="width: 15%;">Mã đơn</th>
+								<th class="text-center" style="width: 30%;">Mã đơn</th>
 								<th class="text-center" style="width: 15%;">Ngày đặt</th>
 								<th class="text-center" style="width: 5%;">Số SP</th>
 								<th class="text-center" style="width: 15%;">Thành tiền</th>
-								<th class="text-center" style="width: 15%;"></th>
+								<th class="text-center" style="width: 10%;">Trạng thái</th>
+								<th class="text-center" style="width: 10%;"></th>
 							  </tr>
 							</thead>
 							<tbody>
@@ -110,9 +111,22 @@
 									<?php echo $order['total_amount'];?>
 								</td>
 								<td class="order-detail-total text-price">
+									<?php echo order_status($order['status']);?>
+								</td>
+								<td class="order-detail-total text-price text-center">
+								<?php if($order['status']!= (-1)){?>
 									<div class="text-right button-checkout">
-									  <a class=" " href="#" >Hủy đơn</a><br/>
-									  <a class="btn btn-primary" href="<?php echo site_url(''.$order['invoiceid'].'-o'.$order['id']);?>" data-method="post">Chi tiết</a>                                            
+										<form name="upload_complain" action="" class="ajaxFormComplain item_complain_form_<?php echo $order['id']; ?>" method="POST" enctype="multipart/form-data">															
+											<input type="hidden" name="oid" value="<?php echo $order['id']; ?>" />
+											<input type="hidden" name="controller" value="order" />
+											<input type="hidden" name="task" value="updateOrderStatus" />
+											<input type="hidden" name="status" value="-1" />
+											<input type="hidden" name="is_reload" value="1" />
+											<a target="_blank" class=" "  onClick="submitAjax1(this)" title="Hủy đơn hàng">Hủy đơn</a>
+											
+										</form>
+								<?php } ?>
+										<a class="btn btn-primary" href="<?php echo site_url(''.$order['invoiceid'].'-o'.$order['id']);?>" data-method="post">Chi tiết </a>                                            
 									</div>		
 								</td>
 							  </tr>

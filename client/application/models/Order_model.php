@@ -125,7 +125,14 @@ class Order_model extends MY_Model
     $res = $query->result_array();
     return $res;
    }
-
+	function updateOrder($data,$params_where){
+           $result = $this->_save(array(
+                                        'table'        => $this->table_orders,
+                                        'data'         => $data,
+                                        'param_where'  => $params_where
+                                   ));
+          return $result;
+     }
   
 }
 
