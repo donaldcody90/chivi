@@ -26,10 +26,10 @@
 			  <th class="bg-warning filter-head">Danh mục: </th>
 			  <td class="filter-content">
 				<div class="filter-items content-collapse" id="filter-categories">
-				  <a class="" href="<?php echo current_url();?>" title="Tất cả danh mục">TẤT CẢ DANH MỤC</a>
+				  <a class="" href="<?php echo isset($_GET['keyword'])?site_url('search/index').'?keyword='.$_GET['keyword']:site_url('search/index');?>" title="Tất cả danh mục">TẤT CẢ DANH MỤC</a>
 				  <?php if( isset($links['list_subcat']) && $links['list_subcat']!=array() ){ 
 					foreach($links['list_subcat'] as $subcat){ ?>
-						<a class="tsf" href="<?php echo site_url($subcat['slug'].'-c'.$subcat['id']);?>" title="<?php echo $subcat['name'];?>" ><?php echo $subcat['name'];?> <span>(<?php echo $subcat['product_total'];?>)</span></a>
+						<a class="tsf" href="<?php echo isset($_GET['keyword'])?site_url($subcat['slug'].'-c'.$subcat['id']).'?keyword='.$_GET['keyword']:site_url($subcat['slug'].'-c'.$subcat['id']);?>" title="<?php echo $subcat['name'];?>" ><?php echo $subcat['name'];?> <span>(<?php echo $subcat['product_total'];?>)</span></a>
 				  <?php } } ?>
 				</div>
 			  </td>
@@ -98,7 +98,7 @@
 					  </div>
 					</a>
 					<div class="price">
-					  <strong class="pull-left"><?php echo number_format($product['vn_price']);?> đ </strong>
+						<strong class="pull-left"><?php echo (isset($product['vn_price']) && $product['vn_price']>0)?number_format($product['vn_price']).' đ':'Giá liên hệ';?></strong>
 					</div>
 					<h4 class="capital">
 						<a class="product-title" href="<?php echo site_url($product['slug'].'-i'.$product['id']);?>" title="<?php echo $product['title'];?>" target="_blank">
@@ -127,11 +127,11 @@
 						  <span class="shop-icon-vip"></span>
 						</div>
 						<div class="hz-star-rating">
-						  <?php 
-							if($product['total_rate']>0 && $product['count_rate']>0){
-								for($i=0; $i<($product['total_rate']/$product['count_rate']);$i++){ ?>
-									<img src="<?php echo site_url('static/images/icon_shop.png')?>"/>
-						  <?php } } ?>	
+							<?php 
+								if($product['total_rate']>0 && $product['count_rate']>0){
+									for($i=0; $i<($product['total_rate']/$product['count_rate']);$i++){ ?>
+										<img src="<?php echo site_url('static/images/icon_shop.png')?>"/>
+							<?php } } ?>	
 						</div>
 						<div class="shop-line-icon">
 						  <div class="tooltips">

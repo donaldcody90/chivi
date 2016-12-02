@@ -21,21 +21,6 @@ class Category extends CI_Controller {
 			$subCategoryIds=array();
 			$this->category_model->getSubCategories($cat_id,$subCategoryIds);
 			
-			/*-----------Danh mục----------*/
-			
-			$listSubCat=array();
-			if( $subCategoryIds!=array() ){
-				foreach($subCategoryIds as $subCategoryId){
-					$subCategoryIds2=array($subCategoryId);
-					$this->category_model->getSubCategories($subCategoryId,$subCategoryIds2);
-					$subCatTotalProduct= $this->category_model->getSubCatTotalProduct($subCategoryIds2);
-					$subCategoryDetail= $this->category_model->findCategory(array('id'=>$subCategoryId));
-					if($subCatTotalProduct['product_total']>0){
-						$subCategoryDetail['product_total']= $subCatTotalProduct['product_total'];
-						$listSubCat[]= $subCategoryDetail;
-					}
-				}
-			}
 			
 			/*-----------Breadcrumb--------*/
 			
@@ -43,20 +28,23 @@ class Category extends CI_Controller {
 			$this->category_model->getCategoryRevert($cat_id, $categoriesRevert);
 			unset($categoriesRevert[$cat_id]);
 			
+			
 			/*-------Danh sách sản phẩm---------*/
 			
-			array_push($subCategoryIds, $cat_id);
+			$subCategoryIds2= $subCategoryIds;
+			$subCategoryIds2[]= $cat_id;
 			$param_in= array();
-			$param_in['cat_id']= $subCategoryIds;
+			$param_in['cat_id']= $subCategoryIds2;
 			
 			$filter=array(
 				'sortType'=>$this->input->get('sortType'),
 				'sort'=>$this->input->get('sort'),
 				'priceFrom'=>$this->input->get('priceFrom'),
-				'priceTo'=>$this->input->get('priceTo')
+				'priceTo'=>$this->input->get('priceTo'),
+				'keyword'=>$this->input->get('keyword')
 			);
 			
-			$per_page= 40;
+			$per_page= 4;
 			$limit= $per_page;
 			$start= $this->input->get('page');
 			$params= array(
@@ -79,6 +67,28 @@ class Category extends CI_Controller {
 			$this->pagination->initialize($config);
 			
 			$list_product = $this->category_model->getAllProduct($params, $extra_params);
+			
+			
+			/*-----------Danh mục----------*/
+			
+			$listSubCat=array();
+			if( $subCategoryIds!=array() ){
+				foreach($subCategoryIds as $subCategoryId){
+					$subCategoryIds2=array($subCategoryId);
+					$this->category_model->getSubCategories($subCategoryId,$subCategoryIds2);
+					$param_in2['cat_id']= $subCategoryIds2;
+					$params3= array(
+						'param_in' => $param_in2,
+						'filter' => $filter
+					);
+					$subCatTotalProduct= count( $this->category_model->getAllProduct($params3, $extra_params) );
+					$subCategoryDetail= $this->category_model->findCategory(array('id'=>$subCategoryId));
+					if($subCatTotalProduct>0){
+						$subCategoryDetail['product_total']= $subCatTotalProduct;
+						$listSubCat[]= $subCategoryDetail;
+					}
+				}
+			}
 			
 			$data['list_product']['data'] = $list_product;
 			$data['list_product']['total'] = $list_product_total;

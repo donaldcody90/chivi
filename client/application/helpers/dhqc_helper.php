@@ -171,7 +171,7 @@ if(!function_exists('vst_password')){
 	}
 }
 
-if(!function_exists('vst_pagination')){
+if(!function_exists('vst_Pagination')){
 	function vst_Pagination($total=20, $per_page=10){
 		$config['full_tag_open'] = '<ul class="pagination pagination-sm">';
 		$config['full_tag_close'] = '</ul>';
