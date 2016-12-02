@@ -85,13 +85,32 @@ class Product_model extends MY_Model
         return $properties;
 	}
 	
+	/*
+		Hàm lấy ảnh của sản phẩm
+	*/
+	function getProductImages($param_where, $is_list= true){
+		$images = $this->_getwhere(array(
+			'table'			=>	$this->table_products_images,
+			'param_where'	=>	$param_where,
+			'list'			=>	$is_list
+		));
+		return $images;
+	}
+	
 	function getAllProduct($params_where,$limit = 0){
 		$this->db->select ('*');
 		$this->db->from($this->table_products);
 		$this->db->where($params_where);
 		$query = $this->db->limit($limit);
 		$query = $this->db->get();
-		return $query->result_array();
+		$lists = $query->result_array();
+		if($lists){
+			foreach($lists as $key=>$product){
+				$image =  $this->getProductImages(array('id' => $product['id']));
+				$lists[$key]['images']=$image;
+			}
+		}
+		return $lists;
 	}
 	
 	function updateProduct($data,$params_where){
@@ -126,6 +145,12 @@ class Product_model extends MY_Model
 			{
 				$productInfo['priceRanges']=$this->getPriceRange(array('pid'=>$pid),true);
 			}	
+			
+			if(isset($extra_params['getImages']) && $extra_params['getImages'])
+			{
+				$productInfo['Images']=$this->getProductImages(array('pid'=>$pid),true);
+			}
+			
 			if(isset($extra_params['getShop']) && $extra_params['getShop'])
 			{
 				$productInfo['shop_info']=$this->shop_model->findShop(array('id'=>$productInfo['sid']));
@@ -184,7 +209,14 @@ class Product_model extends MY_Model
 		$this->db->order_by('id', 'desc');
 		$this->db->limit($limit);
 		$query= $this->db->get();
-		return $query->result_array();
+		$lists =  $query->result_array();
+		if($lists){
+			foreach($lists as $key=>$product){
+				$image =  $this->getProductImages(array('id' => $product['id']));
+				$lists[$key]['images']=$image;
+			}
+		}
+		return $lists;
 	}
 	
 	function getProductAttributes($params_where){
@@ -215,11 +247,5 @@ class Product_model extends MY_Model
 		return $query->result_array();
 	}
 	
-	function getProductImages($param_where, $is_list= true){
-		$this->_getwhere(array(
-			'table'			=>	$this->table_products_images,
-			'param_where'	=>	$param_where,
-			'list'			=>	$is_list
-		));
-	}
+	
 }	

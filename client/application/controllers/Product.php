@@ -17,6 +17,7 @@ class Product extends CI_Controller {
 			'getShop'=>true,
 			'getProperties'=>true,
 			'getSkus'=>true,
+			'getImages'=>true,
 			);
 		$product_info = $this->product_model->getProductInfo($pid,$extra_params);
 		if($product_info)
@@ -29,14 +30,16 @@ class Product extends CI_Controller {
 		$param1= array('id'=> $product_info['sid']);
 		$param= array('sid'=> $product_info['sid']);
 		$shop_detail = $this->shop_model->findShop($param1);
-		$param2= array('sid' => $product_info['sid'], 'id !=' => $product_info['id']);
+		$param2= array('sid' => $product_info['sid'], 'vt_products.id !=' => $product_info['id']);
+		/*
 		$extra_params= array(
 					'getPriceRange'=>true,
 					'getImages'=>true
 				);
+		*/		
 		$product_total= $this->product_model->getAllProduct($param );
 		$data['data']['same_shop_products']= $this->product_model->getAllProduct($param2, $limit=5);
-		$data['data']['newProducts']=$this->product_model->getNewProductList($limit=10);
+		$data['data']['newProducts']=$this->product_model->getNewProductList($limit=5);
 		
 		$data['shop_detail']= $shop_detail;
 		$data['shop_product_total']=count($product_total);

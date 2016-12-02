@@ -1,5 +1,6 @@
 <?php 
-
+ //echo "<pre>";
+// print_r ($product);
 ?>
 <div class="container p-full">
    <div class="product-item clearfix">
@@ -7,32 +8,24 @@
          <div class="product-featured">
             <div class="product-detail-gallery">
                <div class="product-images">
-                  <div class="image-featured responsive-img">
-                     <img src="<?php echo $product['image']; ?>" alt="<?php echo $product['title']; ?>"> 
-                  </div>
-				  <!--
-                  <div class="image-slide hz-slider">
-                     <div class="item item-selected">
-                        <span class="responsive-img">
-                        <img src="static/images/46884be5471326a10058d31a3acc784b.100x100.jpg" alt=""  data-view="static/images/46884be5471326a10058d31a3acc784b.500x400.jpg"> </span>
-                     </div>
-                     <div class="item item-selected">
-                        <span class="responsive-img">
-                        <img src="static/images/35aaeb69d4048d4dc6542b0f4437cd30.100x100.jpg" alt=" " data-view="static/images/35aaeb69d4048d4dc6542b0f4437cd30.500x400.jpg"> </span>
-                     </div>
-                     <div class="item item-selected">
-                        <span class="responsive-img">
-                        <img src="static/images/5ca103de53314acd71454c132415f111.100x100.jpg" alt=" " data-view="static/images/5ca103de53314acd71454c132415f111.500x400.jpg"> </span>
-                     </div>
-                     <div class="item item-selected">
-                        <span class="responsive-img">
-                        <img src="static/images/6a135280b26591d85394f1040b5bb938.100x100.jpg" alt=" " data-view="static/images/6a135280b26591d85394f1040b5bb938.500x400.jpg"> </span>
-                     </div>
-                  </div>
-				  -->
-                  <div class="product-detail-like">
-                     <a class="hz-favorite" href="#" title="Thêm vào danh sách sản phẩm yêu thích" data-id="1052825" data-type="product" data-label="Sản phẩm"><i class="fa fa-heart"></i> Thêm danh sách yêu thích</a>                        
-                  </div>
+			   
+					<div class="image-featured responsive-img" style="width: 385;">
+						 <img width="320" height="auto" src="<?php if($product['Images']) echo $product['Images'][0]['image_src']; ?>" alt="<?php echo $product['title']; ?>"> 
+					</div>
+
+					<div class="image-slide hz-slider">
+					 <?php if($product['Images']){
+						foreach($product['Images'] as $image){
+					?>
+						<div class="item item-selected">
+							<span class="responsive-img">
+							<img src="<?php echo $image['image_src']; ?>" alt="<?php echo $product['title']; ?>"  data-view="<?php echo $image['image_src']; ?>"> 
+							</span>
+						</div>
+					<?php		
+						}
+					}?>
+				   </div>
                </div>
             </div>
             <div class="product-detail-info">
@@ -218,7 +211,7 @@
                      <form id="frm-add-cart" action="<?php echo site_url('cart/addToCart');?>" method="post">
 						<input type="hidden" name="pid" value="<?php echo $product['id']; ?>">
 						 
-						<input type="hidden" name="image" value="<?php echo $product['image']; ?>">
+						<input type="hidden" name="image" value="<?php if($product['Images']) echo $product['Images'][0]['image_src']; ?>">
                         <input type="submit" class="hz-btn hz-btn-red hz-btn-block hz-btn-uppercase hz-btn-bold btn-add-cart" value="Thêm vào giỏ hàng" />                            
                      </form>
                   </div>
@@ -242,12 +235,16 @@
                         <div class="title">Sản phẩm cùng Shop</div>
                      </div>
                      <div class="wpc-panel-body">
-                        <?php foreach($same_shop_products as $same_shop_product){ ?>
+                        <?php 
+						if($same_shop_products){
+						foreach($same_shop_products as $same_shop_product){
+						 
+						?>
                         <div class="product-list-vertical">
                            <a target="_blank" href="<?php echo site_url(''.$same_shop_product['slug'].'-i'.$same_shop_product['id']); ?>" title="<?php echo $same_shop_product['title']; ?>">
                            <span class="responsive-img">
                            <img class="media-object lazy"
-                              src="<?php echo $same_shop_product['image']; ?>"
+                              src="<?php if($same_shop_product['images']) echo $same_shop_product['images'][0]['image_src']; ?>"
                               alt="<?php echo $same_shop_product['title']; ?>" />
                            </span>
                            </a>
@@ -256,7 +253,7 @@
                               <a class="capital" href="<?php echo site_url(''.$same_shop_product['slug'].'-i'.$same_shop_product['id']); ?>" title="<?php echo $same_shop_product['title']; ?>" target="_blank"><?php echo $same_shop_product['title']; ?></a>        
                            </div>
                         </div>
-                        <?php } ?>
+                        <?php }} ?>
                      </div>
                      <a class="btn btn-danger btn-shop-product-view-all" href="<?php if(isset($shop_detail)){echo site_url(''.$shop_detail['slug'].'-s'.$shop_detail['id']);}?>" target="_blank">Xem tất cả</a>        
                   </div>
@@ -315,8 +312,14 @@
                         </ul>
                         <div class="product-content">
                            <div style="text-align:center;">
-                              <img src="<?php echo $product['image']; ?>" />
-                           </div>
+						   
+						   <?php 
+						   if($product['Images']){
+						   foreach($product['Images'] as $image){ ?>
+                              <img style="max-width: 500px; height: auto" src="<?php echo $image['image_src']; ?>" />
+                           <?php } 
+						   }?>
+						   </div>
                         </div>
                      </div>
                      <div role="tabpanel" class="tab-pane" id="product-comment"></div>
@@ -376,19 +379,21 @@
                <div class="wpc-panel-body">
                   <?php  
 				  if(isset($newProducts)){
-				  foreach($newProducts as $newProduct){ ?>
+				  foreach($newProducts as $newProduct){
+				 
+				  ?>
                   <div class="product-list-vertical">
                      <a target="_blank" href="<?php echo site_url(''.$newProduct['slug'].'-i'.$newProduct['id']) ;?>" title="<?php echo $newProduct['title']; ?>">
                      <span class="responsive-img">
                      <img class="media-object lazy"
-                        src="<?php echo $newProduct['image']; ?>"
+                        src="<?php if($newProduct['images']) echo $newProduct['images'][0]['image_src']; ?>"
                         alt='<?php echo $newProduct['title']; ?>'/>
                      </span>
                      </a>
                      <div class="media-body m-product-info">
                         <strong class="price">
                         35.000 đ            </strong>
-                        <a class="capital" href="<?php echo site_url(''.$newProduct['slug'].'-i'.$newProduct['id']) ;?>" title="<?php echo $newProduct['title']; ?>" target="_blank"><?php echo $newProduct['title'];?></a>        
+                        <a class="capital" href="<?php echo site_url(''.$newProduct['slug'].'-i'.$newProduct['id']) ;?>" title="<?php echo $newProduct['title']; ?>" target="_blank"><?php echo $newProduct['title']; ?></a>        
                      </div>
                   </div>
                   <?php } }?>
