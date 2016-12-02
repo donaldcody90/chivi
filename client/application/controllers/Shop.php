@@ -28,7 +28,7 @@ class Shop extends CI_Controller {
 			$param_in= array();
 			$param_in['sid']= array($shop_id);
 			$param= array('sid'=> $shop_id);
-			$per_page= 40;
+			$per_page= 4;
 			$start= $this->input->get('page');
 			$limit= $per_page;
 			

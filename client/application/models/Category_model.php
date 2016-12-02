@@ -90,16 +90,16 @@ class Category_model extends MY_Model
 	*/
 	function getProductFilter($param=array(), $filter=array(), $limit=0, $start=0)
 	{
+		$this->db->select($this->db->dbprefix.$this->table_product.'.id,'.$this->db->dbprefix.$this->table_product.'.title,'.$this->db->dbprefix.$this->table_product.'.vn_price,'.$this->db->dbprefix.$this->table_product.'.slug,'.$this->db->dbprefix.$this->table_shop.'.id as shop_id,'.$this->db->dbprefix.$this->table_shop.'.name as shop_name,'.$this->db->dbprefix.$this->table_shop.'.address,'.$this->db->dbprefix.$this->table_shop.'.count_rate,'.$this->db->dbprefix.$this->table_shop.'.total_rate,'.$this->db->dbprefix.$this->table_shop.'.slug as shop_slug');
+		$this->db->from($this->db->dbprefix.$this->table_product);
+		$this->db->join($this->db->dbprefix.$this->table_shop, $this->db->dbprefix.$this->table_product.'.sid = '.$this->db->dbprefix.$this->table_shop.'.id');
 		if($param!=array()){
 			foreach($param as $id=>$data){
 				$field= $id;
 				$param_in= $data;
 			}
+			$this->db->where_in($field, $param_in);
 		}
-		$this->db->select($this->db->dbprefix.$this->table_product.'.id,'.$this->db->dbprefix.$this->table_product.'.title,'.$this->db->dbprefix.$this->table_product.'.vn_price,'.$this->db->dbprefix.$this->table_product.'.slug,'.$this->db->dbprefix.$this->table_shop.'.id as shop_id,'.$this->db->dbprefix.$this->table_shop.'.name as shop_name,'.$this->db->dbprefix.$this->table_shop.'.address,'.$this->db->dbprefix.$this->table_shop.'.count_rate,'.$this->db->dbprefix.$this->table_shop.'.total_rate,'.$this->db->dbprefix.$this->table_shop.'.slug as shop_slug');
-		$this->db->from($this->db->dbprefix.$this->table_product);
-		$this->db->join($this->db->dbprefix.$this->table_shop, $this->db->dbprefix.$this->table_product.'.sid = '.$this->db->dbprefix.$this->table_shop.'.id');
-		$this->db->where_in($field, $param_in);
 		/* WHERE */
 		if(isset($filter['priceFrom']))
 		{

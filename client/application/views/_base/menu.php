@@ -37,53 +37,37 @@
     <!-- /Menu Utility -->
   </div>
   <div class="middle-bar">
-    <div class="container p-full">
-      <div class="logo pull-left">
-        <h1><a href="#" title="20/10"><img src="static/images/e68e7bcaf0949441630248451a84795f.png" alt="20/10"></a>        </h1>
-      </div>
-      <div class="search">
-        <div class="search-box">
-          <form id="main-search" class="search-form" action="#" method="get">
-            <div class="btn-group  filter-search btComboBox" id="filter-search">
-              <button type="button" class="btn btn-filter-search dropdown-toggle" data-toggle="dropdown"
-                name="fruit" id="filter-search-tog" aria-expanded="false">
-              <span
-                class="label">Sản phẩm</span>
-              <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu select-type-search" role="menu"
-                style="min-width: 100px; width: 102px;">
-                <li class="default active">
-                  <a href="#" data-type="product">Sản phẩm</a>
-                </li>
-                <li class="default ">
-                  <a href="#" data-type="shop">Cửa hàng</a>
-                </li>
-              </ul>
-            </div>
-            <input class="form-control" type="text" name="keyword" value=""
-              placeholder="Nhập tên hoặc mã sản phẩm..." id="txtSearchKeyword">
-            <button type="submit" class="btn btn-search pull-right" type="button">
-            <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-          </form>
-          <div class="search-tags">
-            <span>Tìm kiếm nhiều:</span>
-            <a href="#">váy</a>, <a href="#">đầm</a>, 
-            <a href="#">túi xách</a>, 
-            <a href="#">giày nữ</a>, 
-            <a href="#">giày nam</a>, 
-            <a href="#">áo sơ mi</a>, 
-            <a href="#">áo thun</a>
-          </div>
-        </div>
-      </div>
-      <div class="hotline">
-        <strong>Hà Nội: <span>04.7303 1999</span></strong>
-        <strong>Tp.HCM: <span>08.7302 8666</span></strong>
-      </div>
-      <div class="account">
-      </div>
-    </div>
+		<div class="container p-full">
+			<div class="logo pull-left">
+				<h1><a href="#" title="20/10"><!--<img src="static/images/e68e7bcaf0949441630248451a84795f.png" alt="20/10">--></a></h1>
+			</div>
+			<div class="search">
+				<div class="search-box">
+					<form id="main-search" class="search-form" action="<?php echo site_url('search'); ?>" method="get">
+						
+						<input class="form-control" type="text" name="keyword" value="<?php echo isset($_GET['keyword'])?$_GET['keyword']:'';?>" placeholder="Nhập tên hoặc mã sản phẩm..." id="txtSearchKeyword">
+						<button type="submit" class="btn btn-search pull-right" type="button">
+							<span class="glyphicon glyphicon-search"></span>
+						</button>
+					</form>
+					<!--<div class="search-tags">
+						<span>Tìm kiếm nhiều:</span>
+						<a href="#">váy</a>, 
+						<a href="#">đầm</a>, 
+						<a href="#">túi xách</a>, 
+						<a href="#">giày nữ</a>, 
+						<a href="#">giày nam</a>, 
+						<a href="#">áo sơ mi</a>, 
+						<a href="#">áo thun</a>
+					</div>-->
+				</div>
+			</div>
+			<div class="hotline">
+				<strong>Hà Nội: <span>04.7303 1999</span></strong>
+				<strong>Tp.HCM: <span>08.7302 8666</span></strong>
+			</div>
+			<div class="account"></div>
+		</div>
   </div>
   <div class="block-nav">
     <div class="container p-full">
