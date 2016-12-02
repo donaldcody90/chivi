@@ -71,7 +71,7 @@ class Auth extends CI_Controller {
 					'password' => vst_password($this->input->post("password")),
 					'create_date'	=> vst_currentDate($time=true,$formatDate="Y-m-d",$formatTime="H:i:s"),
 				);
-				var_dump($data);
+				 
 				$result = $this->customers_model->insertCustomer($data);
 				if($result >= 1){
 					message_flash('Thêm tài khoản '.$this->input->post('username').' thành công');

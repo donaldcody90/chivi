@@ -1,25 +1,14 @@
 <div class="container p-full">
 	  <div class="container-profile">
-		<nav class="navbar navbar-default profile-menu-top">
-		  <div class="row">
-			<div class="col-md-12">
-			  <ul class="nav navbar-nav">
-				<li class=" default "><a href="#">Quản lý tài khoản</a></li>
-				<li class=" active "><a href="#">Quản lý mua hàng</a></li>
-				<li class=" default "><a href="#">Tài khoản trả trước</a></li>
-			  </ul>
-			</div>
-		  </div>
-		</nav>
 		<div class="profile clearfix">
 		  <div class="col-xs-3">
-			<ul class="profile-menu-left">
-			  <li class="user"><i class="glyphicon glyphicon-user"></i>Xin chào,<br><?php $currentCustomer=vst_getCurrentCustomer(); echo $currentCustomer['username'];?> </li>
-			  <li class="active"><a href="list.html">Danh sách đơn hàng</a></li>
-			  <li ><a href="list.html">Danh sách khiếu nại</a></li>
-			  <li ><a href="list.html">Danh sách hoàn tiền</a></li>
-			  <li><a href="<?php echo site_url('customer/logout'); ?>" data-method="post">Thoát</a></li>
-			</ul>
+				 <ul class="profile-menu-left nav nav-tabs horizontal-tab">
+					<li class="user"><i class="glyphicon glyphicon-user"></i>Xin chào,<br><?php $currentCustomer=vst_getCurrentCustomer(); echo $currentCustomer['username'];?></li>
+					<li ><a href="<?php echo site_url('customer/profile'); ?>"> Thông tin tài khoản</a></li>
+					<li ><a  href="<?php echo site_url('customer/changepass'); ?>" >Đổi mật khẩu</a></li>
+					<li class="active"><a href="<?php echo site_url('order/lists'); ?>">Danh sách đơn hàng</a></li>
+					<li ><a href="<?php echo site_url('customer/logout');?>">Thoát</a></li>
+				  </ul>
 		  </div>
 		  <div class="col-xs-9 profile-content">
 			<div class="profile-title">Danh sách đơn đặt hàng</div>
@@ -28,49 +17,51 @@
 				<div>
 				  <div class="clearfix">
 					<div class="box-search-order">
-					  <form id="w0" class="order-search" action="/my-order/index" method="get">
+					  <form id="w0" class="order-search" action="<?php echo site_url('order/lists');?>" method="get">
 						<div class="clearfix">
+						  <?php
+							$filter_invoiceid = $this->input->get('filter_invoiceid');
+							$filter_status = $this->input->get('filter_status');
+							$startdate = $this->input->get('filter_startdate_create_date');
+							$enddate = $this->input->get('filter_enddate_create_date');
+						  ?>	
 						  <div class="form-group field-searchorderform-order_id">
 							<label class="control-label" for="searchorderform-order_id">Mã đơn hàng</label>
-							<input type="text" id="searchorderform-order_id" class="form-control" name="SearchOrderForm[order_id]" maxlength="99" placeholder="Mã đơn hàng">
+							<input type="text" value="<?php echo isset($filter_invoiceid )?$filter_invoiceid:''; ?>" id="searchorderform-order_id" class="form-control" name="filter_invoiceid" maxlength="99" placeholder="Mã đơn hàng">
 							<div class="help-block"></div>
 						  </div>
 						  <div class="form-group field-searchorderform-order_status">
 							<label class="control-label" for="searchorderform-order_status">Trạng thái</label>
-							<select id="searchorderform-order_status" class="form-control" name="SearchOrderForm[order_status]">
-							  <option value="">--Tất cả--</option>
-							  <option value="1">Chờ thanh toán</option>
-							  <option value="2">Đã thanh toán</option>
-							  <option value="3">Người mua hủy</option>
-							  <option value="4">Hệ thống hủy</option>
+							
+							<select id="searchorderform-order_status" class="form-control" name="filter_status" style="width: 200px;">
+							<option value="">--Tất cả--</option>
+							<?php $status = vst_array_status();
+								
+								foreach($status as $key_status => $text){
+									
+								if(isset($filter_status) && ($filter_status == $key_status)){ $select = 'selected'; }else $select ='';	
+									
+							?>  
+							<option value="<?php echo $key_status ?>" <?php echo $select ?> ><?php echo $text; ?></option>
+							
+							<?php } ?>   
 							</select>
 							<div class="help-block"></div>
 						  </div>
-						  <div class="form-group field-searchorderform-order_type">
-							<label class="control-label" for="searchorderform-order_type">Loại thanh toán</label>
-							<select id="searchorderform-order_type" class="form-control" name="SearchOrderForm[order_type]">
-							  <option value="0">Thanh toán ngay</option>
-							  <option value="1">Thanh toán khi nhận hàng</option>
-							  <option value="" selected>Tất cả</option>
-							</select>
-							<div class="help-block"></div>
-						  </div>
+						  
 						  <div class="form-group">
 							<label class="control-label">Thời gian đặt hàng</label>
 							<div class="filter-date">
 							  <div class="form-group field-searchorderform-begin_date">
-								<div><input type="text" id="searchorderform-begin_date" class="form-control" name="SearchOrderForm[begin_date]" placeholder="Từ ngày"></div>
+								<div><input type="text" id="datepicker_from"  class="form-control pickdate_from" value="<?php echo isset($startdate )?$startdate:''; ?>" name="filter_startdate_create_date" placeholder="Từ ngày"></div>
 							  </div>
 							  <div class="form-group field-searchorderform-end_date">
-								<div><input type="text" id="searchorderform-end_date" class="form-control" name="SearchOrderForm[end_date]" placeholder="đến ngày"></div>
-							  </div>
+								<div><input type="text" id="datepicker_to" class="form-control pickdate_to" value="<?php echo isset($enddate )?$enddate:''; ?>"  name="filter_enddate_create_date" placeholder="đến ngày"></div>
+							  </div>	
 							</div>
 						  </div>
 						</div>
-						<div>
-						  <input type="hidden" name="SearchOrderForm[show_order_drop]" value="0"><input type="checkbox" id="searchorderform-show_order_drop" name="SearchOrderForm[show_order_drop]" value="1" style="height: auto;">
-						  <label for="searchorderform-show_order_drop" style="margin-left: 10px; cursor: pointer;">Đơn hàng đã hủy</label>
-						</div>
+ 
 						<button type="submit" class="btn btn-primary searching">Lọc đơn hàng</button>                    
 					  </form>
 					</div>
@@ -121,7 +112,7 @@
 								<td class="order-detail-total text-price">
 									<div class="text-right button-checkout">
 									  <a class=" " href="#" >Hủy đơn</a><br/>
-									  <a class=" " href="<?php echo site_url(''.$order['invoiceid'].'-o'.$order['id']);?>" data-method="post">Chi tiết</a>                                            
+									  <a class="btn btn-primary" href="<?php echo site_url(''.$order['invoiceid'].'-o'.$order['id']);?>" data-method="post">Chi tiết</a>                                            
 									</div>		
 								</td>
 							  </tr>

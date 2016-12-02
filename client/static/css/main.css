@@ -190,9 +190,7 @@ h1, .h1, h2, .h2, h3, .h3 {
     color: #c40000;
 }
 
-.header-menu-top #show-user-top .login-signup {
-    display: none;
-}
+
 
 .header-logo {
     width: 340px;

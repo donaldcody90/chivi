@@ -216,8 +216,8 @@ class Cart extends CI_Controller {
 					//$this->session->set_userdata('vkt_cart',$vkt_cart);
 					$this->cart_model->updateCartData($vkt_cart);
 				}
-				message_flash('Bạn vừa tạo thành công đơn hàng: '.$invoiceid,'success');
-				redirect(site_url('order/lists'));
+				message_flash('Bạn vừa tạo thành công đơn hàng: '.$invoiceid.'. Nhấn vào đây để trở về <a href="'.site_url('order/lists').'">Danh sách đơn hàng</a>' ,'success');
+				redirect(site_url('cart/thanks'));
 			}else{
 				message_flash('Bạn chưa chọn mua sản phẩm nào!','error');
 				redirect(site_url('cart'));
@@ -226,6 +226,11 @@ class Cart extends CI_Controller {
 		}
 		$arr['vkt_cart'] = $vkt_cart;
 		$arr['user'] = $currentCustomer;
+		$this->load->view('layout/home', $arr);
+	}
+	
+	public function thanks(){
+		$arr['template'] = 'cart/thanks';
 		$this->load->view('layout/home', $arr);
 	}
 	

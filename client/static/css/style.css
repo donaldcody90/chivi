@@ -63,9 +63,7 @@ a:hover {
     color: #c40000;
 }
 
-.header-menu-top #show-user-top .login-signup {
-    display: none;
-}
+
 
 /* hiá»ƒn thá»‹ notification */
 
@@ -1556,3 +1554,4 @@ ul.horizontal-tab li{
     width: 50px;
 }
 .shopping-cart-index a{cursor: pointer;}
+.header-menu-top .hello-user a{ font-weight: 600 ; font-size: 13px; color: #cc1414;}

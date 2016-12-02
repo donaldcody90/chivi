@@ -42,7 +42,7 @@
                         <tr>
                            <td>1</td>
                            <td class="text-right">
-                              <span><?php echo number_format($product['vn_price']); ?> đ</span> / chiếc   
+                              <span><?php echo vst_showPrice($product['vn_price']); ?> đ</span> / chiếc   
                            </td>
                         </tr>
                      </tbody>
@@ -249,7 +249,7 @@
                            </span>
                            </a>
                            <div class="media-body m-product-info">
-                              <strong class="price"> <?php echo number_format($same_shop_product['vn_price']);?> đ </strong>
+                              <strong class="price"> <?php echo vst_showPrice($same_shop_product['vn_price']);?> đ </strong>
                               <a class="capital" href="<?php echo site_url(''.$same_shop_product['slug'].'-i'.$same_shop_product['id']); ?>" title="<?php echo $same_shop_product['title']; ?>" target="_blank"><?php echo $same_shop_product['title']; ?></a>        
                            </div>
                         </div>

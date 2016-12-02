@@ -21,10 +21,8 @@ class Customer extends CI_Controller {
 		
 		$data['customer'] = $customer;
 		$data['template'] = 'customer/profile';
-		$content=$this->load->view('layout/ajax',$data,true);
-
-		$res=array('Response'=>"Success","Message"=>$content);
-		echo json_encode($res); 
+	    $this->load->view('layout/home',$data );
+ 
 	}
 	// Change password
 	
@@ -59,9 +57,8 @@ class Customer extends CI_Controller {
 		}
 		$data['result']  = $this->customers_model->findCustomer($param_where);
         $data['template'] = 'customer/changepass';
-		$content=$this->load->view('layout/ajax',$data,true);
-		$res=array('Response'=>"Success","Message"=>$content);
-		echo json_encode($res); 
+		 $this->load->view('layout/home',$data);
+		 
 	}
 	
 	// Sổ địa chỉ

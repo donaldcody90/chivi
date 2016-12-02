@@ -113,6 +113,17 @@ if ( ! function_exists('vst_getCurrentCustomer'))
 		return $customer;
 	}
 }
+
+if(!function_exists('vst_FormatDateTime')){
+	function vst_FormatDateTime($date,$formatDate="d-m-Y",$timeFormat="H:i:s",$time=true){
+		
+		$formatDateTime=$formatDate.' '.$timeFormat;
+		$date = $date.' '.$time;
+		$valid_date = date($formatDateTime, strtotime($date));
+		return $valid_date;
+	}
+}
+
 if ( ! function_exists('vst_FormatDate'))
 {
 	function vst_FormatDate($date,$formatDate="d-m-Y",$timeFormat="H:i:s",$time=true) {
@@ -248,7 +259,7 @@ if(!function_exists('vst_filterData')){
 	{
 		$CI =& get_instance();
 		$params= $CI->input->get();
-		print_r($params);
+		 
 		unset($params['page']);
 		#unset($params['sortType']);
 		#unset($params['sort']);
@@ -399,17 +410,42 @@ if(!function_exists('order_status')){
 				$status_text='Chờ xử lý';
 				break;
 			case 1:
-				$status_text='Đang xử lý';
+				$status_text='Đã duyệt';
 				break;
 			case 2:
-				$status_text='Đã giao hàng';
+				$status_text='Đã thanh toán';
+			case 3:
+				$status_text='Đã mua hàng';
+			case 4:
+				$status_text='Hàng đã về - Chờ giao';
+			case 5:
+				$status_text='Kết thúc';
 				break;
 			default: 
-				$status_text='Chờ xử lý';
+				$status_text='Đã duyệt';
 		}
 		return $status_text;
 	}
 }
+
+
+
+if(!function_exists('vst_array_status')){
+	function vst_array_status(){
+		 $status = array(
+			0 => "Chờ xử lý",
+			1 => "Đã duyệt",
+			2 => "Đã thanh toán",
+			3 => "Đã mua hàng",
+			4 => "Hàng đã về - Chờ giao",
+			5 => "Kết thúc",
+			-1 => "Đã hủy",
+		 );
+		 return $status;
+	}
+}
+
+
 
 if(!function_exists('cleanVietnamese')){
 	function cleanVietnamese($str)
@@ -439,66 +475,3 @@ if(!function_exists('cleanVietnamese')){
 
 	}
 }
-
-
-/*
-if(!function_exists('foreach_cat')){
-	function foreach_cat($arr, $cat_id)
-	{
-		$result= array();
-		foreach($arr as $item){
-			if(isset($item['id'])){
-				if($item['id']== $cat_id){
-					$result=$item;
-					break;
-				}else{
-					foreach_cat($item, $cat_id);
-				}
-			}
-		}
-		print_r($result);
-	}
-}
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

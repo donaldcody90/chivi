@@ -3,15 +3,16 @@
     <div class="row">
       <div class="col-md-1 col-lg-1 col-sm-1"></div>
       <div class="cart-content">
-        <div class="alert alert-success"><strong>Lưu ý: </strong>
-          Người bán cam kết và sẽ chịu trách nhiệm về chất lượng sản phẩm.
-        </div>
+        
         <div class="product-shop-cart">
           <h3 style="font-weight: bold">Giỏ hàng của bạn</h3>
           <h4>(<?php echo count($array_product); ?> sản phẩm)</h4>
         </div>
+		 <?php $this->load->view('_base/message'); 
+		  if($array_product){
+		  ?>
         <div class="boder-shop-cart">
-		  <?php $this->load->view('_base/message'); ?>
+		 
 		  <form id="frm-checkout" action="<?php echo site_url('cart/checkout');?>" method="post">
           <table class="table table-shopping-cart" id="item-shop-cart-1001907" data-shop-id="1001907">
             <thead>
@@ -25,7 +26,9 @@
             </thead>
 			
             <tbody>
-			<?php foreach($array_product as $key=>$value){ ?>
+			<?php 
+			
+			foreach($array_product as $key=>$value){ ?>
 			
 			  <tr class="tr_seller">
 				<td colspan="5">
@@ -76,20 +79,13 @@
                       </div>
                     </div>
                   </div>
-				  <div class="losers">
-                    <input type="text" class="form-losers" placeholder="Nhập mã giảm giá">
-                    <button type="button" class="btn btn-danger btn-losers">Xác nhận</button>
-                    <div class="text-losers">
-                      <p style="color: #00aa00">MÃ GIÁM GIÁ ĐƯỢC ÁP DỤNG.</p>
-                      Giảm: <samp style="color: #C40000;font-weight: bold">-10.000đ</samp>
-                    </div>
-                  </div>
+				  
                 </td>
                 <td class="sku-price">
                   <div class="price-range p-info price-range-select-1055999">
                     <div class="f">
                       <span class="pfv">
-						<?php echo number_format($v['price']); ?>đ
+						<?php echo vst_showPrice($v['price']); ?>đ
                       </span>
                     </div>
                   </div>
@@ -172,7 +168,15 @@
             </tfoot>
           </table>
 		  </form>
+		  
         </div>
+		<?php }else{ ?>
+		  <div class="alert alert-success">
+			<strong>
+					Giỏ hàng của bạn hiện chưa có sản phẩm nào.
+			</strong>
+			</div>
+		  <?php } ?>
       </div>
     </div>
   </div>

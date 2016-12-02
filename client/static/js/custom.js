@@ -41,8 +41,16 @@ jQuery(document).ready(function($){
 		$("a.detail_attr").removeClass('selected');
 		$(this).addClass('selected');
 	});
-	
+	// Field Date //
+	$(".pickdate").datepicker({dateFormat:'yy-mm-dd'});
+	// Startdate //
+	$(".pickdate_from").datepicker({dateFormat: 'yy-mm-dd' });
+	// Enddate //
+	$(".pickdate_to").datepicker({dateFormat: 'yy-mm-dd' });
 });
+
+
+
 
 function openDiv(divSelector)
 {

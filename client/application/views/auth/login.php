@@ -34,7 +34,7 @@
         </div>
         <div class="form-group">
           <div class="col-xs-4 col-xs-offset-4">
-            <a href="<?php echo site_url('auth/resgister');?>">Đăng ký tài khoản</a>                
+            <a href="<?php echo site_url('auth/register');?>">Đăng ký tài khoản</a>                
 			<a class="pull-right" href="<?php echo site_url('auth/forgotpass');?>">Quên mật khẩu?</a>            
           </div>
         </div>

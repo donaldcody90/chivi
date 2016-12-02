@@ -3,15 +3,24 @@
     <div class="menu-utility">
       <div class="container">
         <div class="pull-left" id="show-user-top">
-          <span class="welcome hello-user">Chào mừng quý khách đến với ChiVi</span>
-          <ul class="login-signup">
+		<?php if(is_logged_in()){
+			$customer = vst_getCurrentCustomer();
+		?>
+			<span class="welcome hello-user">Chào mừng <a href="<?php echo site_url('customer/profile'); ?>"><?php echo $customer['fullname']; ?> </a>đã đến với ChiVi</span>
+		<?php
+		}else{
+		?>
+		<ul class="login-signup">
             <li>
               <a href="<?php echo site_url();?>" title="Đăng nhập"><i class="glyphicon glyphicon-log-in"></i> Đăng nhập</a>                        
             </li>
             <li>
               <a href="<?php echo site_url('auth/register');?>" title="Đăng ký"><i class="glyphicon glyphicon-user"></i> Đăng ký</a>                        
             </li>
-          </ul>
+        </ul>
+        <?php
+		}
+        ?>  
         </div>
         <div class="pull-right">
           <ul>

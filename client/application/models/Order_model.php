@@ -17,9 +17,10 @@ class Order_model extends MY_Model
 
 	// List Order
     function listOrder($filter=array(),$total=0,$start=0, $param){
-          vst_buildFilter($filter);
+        
           $query = $this->db->select($this->table_orders.'.*,');
           $query = $this->db->from($this->table_orders);
+		  vst_buildFilter($filter);
           $query = $this->db->where($param);
           $query = $this->db->order_by($this->table_orders.'.id', 'desc');          
           $query = $this->db->limit($total, $start);

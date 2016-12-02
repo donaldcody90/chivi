@@ -2,33 +2,22 @@
 	$info_order = $order;	
 } 
 ?>
-<div class="container p-full">
-    <div class="container-profile">
-		<nav class="navbar navbar-default profile-menu-top">
-			<div class="row">
-				<div class="col-md-12">
-					<ul class="nav navbar-nav">
-						<li class=" default "><a href="/my-account/index">Quản lý tài khoản</a></li>
-						<li class=" active "><a href="/my-order/index">Quản lý mua hàng</a></li>
-						<li class=" default "><a href="/wallet/transaction/index">Tài khoản trả trước</a></li>
-						<li class=" default "><a href="/seller/order">Quản lý bán hàng</a></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
+ 
 
+<div class="container p-full">
+	  <div class="container-profile">
 		<div class="profile clearfix">
-			<div class="col-xs-3">
-				<ul class="profile-menu-left">
-					<li class="user"><i class="glyphicon glyphicon-user"></i>Xin chào,<br>dendimon    </li>
-					<li class="active"><a href="/my-order/index">Danh sách đơn hàng</a></li>
-					<li><a href="/complain/index">Danh sách khiếu nại</a></li>
-					<li><a href="/refund/index">Danh sách hoàn tiền</a></li>
-					<li><a href="/user/logout" data-method="post">Thoát</a></li>
-				</ul>
-			</div>
-			<div class="col-xs-9 profile-content">
-				<div class="profile-title">Thông tin đơn hàng <?php if(!empty($info_order['invoiceid'])){ echo $info_order['invoiceid']; }?></div>
+		  <div class="col-xs-3">
+				 <ul class="profile-menu-left nav nav-tabs horizontal-tab">
+					<li class="user"><i class="glyphicon glyphicon-user"></i>Xin chào,<br><?php $currentCustomer=vst_getCurrentCustomer(); echo $currentCustomer['username'];?></li>
+					<li ><a href="<?php echo site_url('customer/profile'); ?>"> Thông tin tài khoản</a></li>
+					<li ><a  href="<?php echo site_url('customer/changepass'); ?>" >Đổi mật khẩu</a></li>
+					<li class="active" ><a href="<?php echo site_url('order/lists'); ?>">Danh sách đơn hàng</a></li>
+					<li ><a href="<?php echo site_url('customer/logout');?>">Thoát</a></li>
+				  </ul>
+		  </div>
+		  <div class="col-xs-9 profile-content">
+			<div class="profile-title">Thông tin đơn hàng <?php if(!empty($info_order['invoiceid'])){ echo $info_order['invoiceid']; }?></div>
 				<div>    
 					<table class="table table-bordered table-striped no-margin" style="background-color: #fff; margin-bottom: 0;">
 						<tbody>
@@ -119,13 +108,13 @@
 													
 												</td>
 												<td class="order-detail-price text-price text-bold">
-													<span><?php if($item['item_price']) echo $item['item_price']; ?></span>
+													<span><?php if($item['item_price']) echo vst_showPrice($item['item_price']); ?>đ</span>
 												</td>
 												<td class="order-detail-quantity">
 													<span><?php if($item['item_quantity']) echo $item['item_quantity']; ?></span>
 												</td>
 												<td class="order-detail-total text-price">
-													<span><?php if($item['item_quantity'] && $item['item_price']) echo $item['item_quantity']*$item['item_price']; ?></span>
+													<span><?php if($item['item_quantity'] && $item['item_price']) echo vst_showPrice($item['item_quantity']*$item['item_price']); ?>đ</span>
 												</td>
 											</tr>
 											
@@ -142,17 +131,17 @@
 								<div class="order-item-footer">
 									<ul class="pull-right">
 										<li class="label-title">Tiền hàng:</li>
-										<li class="value"><span class="total-money text-bold text-price"><?php if($info_order['total_amount']) echo $info_order['total_amount']; ?></span>
+										<li class="value"><span class="total-money text-bold text-price"><?php if($info_order['total_amount']) echo vst_showPrice($info_order['total_amount']); ?>đ</span>
 										</li>
 										<li class="label-title">Phí vận chuyển:</li>
-										<li class="value"><span class="total-transporting">107.900đ</span>
+										<li class="value"><span class="total-transporting">0đ</span>
 										</li>
 										<li class="label-title">Phí CoD:</li>
 										<li class="value"><span class="total-transporting">0đ</span>
 										</li>
 										<li class="label-title">Thành tiền:</li>
 										<li class="value">
-										<span class="final-money text-bold text-price">607.900đ</span>
+										<span class="final-money text-bold text-price"><?php if($info_order['total_amount']) echo vst_showPrice($info_order['total_amount']); ?>đ</span>
 										</li>
 									</ul>
 								</div>
@@ -184,6 +173,7 @@
 					</div>
 				</div>
 			</div>
+
 		</div>
+	  </div>
 	</div>
-</div>
