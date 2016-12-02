@@ -99,12 +99,24 @@
 													<a class="thumbs-product-image responsive-img" href="<?php  ?>" target="_blank">
 													<img src="<?php if($item['item_image']) echo $item['item_image']; ?>" alt=""></a>                                        </td>
 												<td class="oder-detail-product-info">
-													<a class="product-name" href="//luuthong.vn/ao-thun-nam-phoi-hoa-tiet-bull-dogs-phong-cach-sanh-dieu-i1070900" target="_blank">
-														Áo thun nam phối họa tiết bull dogs, phong cách sành điệu
+													<a class="product-name" href="<?php if($item['link']) echo $item['link']; ?>" target="_blank">
+														<?php if($item['title']) echo $item['title']; ?>
 													</a>
-													<p style="margin-top: 5px; margin-bottom: 5px; font-weight: bold;">
-														<label>Màu sắc</label>&nbsp;:<label>Trắng</label>
-													</p>
+													<?php if($item['item_attrs']) {$attrs = json_decode($item['item_attrs'],true); }?>
+													<?php
+														foreach($attrs['properties'] as $k2 => $attr){
+															$property_title = vst_getProperty($attr['id']);
+															$property_value = vst_getPropertyValue($attr['value_id']);
+														?>
+														 
+														<p style="margin-top: 5px; margin-bottom: 5px; font-weight: normal;">
+														<label><?php echo $property_title['name'];?></label>&nbsp;:<label><?php echo $property_value['value'];?></label>
+														</p>	
+													<?php		
+														}
+													?>
+													
+													
 												</td>
 												<td class="order-detail-price text-price text-bold">
 													<span><?php if($item['item_price']) echo $item['item_price']; ?></span>

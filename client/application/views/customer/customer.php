@@ -6,8 +6,6 @@
               <div class="col-md-12">
                 <ul class="nav nav-tabs">
                   <li><a data-toggle="tab" href="#acc">Quản lý tài khoản</a></li>
-                  <li><a data-toggle="tab" href="#buy">Quản lý mua hàng</a></li>
-                  <li><a data-toggle="tab" href="#bank">Tài khoản trả trước</a></li>
                 </ul>
               </div>
             </div>
@@ -16,14 +14,10 @@
             <div id="#acc" class="tab-pane active"> 
 				<div class="col-xs-3">
 				 <ul class="profile-menu-left nav nav-tabs horizontal-tab">
-					<li class="user"><i class="glyphicon glyphicon-user"></i>Xin chào,<br>dendimon    </li>
+					<li class="user"><i class="glyphicon glyphicon-user"></i>Xin chào,<br><?php $currentCustomer=vst_getCurrentCustomer(); echo $currentCustomer['username'];?></li>
 					<li class="active"><a data-toggle="tab" href="#profile" onclick="loadAjax('<?php echo site_url('customer/profile'); ?>','profile')" >Thông tin tài khoản</a></li>
-					<li ><a data-toggle="tab" href="#address-book" onclick="loadAjax('<?php echo site_url('customer/address_book'); ?>','address_book')"  >Sổ địa chỉ</a></li>
 					<li ><a data-toggle="tab" href="#changepass" onclick="loadAjax('<?php echo site_url('customer/changepass'); ?>','changepass')">Đổi mật khẩu</a></li>
-					<li ><a data-toggle="tab" href="#favousrite_product" onclick="loadAjax('<?php echo site_url('customer/favousrite_product'); ?>','favousrite_product')">Sản phẩm yêu thích</a></li>
-					<li ><a data-toggle="tab" href="#favousrite_shop" onclick="loadAjax('<?php echo site_url('customer/favousrite_shop'); ?>','favousrite_shop')">Shop yêu thích</a></li>
-					<li ><a data-toggle="tab" href="#complain" onclick="loadAjax('<?php echo site_url('customer/complain'); ?>','complain')">Danh sách góp ý</a></li>
-					<li ><a data-toggle="tab" href="#notification" onclick="loadAjax('<?php echo site_url('customer/notification'); ?>','notification')">Danh sách thông báo</a></li>
+					<li ><a data-toggle="tab" href="#list" onclick="loadAjax('<?php echo site_url('order/lists'); ?>','list')">Danh sách đơn hàng</a></li>
 					<li ><a href="<?php echo site_url('customer/logout');?>">Thoát</a></li>
 				  </ul>
 				</div>

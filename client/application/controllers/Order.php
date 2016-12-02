@@ -21,8 +21,11 @@ class Order extends CI_Controller {
 		//echo "<pre>";
 		//print_r($info);
 		$data['order'] = $order;
-		$data['template'] = 'order/detail';
-		$this->load->view('layout/home', $data);
+		$data['template'] = 'customer/detail';
+		//$this->load->view('layout/home', $data);
+		$content=$this->load->view('layout/ajax',$data,true);
+		$res=array('Response'=>"Success","Message"=>$content);
+		echo json_encode($res); 
 	}
 	
 	// List Order
@@ -31,11 +34,14 @@ class Order extends CI_Controller {
 		$cid= $currentCustomer['id'];
 		$param=array('cid'=>$cid);
 		$list_order = $this->order_model->listOrder(array(), 0, 0, $param);
-		var_dump($list_order);
+		 
 		 
 		$data['list_orders']=$list_order;
-		$data['template'] = 'order/list';
-		$this->load->view('layout/home', $data);
+		$data['template'] = 'customer/list';
+		//$this->load->view('layout/home', $data);
+		$content=$this->load->view('layout/ajax',$data,true);
+		$res=array('Response'=>"Success","Message"=>$content);
+		echo json_encode($res); 
 	}
 	
 }

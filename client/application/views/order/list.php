@@ -7,7 +7,6 @@
 				<li class=" default "><a href="#">Quản lý tài khoản</a></li>
 				<li class=" active "><a href="#">Quản lý mua hàng</a></li>
 				<li class=" default "><a href="#">Tài khoản trả trước</a></li>
-			
 			  </ul>
 			</div>
 		  </div>
@@ -77,7 +76,7 @@
 					</div>
 				  </div>
 				  <div class="alert alert-info">
-					Sau 7 ngày kể từ khi thanh toán, nếu quý khách chưa nhận được hàng hãy liên hệ với Luuthong.vn để được hỗ trợ: 04.7303 1999
+					Sau 7 ngày kể từ khi thanh toán, nếu quý khách chưa nhận được hàng hãy liên hệ với Chivi.vn để được hỗ trợ: 0972.964.468
 				  </div>
 				  
 				  <div id="w1" class="list-view-orders list-view">
