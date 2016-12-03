@@ -74,13 +74,10 @@
 				?>
 				<div class="col-lg-15 col-sm-4 col-md-3 col-xs-6 col-vxs-12">
 				  <div class="product-items">
-					<a target="_blank" href="<?php echo site_url($product['slug'].'-i'.$product['id']);?>" class="responsive-img img-featured" title=" ">
-					  <?php if(isset($product['images']) && !empty($product['images'])){
-						foreach($product['images'] as $image){ 
-							if($image['is_default']==1){ ?>
-								<img id="featured-1053957" src="<?php echo $image['image_src']; ?>" alt="<?php echo $image['alt']; ?>">
-					  <?php } break;
-							} } ?>
+					<a title="" href="<?php echo site_url($product['slug'].'-i'.$product['id']);?>" class="responsive-img img-featured" title=" ">
+					  <?php if(isset($product['images']) && count($product['images'])>0 ){ ?>
+						<img id="featured-1053957" src="<?php echo $product['images'][0]['image_src']; ?>" alt="<?php echo $product['images'][0]['alt']; ?>">
+					  <?php } ?>
 					  <div class="price-range">
 						<?php if(isset($product['price_range']) && !empty($product['price_range'])){
 							foreach($product['price_range'] as $price_range){ ?>
@@ -101,14 +98,14 @@
 						<strong class="pull-left"><?php echo (isset($product['vn_price']) && $product['vn_price']>0)?number_format($product['vn_price']).' đ':'Giá liên hệ';?></strong>
 					</div>
 					<h4 class="capital">
-						<a class="product-title" href="<?php echo site_url($product['slug'].'-i'.$product['id']);?>" title="<?php echo $product['title'];?>" target="_blank">
+						<a class="product-title" href="<?php echo site_url($product['slug'].'-i'.$product['id']);?>" title="<?php echo $product['title'];?>">
 							<?php echo $product['title']?>
 						</a>
 					</h4>
 					<div class="shop-info">
 					  <div class="shop-title-v2">
 						<div class="shop-left">
-						  <a class="shop-title" href="<?php echo site_url($product['shop_slug'].'-s'.$product['shop_id']);?>" title="<?php echo $product['shop_name'];?>" target="_blank"><?php echo $product['shop_name'];?></a>                                        
+						  <a class="shop-title" href="<?php echo site_url($product['shop_slug'].'-s'.$product['shop_id']);?>" title="<?php echo $product['shop_name'];?>"><?php echo $product['shop_name'];?></a>                                        
 						  <div class="shop-info-pop">
 							<strong class="capital"><?php echo $product['shop_name']; ?></strong>
 							<div class="line">
@@ -130,7 +127,7 @@
 							<?php 
 								if($product['total_rate']>0 && $product['count_rate']>0){
 									for($i=0; $i<($product['total_rate']/$product['count_rate']);$i++){ ?>
-										<img src="<?php echo site_url('static/images/icon_shop.png')?>"/>
+										<img src="<?php echo site_url('static/images/icon_shop.png');?>"/>
 							<?php } } ?>	
 						</div>
 						<div class="shop-line-icon">

@@ -29,6 +29,10 @@ class Upgrade extends CI_Controller {
 		$this->upgrade_model->v5();
 		die("DONE");
 	}
+	public function v6(){
+		$this->upgrade_model->v6();
+		die("DONE");
+	}
 	
  
 }

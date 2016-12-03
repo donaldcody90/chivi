@@ -76,6 +76,7 @@ $config['site'] = array(
 			'static/css/shop.css',
 			'static/css/product_page.css',
 			'static/css/product-filter.css',
+			'static/css/page.css'
 		)
 	),
 	// Multilingual settings (set empty array to disable this)

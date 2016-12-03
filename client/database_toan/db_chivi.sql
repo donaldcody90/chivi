@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 02, 2016 at 05:59 AM
+-- Generation Time: Dec 03, 2016 at 06:19 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.23
 
@@ -155,6 +155,29 @@ INSERT INTO `vt_order_items` (`id`, `oid`, `pid`, `item_image`, `item_quantity`,
 (3, 3, '5', 'static/images/2b0189262b29b2b9fca736445163efc4.jpg', 50, '', ''),
 (4, 4, '6', 'static/images/2eb969493925a3a3b35f8b08cdd7255a.220x220.jpg', 100, '', ''),
 (5, 5, '1', 'static/images/2b0189262b29b2b9fca736445163efc4.jpg', 15, '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vt_pages`
+--
+
+CREATE TABLE `vt_pages` (
+  `id` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `content` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `featured_img` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `vt_pages`
+--
+
+INSERT INTO `vt_pages` (`id`, `uid`, `title`, `content`, `featured_img`, `slug`, `created_date`) VALUES
+(1, 2, 'Giải quyết khiếu nại', '<p>Cơ chế hoạt động của <strong>chivi.VN</strong> là thông qua việc mở gian hàng trên&nbsp;<strong>website</strong>, những nhà sản xuất, đối tác thương mại có thể cung cấp các sản phẩm của mình đến với các cửa hàng bán lẻ hoặc những khách hàng tiêu dùng một cách nhanh và thuận tiện nhất. Mục tiêu của&nbsp;<strong>Luuthong.vn</strong>&nbsp;tạo ra một kênh giao dịch bán buôn giữa nhà sản xuất với các cửa hàng một cách nhanh, uy tín và thuận tiện nhất.&nbsp;Do vậy, việc giải quyết khiếu nại, nếu có, phải được tuân theo các quy định chặt chẽ dưới đây:</p>\n					<p><strong>1/. Điều kiện xử lý khiếu nại : </strong></p>\n					<p><em><strong>a/. Thời gian và tình trạng đơn hàng</strong></em></p>\n					<p>- Khi đơn hàng được thanh toán qua hệ thống chivi.vn</p>\n					<p>- Tình từ thời điểm thanh toán đến thời điểm phát sinh khiếu nại không quá 10 (mười) ngày.</p>\n					<p>- Đang xảy ra khiếu nại của đơn hàng đó, chưa hoàn thành.</p>\n					<p><em><strong>b/. Tình trạng hàng hóa:</strong></em></p>\n					<p>- Khách hàng không nhận được hàng / thiếu hàng</p>\n					<p>- Hàng nhận không đúng mẫu mã, kích cỡ màu sắc</p>\n					<p>- Hàng nhận bị vỡ, rách nát ...</p>\n					<p><strong>2/. Quy trình xử lý khiếu nại:</strong></p>\n					<p><strong>Bước 1:</strong> Người mua gửi khiếu nại cho nhà cung cấp (NCC)</p>\n					<p><strong>Bước 2:</strong> NCC xác nhận tình trạng khiếu nại của đơn hàng</p>\n					<p>- Nếu NCC không đồng ý khiếu nại =&gt; Hủy khiếu nại.</p>\n					<p>Khách hàng tiếp tục khiếu nại =&gt; chivi sẽ duyệt khiếu nại và làm việc với NCC để giải quyết khiếu nại.</p>\n					<p>- NCC đồng ý khiếu nại, và 2 bên đàm phán giải quyết khiếu nại với các phương thức sau:</p>\n					<p>+ Khách hàng trả lại hàng và NCC hoàn tiền cho KH</p>\n					<p>+ Khách hàng chuyển lại hàng cho NCC để đổi hàng, NCC chuyển lại hàng cho KH</p>\n					<p>+ NCC bồi hoàn 1 phần giá trị đơn hàng.</p>\n					<p><strong>Bước 3:</strong> KH lựa chọn phương thức giải quyết khiếu nại</p>\n					<p><strong>Bước 4:</strong> Giải quyết khiếu nại</p>\n					<p><strong>Bước 5:</strong> Xác nhận tình trạng khiếu nại =&gt; Hoàn thành khiếu nại.</p>\n					<p>&nbsp;</p>', '', 'giai-quyet-khieu-nai', '2016-11-30 04:17:17');
 
 -- --------------------------------------------------------
 
@@ -452,6 +475,12 @@ ALTER TABLE `vt_order_items`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `vt_pages`
+--
+ALTER TABLE `vt_pages`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `vt_priceranges`
 --
 ALTER TABLE `vt_priceranges`
@@ -529,6 +558,11 @@ ALTER TABLE `vt_orders`
 --
 ALTER TABLE `vt_order_items`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `vt_pages`
+--
+ALTER TABLE `vt_pages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `vt_priceranges`
 --

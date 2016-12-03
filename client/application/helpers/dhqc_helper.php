@@ -520,3 +520,40 @@ if(!function_exists('cleanVietnamese')){
 
 	}
 }
+
+
+
+if ( ! function_exists('vst_buildRewriteURL'))
+{
+ /*
+  $id : id of category, id of shop, id of product, id of page
+  $title : text title
+  $type : category,shop,product,page,menu
+ */
+ function vst_buildRewriteURL($id,$slug,$type) {
+  if(empty($id)){
+  return site_url('404');}
+  $rewriteURL=$slug;
+     switch($type){
+   case 'category':
+    $rewriteURL .="-c".$id;
+    break;
+   case 'shop':
+    $rewriteURL .="-s".$id;
+    break;
+   case 'product':
+    $rewriteURL .="-i".$id;
+    break;
+   case 'page':
+    $rewriteURL .="-p".$id;
+    break;
+   case 'menu':
+    $rewriteURL .="-m".$id;
+    break;
+   default :
+    $rewriteURL=site_url('404');
+    break;
+  return $rewriteURL;
+ }
+}
+}

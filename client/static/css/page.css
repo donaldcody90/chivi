@@ -1,0 +1,192 @@
+.container-page {
+    background: #fff;
+}
+
+.container-page .breadcrumb {
+    margin-bottom: 10px;
+}
+
+.page-content {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    min-height: 300px;
+    background-color: #fff;
+    padding: 20px;
+}
+
+.page-content > .col-md-3 {
+    border-right: 1px #ccc solid;
+    margin-right: -1px;
+}
+
+.page-content > .col-md-9 {
+    border-left: 1px #ccc solid;
+}
+
+.page-menu-left > li {
+    padding: 20px;
+    border-bottom: 1px #e9eaed solid;
+    line-height: 25px;
+}
+
+.page-menu-left > li > a {
+    color: #141823;
+    font-weight: bold;
+    font-size: 15px;
+    padding-bottom: 10px;
+    display: block;
+}
+
+.page-menu-left > li > ul {
+    font-size: 13px;
+}
+
+.page-menu-left > li > ul > li {
+    color: #4e5665;
+    padding: 4px 0;
+    line-height: 20px;
+}
+
+.page-menu-left > li > ul > li > a {
+    color: #4e5665;
+}
+
+.page-menu-left > li > ul > li > a:hover {
+    color: #333;
+}
+
+.page-title {
+    font-size: 16px;
+    margin: 0;
+    color: #333;
+}
+
+.page-list-title {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.page-list-title a {
+    color: #333;
+}
+
+.page-list-title a:hover {
+    color: #005580;
+    text-decoration: underline;
+}
+
+.page-list-content a.view-detail {
+    color: #c40000;
+}
+
+.page-list-content a.view-detail:hover {
+    text-decoration: underline;
+}
+
+.page-detail img {
+    max-width: 100%;
+}
+.page-detail p {
+    margin-bottom: 20px;
+}
+.page-detail{
+    font-size: 14px;
+    /*margin-top: 5px;*/
+    padding: 10px;
+}
+.page-detail .list-info{
+    margin-bottom: 5px;
+}
+
+.news-item {
+    float: left;
+    width: 100%;
+    padding: 20px 0px;
+    border-bottom: solid 1px #CCC;
+}
+
+.news-item .page-list-title {
+    margin-top: 0px;
+    line-height: 16px;
+    margin-bottom: 0;
+}
+
+.page-datetime {
+    margin-bottom: 10px;
+    margin-top: 3px;
+    color: #666666;
+    font-size: 12px;
+}
+
+.page-datetime span {
+    color: #3964b2;
+}
+
+.news-item .thumbs {
+    float: left;
+    margin-right: 8px;
+}
+
+.news-item .row-content {
+    float: none;
+    height: auto;
+    width: auto;
+}
+.header-box{
+    background: #ffffff url(/images/bg_header.png) repeat-x top;
+    padding-top: 10px;
+    width: 100%;
+    box-shadow: #ddd 0px 4px 4px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+}
+.header-logo-menu{
+    padding: 10px 0;
+    line-height: 42px;
+}
+.header-menu-help > li{
+    display: inline-block;
+    padding: 0 20px;
+    font-size: 14px;
+}
+.header-menu-help > li > a{
+    color: #333;
+}
+.header-menu-help > li > a:hover{
+    color: #c40000;
+}
+.page-site-width.page-container{
+    border-left: 1px #c9ced4 solid;
+    border-right: 1px #c9ced4 solid;
+    background-color: #fff;
+    margin-top: -22px;
+}
+.content-page{
+}
+.page-col-left{
+    float: left;
+    width: 250px;
+    border-right: 1px #e9eaed solid;
+    background-color: #fafafa;
+}
+.page-col-right{
+    float: left;
+    width: 919px;
+    border-left: 1px #e9eaed solid;
+    margin-left: -1px;
+}
+.page-col-left > .box-padding,
+.page-col-right > .box-padding{
+    padding: 20px;
+}
+.breadcrumb-page{
+    border-bottom: 1px #e9eaed solid;
+    padding: 20px;
+    padding-top: 10px;
+}
+.shop-logo-contact .thumbnail{
+    margin-bottom: 0;
+}

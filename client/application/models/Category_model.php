@@ -86,7 +86,6 @@ class Category_model extends MY_Model
 				'priceFrom'
 				'priceTo'
 			)
-			
 	*/
 	function getProductFilter($param=array(), $filter=array(), $limit=0, $start=0)
 	{
@@ -179,14 +178,14 @@ class Category_model extends MY_Model
 	}
 	
 	
-	function getSubCatTotalProduct($param_where_in){
-		$this->db->select('count(*) as product_total');
-		$this->db->from($this->db->dbprefix.$this->table_category);
-		$this->db->join($this->db->dbprefix.$this->table_product, $this->db->dbprefix.$this->table_product.'.cat_id = '.$this->db->dbprefix.$this->table_category.'.id');
-		$this->db->where_in($this->db->dbprefix.$this->table_category.'.id',$param_where_in);
-		$query= $this->db->get();
-		return $query->row_array();
-	}
+	// function getSubCatTotalProduct($param_where_in){
+		// $this->db->select('count(*) as product_total');
+		// $this->db->from($this->db->dbprefix.$this->table_category);
+		// $this->db->join($this->db->dbprefix.$this->table_product, $this->db->dbprefix.$this->table_product.'.cat_id = '.$this->db->dbprefix.$this->table_category.'.id');
+		// $this->db->where_in($this->db->dbprefix.$this->table_category.'.id',$param_where_in);
+		// $query= $this->db->get();
+		// return $query->row_array();
+	// }
 	
 	
 }	

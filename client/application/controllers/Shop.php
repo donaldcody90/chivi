@@ -75,23 +75,13 @@ class Shop extends CI_Controller {
 			$data['shop_detail'] = $shop_detail;
 			$data['shop_detail']['top_sales']= $top_sales;
 			$data['template'] = 'shop/view';
-			//print_r($data['list_product']);
+			//print_r($data['shop_detail']);
 			$this->load->view('layout/home', $data);
 		}else{
 			redirect(site_url('404'));
 		}
 	}
-		
-	public function view($slug){
-		$data['shop_detail'] = $this->shop_model->findShop(array('slug'=>$slug));
-		if(isset($id)){$shop_id = $id;}
-		$param= array('sid'=> $data['shop_detail']['id']);
-		$list_product = $this->shop_model->getAllProduct($param);
-		
-		$data['list_product'] = $list_product;
-		$data['template'] = 'shop/view';
-		$this->load->view('layout/home', $data);
-	}
+	
 	
 	//Danh sách cửa hàng
 	function lists(){

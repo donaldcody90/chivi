@@ -5,7 +5,7 @@
         <div class="widget-shop-info-v2">
           <div class="content">
             <h5 class="brand-name">
-              <a class="url-shop" href="#" target="_blank"><?php echo isset($shop_detail['name'])?$shop_detail['name']:'';?></a>            
+              <a class="url-shop" href="#" title="<?php echo isset($shop_detail['name'])?$shop_detail['name']:'';?>"><?php echo isset($shop_detail['name'])?$shop_detail['name']:'';?></a>            
             </h5>
             <div class="shop-status">
               <span class="label label-success">Kinh doanh hộ cá thể</span>
@@ -15,9 +15,10 @@
                 <span>Danh hiệu:</span>
                 <div class="star-rating">
                   <div class="hz-star-rating">
-                    <img src="static/images/icon_shop.png">
-                    <img src="static/images/icon_shop.png">
-                    <img src="static/images/icon_shop.png">
+					<?php if($shop_detail['total_rate']>0 && $shop_detail['count_rate']>0){
+							for($i=0; $i<($shop_detail['total_rate']/$shop_detail['count_rate']);$i++){ ?>
+								<img src="<?php echo site_url('static/images/icon_shop.png');?>"/>
+					<?php } } ?>
                   </div>
                 </div>
               </div>
@@ -66,19 +67,16 @@
 			<?php if(isset($shop_detail['top_sales']) && count($shop_detail['top_sales'])>0 ){
 			foreach($shop_detail['top_sales'] as $key=>$top_sale){ ?>
               <div class="product-list-vertical">
-                <a target="_blank" href="<?php echo site_url($top_sale['slug'].'-i'.$top_sale['id']);?>" title="<?php echo $top_sale['title']; ?>">
+                <a href="<?php echo site_url($top_sale['slug'].'-i'.$top_sale['id']);?>" title="<?php echo $top_sale['title']; ?>">
 					<span class="responsive-img">
-						<?php if(isset($top_sale['images']) && !empty($top_sale['images'])){
-						foreach($top_sale['images'] as $top_sale_image){ 
-							if($top_sale_image['is_default']==1){ ?>
-								<img class="media-object lazy" src="<?php echo $top_sale_image['image_src']; ?>" alt=<?php echo $top_sale_image['alt']; ?> />
-						<?php } break;
-							} } ?>
+						<?php if(isset($top_sale['images']) && count($top_sale['images'])>0 ){ ?>
+							<img class="media-object lazy" src="<?php echo $top_sale['images'][0]['image_src']; ?>" alt=<?php echo $top_sale['images'][0]['alt']; ?> />
+						<?php } ?>
 					</span>
                 </a>
                 <div class="media-body m-product-info">
                   <strong class="price"><?php echo number_format($top_sale['vn_price']); ?> đ </strong>
-                  <a class="capital" href="<?php echo site_url($top_sale['slug'].'-i'.$top_sale['id']);?>" title=" <?php echo $top_sale['title']; ?>" target="_blank"><?php echo $top_sale['title']; ?></a>        
+                  <a class="capital" href="<?php echo site_url($top_sale['slug'].'-i'.$top_sale['id']);?>" title="<?php echo $top_sale['title']; ?>"><?php echo $top_sale['title']; ?></a>        
                 </div>
               </div>
 			<?php } } ?>
@@ -144,7 +142,7 @@
 		foreach($list_product['data'] as $key=>$product){?>
           <div class="col-xs-3">
             <div class="product-items product-shop-detail">
-              <a target="_blank" href="<?php echo site_url($product['slug'].'-i'.$product['id']);?>" class="responsive-img img-featured">
+              <a title="" href="<?php echo site_url($product['slug'].'-i'.$product['id']);?>" class="responsive-img img-featured">
                 <img id="featured-1062862" src="" alt="<?php echo $product['title']; ?>">                    
                 <div class="price-range">
 					<?php if(isset($product['price_range']) && !empty($product['price_range'])){ 
@@ -162,7 +160,7 @@
                 </div>
               </a>
 			  <div class="hz-slider responsive">
-					<?php if(!empty($product['images'])){
+					<?php if(isset($product['images']) && count($product['images'])>0 ){
 						foreach($product['images'] as $image){ ?>
 						<div class="img-wrap item-slide">
 							<div class="responsive-img">
@@ -175,7 +173,7 @@
                 <strong><?php echo number_format($product['vn_price']); ?> đ</strong>
               </div>
               <h4 class="capital">
-			  <a class="product-title" href="<?php echo site_url($product['slug'].'-i'.$product['id']);?>" title="<?php echo $product['title']; ?>" target="_blank">
+			  <a class="product-title" href="<?php echo site_url($product['slug'].'-i'.$product['id']);?>" title="<?php echo $product['title']; ?>">
 				<?php echo $product['title']; ?>
 			  </a>
 			  </h4>
