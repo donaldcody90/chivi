@@ -521,7 +521,12 @@ if(!function_exists('cleanVietnamese')){
 	}
 }
 
-
+if(!function_exists('vst_buildSlug')){
+	function vst_buildSlug($title)
+	{
+		return url_title(cleanVietnamese($title),'-',true);
+	}
+}
 
 if ( ! function_exists('vst_buildRewriteURL'))
 {
@@ -530,30 +535,34 @@ if ( ! function_exists('vst_buildRewriteURL'))
   $title : text title
   $type : category,shop,product,page,menu
  */
- function vst_buildRewriteURL($id,$slug,$type) {
-  if(empty($id)){
-  return site_url('404');}
-  $rewriteURL=$slug;
-     switch($type){
-   case 'category':
-    $rewriteURL .="-c".$id;
-    break;
-   case 'shop':
-    $rewriteURL .="-s".$id;
-    break;
-   case 'product':
-    $rewriteURL .="-i".$id;
-    break;
-   case 'page':
-    $rewriteURL .="-p".$id;
-    break;
-   case 'menu':
-    $rewriteURL .="-m".$id;
-    break;
-   default :
-    $rewriteURL=site_url('404');
-    break;
-  return $rewriteURL;
- }
-}
+	function vst_buildRewriteURL($id,$slug,$type)
+	{
+		if(empty($id)){
+			return site_url('404');
+		}
+		$rewriteURL=$slug;
+		switch($type)
+		{
+			case 'category':
+				$rewriteURL .="-c".$id;
+				break;
+			case 'shop':
+				$rewriteURL .="-s".$id;
+				break;
+			case 'product':
+				$rewriteURL .="-i".$id;
+				break;
+			case 'page':
+				$rewriteURL .="-p".$id;
+				break;
+			case 'menu':
+				$rewriteURL .="-m".$id;
+				break;
+			default :
+				$rewriteURL='404';
+				break;
+		}
+		return site_url($rewriteURL);
+ 
+	}
 }

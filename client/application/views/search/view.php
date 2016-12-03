@@ -20,7 +20,7 @@
 								<a class="selected" href="<?php echo isset($_GET['keyword'])?site_url('search/index').'?keyword='.$_GET['keyword']:site_url('search/index');?>" title="Tất cả danh mục">TẤT CẢ DANH MỤC</a>
 								<?php if(isset($list_subcat) && !empty($list_subcat)){
 									foreach($list_subcat as $subcat){ ?>
-										<a class="tsf" href="<?php echo isset($_GET['keyword'])?site_url($subcat['slug'].'-c'.$subcat['id']).'?keyword='.$_GET['keyword']:site_url($subcat['slug'].'-c'.$subcat['id']);?>" title="<?php echo $subcat['name'];?>"><?php echo $subcat['name'];?> <span>(<?php echo $subcat['product_total'];?>)</span></a>
+										<a class="tsf" href="<?php echo isset($_GET['keyword'])?vst_buildRewriteURL($subcat['id'],$subcat['slug'],'category').'?keyword='.$_GET['keyword']:vst_buildRewriteURL($subcat['id'],$subcat['slug'],'category');?>" title="<?php echo $subcat['name'];?>"><?php echo $subcat['name'];?> <span>(<?php echo $subcat['product_total'];?>)</span></a>
 								<?php } } ?>
 							</div>
 						</td>
@@ -79,7 +79,7 @@
 						foreach($list_product['data'] as $product){ ?>
 						<div class="col-lg-15 col-sm-4 col-md-3 col-xs-6 col-vxs-12">
 							<div class="product-items">
-								<a href="<?php echo site_url($product['slug'].'-i'.$product['id']);?>" class="responsive-img img-featured" title="<?php echo $product['title'];?>">
+								<a href="<?php echo vst_buildRewriteURL($product['id'],$product['slug'],'product');?>" class="responsive-img img-featured" title="<?php echo $product['title'];?>">
 									<?php if(isset($product['images']) && count($product['images'])>0 ){ ?>
 										<img id="featured-1075330" src="<?php echo site_url($product['images'][0]['image_src']);?>" alt="<?php echo $product['images'][0]['alt'];?>">
 									<?php } ?>
@@ -103,13 +103,13 @@
 									<strong class="pull-left"><?php echo (isset($product['vn_price']) && $product['vn_price']>0)?number_format($product['vn_price']).' đ':'Giá liên hệ';?></strong>
 								</div>
 								<h4 class="capital">
-									<a class="product-title" href="<?php echo site_url($product['slug'].'-i'.$product['id']);?>" title="<?php echo $product['title'];?>"><?php echo $product['title'];?></a>
+									<a class="product-title" href="<?php echo vst_buildRewriteURL($product['id'],$product['slug'],'product');?>" title="<?php echo $product['title'];?>"><?php echo $product['title'];?></a>
 								</h4>
 
 								<div class="shop-info">
 									<div class="shop-title-v2">
 										<div class="shop-left">
-											<a class="shop-title" href="<?php echo site_url($product['shop_slug'].'-s'.$product['shop_id']);?>" title="<?php echo $product['shop_name'];?>"><?php echo $product['shop_name'];?></a>
+											<a class="shop-title" href="<?php echo vst_buildRewriteURL($product['shop_id'],$product['shop_slug'],'shop');?>" title="<?php echo $product['shop_name'];?>"><?php echo $product['shop_name'];?></a>
 											<div class="shop-info-pop">
 												<strong class="capital"><?php echo $product['shop_name'];?></strong>
 												<div class="line">

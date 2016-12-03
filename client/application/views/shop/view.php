@@ -5,7 +5,7 @@
         <div class="widget-shop-info-v2">
           <div class="content">
             <h5 class="brand-name">
-              <a class="url-shop" href="#" title="<?php echo isset($shop_detail['name'])?$shop_detail['name']:'';?>"><?php echo isset($shop_detail['name'])?$shop_detail['name']:'';?></a>            
+              <a class="url-shop" title="<?php echo isset($shop_detail['name'])?$shop_detail['name']:'';?>"><?php echo isset($shop_detail['name'])?$shop_detail['name']:'';?></a>            
             </h5>
             <div class="shop-status">
               <span class="label label-success">Kinh doanh hộ cá thể</span>
@@ -67,7 +67,7 @@
 			<?php if(isset($shop_detail['top_sales']) && count($shop_detail['top_sales'])>0 ){
 			foreach($shop_detail['top_sales'] as $key=>$top_sale){ ?>
               <div class="product-list-vertical">
-                <a href="<?php echo site_url($top_sale['slug'].'-i'.$top_sale['id']);?>" title="<?php echo $top_sale['title']; ?>">
+                <a href="<?php echo vst_buildRewriteURL($top_sale['id'],$top_sale['slug'],'product');?>" title="<?php echo $top_sale['title']; ?>">
 					<span class="responsive-img">
 						<?php if(isset($top_sale['images']) && count($top_sale['images'])>0 ){ ?>
 							<img class="media-object lazy" src="<?php echo $top_sale['images'][0]['image_src']; ?>" alt=<?php echo $top_sale['images'][0]['alt']; ?> />
@@ -76,7 +76,7 @@
                 </a>
                 <div class="media-body m-product-info">
                   <strong class="price"><?php echo number_format($top_sale['vn_price']); ?> đ </strong>
-                  <a class="capital" href="<?php echo site_url($top_sale['slug'].'-i'.$top_sale['id']);?>" title="<?php echo $top_sale['title']; ?>"><?php echo $top_sale['title']; ?></a>        
+                  <a class="capital" href="<?php echo vst_buildRewriteURL($top_sale['id'],$top_sale['slug'],'product');?>" title="<?php echo $top_sale['title']; ?>"><?php echo $top_sale['title']; ?></a>        
                 </div>
               </div>
 			<?php } } ?>
@@ -142,7 +142,7 @@
 		foreach($list_product['data'] as $key=>$product){?>
           <div class="col-xs-3">
             <div class="product-items product-shop-detail">
-              <a title="" href="<?php echo site_url($product['slug'].'-i'.$product['id']);?>" class="responsive-img img-featured">
+              <a title="" href="<?php echo vst_buildRewriteURL($product['id'],$product['slug'],'product');?>" class="responsive-img img-featured">
                 <img id="featured-1062862" src="" alt="<?php echo $product['title']; ?>">                    
                 <div class="price-range">
 					<?php if(isset($product['price_range']) && !empty($product['price_range'])){ 
@@ -173,7 +173,7 @@
                 <strong><?php echo number_format($product['vn_price']); ?> đ</strong>
               </div>
               <h4 class="capital">
-			  <a class="product-title" href="<?php echo site_url($product['slug'].'-i'.$product['id']);?>" title="<?php echo $product['title']; ?>">
+			  <a class="product-title" href="<?php echo vst_buildRewriteURL($product['id'],$product['slug'],'product');?>" title="<?php echo $product['title']; ?>">
 				<?php echo $product['title']; ?>
 			  </a>
 			  </h4>

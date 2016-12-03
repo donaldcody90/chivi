@@ -9,11 +9,11 @@
 				<div class="pull-left">
 				  <ol class="box-breadcrumb clearfix">
 					<li>
-					  <a href="/" title="Trang chủ">Trang chủ</a> <i class="icon-breadcrumb"></i>
+					  <a href="<?php echo site_url();?>" title="Trang chủ">Trang chủ</a> <i class="icon-breadcrumb"></i>
 					</li>
 					<?php if(isset($links['breadcrumbs']['parent_cats']) && !empty($links['breadcrumbs']['parent_cats'])){
 						foreach($links['breadcrumbs']['parent_cats'] as $breadcrumb){ ?>
-							<li><a href="<?php echo site_url($breadcrumb['slug'].'-c'.$breadcrumb['id']);?>" title="<?php echo $breadcrumb['name'];?>"><?php echo $breadcrumb['name'];?></a><i class="icon-breadcrumb"></i></li>
+							<li><a href="<?php echo vst_buildRewriteURL($breadcrumb['id'],$breadcrumb['slug'],'category');?>" title="<?php echo $breadcrumb['name'];?>"><?php echo $breadcrumb['name'];?></a><i class="icon-breadcrumb"></i></li>
 					<?php } } ?>
 					<li><?php echo $links['breadcrumbs']['current_cat']?$links['breadcrumbs']['current_cat']['name']:'';?></li>
 				  </ol>
@@ -29,7 +29,7 @@
 				  <a class="" href="<?php echo isset($_GET['keyword'])?site_url('search/index').'?keyword='.$_GET['keyword']:site_url('search/index');?>" title="Tất cả danh mục">TẤT CẢ DANH MỤC</a>
 				  <?php if( isset($links['list_subcat']) && $links['list_subcat']!=array() ){ 
 					foreach($links['list_subcat'] as $subcat){ ?>
-						<a class="tsf" href="<?php echo isset($_GET['keyword'])?site_url($subcat['slug'].'-c'.$subcat['id']).'?keyword='.$_GET['keyword']:site_url($subcat['slug'].'-c'.$subcat['id']);?>" title="<?php echo $subcat['name'];?>" ><?php echo $subcat['name'];?> <span>(<?php echo $subcat['product_total'];?>)</span></a>
+						<a class="tsf" href="<?php echo isset($_GET['keyword'])?vst_buildRewriteURL($subcat['id'],$subcat['slug'],'category').'?keyword='.$_GET['keyword']:vst_buildRewriteURL($subcat['id'],$subcat['slug'],'category');?>" title="<?php echo $subcat['name'];?>" ><?php echo $subcat['name'];?> <span>(<?php echo $subcat['product_total'];?>)</span></a>
 				  <?php } } ?>
 				</div>
 			  </td>
@@ -74,7 +74,7 @@
 				?>
 				<div class="col-lg-15 col-sm-4 col-md-3 col-xs-6 col-vxs-12">
 				  <div class="product-items">
-					<a title="" href="<?php echo site_url($product['slug'].'-i'.$product['id']);?>" class="responsive-img img-featured" title=" ">
+					<a title="" href="<?php echo vst_buildRewriteURL($product['id'],$product['slug'],'product');?>" class="responsive-img img-featured" title=" ">
 					  <?php if(isset($product['images']) && count($product['images'])>0 ){ ?>
 						<img id="featured-1053957" src="<?php echo $product['images'][0]['image_src']; ?>" alt="<?php echo $product['images'][0]['alt']; ?>">
 					  <?php } ?>
@@ -98,14 +98,14 @@
 						<strong class="pull-left"><?php echo (isset($product['vn_price']) && $product['vn_price']>0)?number_format($product['vn_price']).' đ':'Giá liên hệ';?></strong>
 					</div>
 					<h4 class="capital">
-						<a class="product-title" href="<?php echo site_url($product['slug'].'-i'.$product['id']);?>" title="<?php echo $product['title'];?>">
+						<a class="product-title" href="<?php echo vst_buildRewriteURL($product['id'],$product['slug'],'product');?>" title="<?php echo $product['title'];?>">
 							<?php echo $product['title']?>
 						</a>
 					</h4>
 					<div class="shop-info">
 					  <div class="shop-title-v2">
 						<div class="shop-left">
-						  <a class="shop-title" href="<?php echo site_url($product['shop_slug'].'-s'.$product['shop_id']);?>" title="<?php echo $product['shop_name'];?>"><?php echo $product['shop_name'];?></a>                                        
+						  <a class="shop-title" href="<?php echo vst_buildRewriteURL($product['shop_id'],$product['shop_slug'],'shop');?>" title="<?php echo $product['shop_name'];?>"><?php echo $product['shop_name'];?></a>                                        
 						  <div class="shop-info-pop">
 							<strong class="capital"><?php echo $product['shop_name']; ?></strong>
 							<div class="line">
