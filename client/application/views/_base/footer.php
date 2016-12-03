@@ -2,11 +2,11 @@
     <footer class="footer">
 		<div class="footer-top">
 		  <div class="container">
-			<h2 class="text-center footer-title">VIỆT TRUNG - KÊNH BÁN BUÔN CỦA NGƯỜI VIỆT</h2>
+			<h2 class="text-center footer-title">CHIVI - KÊNH BÁN BUÔN CỦA NGƯỜI VIỆT</h2>
 			<div class="footer-social text-center">
-			  <a class="social  social-button" href="#" title="Liên kết tới trang facebook của luuthong.vn" target="_blank"><span class="fa fa-facebook-square"></span>&nbsp;&nbsp;Facebook</a>
-			  <a class=" social social-button" href="#" title="Liên kết tới trang gplus của luuthong.vn" target="_blank"><span class="fa fa-google-plus-square"></span>&nbsp;&nbsp;Google +</a>
-			  <a class=" social social-button" href="#" title="Liên kết tới kênh youtube của luuthong.vn" target="_blank"><span class="fa fa-youtube-square"></span>&nbsp;&nbsp;Youtube</a>                
+			  <a class="social  social-button" href="#" title="Liên kết tới trang facebook của chivi.vn" target="_blank"><span class="fa fa-facebook-square"></span>&nbsp;&nbsp;Facebook</a>
+			  <a class=" social social-button" href="#" title="Liên kết tới trang gplus của chivi.vn" target="_blank"><span class="fa fa-google-plus-square"></span>&nbsp;&nbsp;Google +</a>
+			  <a class=" social social-button" href="#" title="Liên kết tới kênh youtube của chivi.vn" target="_blank"><span class="fa fa-youtube-square"></span>&nbsp;&nbsp;Youtube</a>                
 			  <a class="none-hover" href="#">
 			  <img alt="" title="" src="static/images/tzqOld5W4HzZuPVvmNYCfA==.jpgx">
 			  </a>
@@ -18,7 +18,7 @@
 			<div class="row">
 			  <div class="col-xs-4">
 				<h4 class="title-company-auth">
-				  Chủ sở hữu: Việt trung.
+				  Chủ sở hữu: Chivi.
 				</h4>
 				<img class="img-contact" src="static/images//address.png" alt="Thông tin liên hệ.">                    
 			  </div>
@@ -30,7 +30,7 @@
 					</div>
 					<ul>
 					  <li>
-						<a href="#"  title="Giới thiệu LuuThong.vn">Giới thiệu Vietrung.vn</a>
+						<a href="#"  title="Giới thiệu chivi.vn">Giới thiệu Chivi.vn</a>
 					  </li>
 					  <li>
 						<a href="#"  title="Thoả thuận người dùng">Thoả thuận người dùng</a>
@@ -61,7 +61,7 @@
 						<a href="#" title="Giải quyết khiếu nại">Giải quyết khiếu nại</a>
 					  </li>
 					  <li>
-						<a href="#" title="Bán hàng cùng Lưu Thông">Bán hàng cùng Việt Trung</a>
+						<a href="#" title="Bán hàng cùng Lưu Thông">Bán hàng cùng Chivi</a>
 					  </li>
 					  <li>
 						<a href="#" title="Quy định mua hàng">Quy định mua hàng</a>
@@ -110,7 +110,7 @@
 		<div class="col-md-12 footer-end">
 			<div class="container">
 				<div class="register-new-feed text-center">
-					<span class="bg-ico-email"> Đăng ký nhận tin Viettrung.vn </span>
+					<span class="bg-ico-email"> Đăng ký nhận tin Chivi.vn </span>
 					<form id="registerEmail" class="form-inline form-register-email" action="#" method="post">
 						<input type="text" id="subcribeletter-email" class="form-control" name="SubcribeLetter[email]" placeholder="Nhập email của bạn ...">
 					</form>
