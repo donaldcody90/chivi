@@ -1,7 +1,7 @@
 <div class="container p-full">
 	  <div class="container-profile">
 		<div class="profile clearfix">
-		  <div class="col-xs-3">
+		  <div class="col-xs-3 profile_left">
 				 <ul class="profile-menu-left nav nav-tabs horizontal-tab">
 					<li class="user"><i class="glyphicon glyphicon-user"></i>Xin chào,<br><?php $currentCustomer=vst_getCurrentCustomer(); echo $currentCustomer['username'];?></li>
 					<li ><a href="<?php echo site_url('customer/profile'); ?>"> Thông tin tài khoản</a></li>
@@ -10,7 +10,7 @@
 					<li ><a href="<?php echo site_url('customer/logout');?>">Thoát</a></li>
 				  </ul>
 		  </div>
-		  <div class="col-xs-9 profile-content">
+		  <div class="col-xs-9 profile-content profile_right">
 			<div class="profile-title">Danh sách đơn đặt hàng</div>
 			<div>
 			  <div class="my-account-orders">
@@ -113,21 +113,22 @@
 								<td class="order-detail-total text-price">
 									<?php echo order_status($order['status']);?>
 								</td>
-								<td class="order-detail-total text-price text-center">
+								<td class="order-detail-total text-price text-center last_td">
 								<?php if($order['status']!= (-1)){?>
-									<div class="text-right button-checkout">
+									<div class="text-center ">
 										<form name="upload_complain" action="" class="ajaxFormComplain item_complain_form_<?php echo $order['id']; ?>" method="POST" enctype="multipart/form-data">															
 											<input type="hidden" name="oid" value="<?php echo $order['id']; ?>" />
 											<input type="hidden" name="controller" value="order" />
 											<input type="hidden" name="task" value="updateOrderStatus" />
 											<input type="hidden" name="status" value="-1" />
 											<input type="hidden" name="is_reload" value="1" />
-											<a target="_blank" class=" "  onClick="submitAjax1(this)" title="Hủy đơn hàng">Hủy đơn</a>
+											<a target="_blank" class="red"  onClick="submitAjax1(this)" title="Hủy đơn hàng">Hủy đơn</a>
 											
 										</form>
 								<?php } ?>
-										<a class="btn btn-primary" href="<?php echo site_url(''.$order['invoiceid'].'-o'.$order['id']);?>" data-method="post">Chi tiết </a>                                            
+										
 									</div>		
+									<a class="" href="<?php echo site_url(''.$order['invoiceid'].'-o'.$order['id']);?>" data-method="post">Xem chi tiết </a>                                            
 								</td>
 							  </tr>
 							<?php 
@@ -138,7 +139,10 @@
 							</tbody>
 						  </table>
 						</div>
-						
+						<div class="pag">	
+							<?php echo $this->pagination->create_links(); ?>
+						</div>
+						<p><strong>Total: <span class="green"><?php   if( isset($total_rows) && count($total_rows)>0 ){ echo $total_rows; } ?></span> (Items)</strong></p>
 						
 					  </div>
  

@@ -5,7 +5,7 @@
 <div class="segment-box fd-clr" style="margin-top:15px;">
   <div class="segment layout layout-s5m0">
     <div class="div-clear fl page-container">
-      <div class="content-wrap div-clear fl">
+      <div class="content_signup">
         <div class="register-page div-clear fl">
           <div class="register-block ele-inline fl customize-field">
             <strong class="text-center text-lg"><span>Đăng ký</span></strong>

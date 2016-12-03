@@ -3,13 +3,12 @@
 }
 
 .profile {
-    border: 1px #e5e5e5 solid;
-    
     background: #fff;
     width: 100%;
     padding: 15px 0;
 }
-
+.container-profile .profile .profile_left{padding-left: 0px;}
+.container-profile .profile .profile_right{padding-right: 0px;}
 .profile-menu-top {
     height: 40px;
     border-radius: 0;

@@ -7,7 +7,7 @@
 <div class="container p-full">
 	  <div class="container-profile">
 		<div class="profile clearfix">
-		  <div class="col-xs-3">
+		  <div class="col-xs-3 profile_left">
 				 <ul class="profile-menu-left nav nav-tabs horizontal-tab">
 					<li class="user"><i class="glyphicon glyphicon-user"></i>Xin chào,<br><?php $currentCustomer=vst_getCurrentCustomer(); echo $currentCustomer['username'];?></li>
 					<li ><a href="<?php echo site_url('customer/profile'); ?>"> Thông tin tài khoản</a></li>
@@ -16,7 +16,7 @@
 					<li ><a href="<?php echo site_url('customer/logout');?>">Thoát</a></li>
 				  </ul>
 		  </div>
-		  <div class="col-xs-9 profile-content">
+		  <div class="col-xs-9 profile-content profile_right">
 			<div class="profile-title">Thông tin đơn hàng <?php if(!empty($info_order['invoiceid'])){ echo $info_order['invoiceid']; }?></div>
 				<div>    
 					<table class="table table-bordered table-striped no-margin" style="background-color: #fff; margin-bottom: 0;">

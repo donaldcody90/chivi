@@ -10,20 +10,60 @@ class Customer extends CI_Controller {
 	}
 
 	public function index(){
-		$data['template'] = 'customer/customer';
-		$this->load->view('layout/home', $data);
+		redirect(site_url('customer/profile'));
 
 	}
 	
 	// Profile Customer
 	public function profile(){
 		$customer = $this->session->userdata('vkt_clientCustomer');
-		
-		$data['customer'] = $customer;
+		$data['customer'] = $this->customers_model->findCustomer(array('id'=>$customer['id']));
 		$data['template'] = 'customer/profile';
+		$data['edit'] = 'false';
 	    $this->load->view('layout/home',$data );
  
 	}
+	public function editProfile(){
+		$customer = vst_getCurrentCustomer();
+		$customer = $this->customers_model->findCustomer(array('id'=>$customer['id']));
+		
+		if ($this->input->post('save')){
+ 
+			$params_where = array('id'=>$customer['id']);
+			
+			
+			$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|callback__email');
+			$this->form_validation->set_rules('phone', 'Số điện thoại', 'trim|required|is_natural');
+			 if ($this->form_validation->run()){					 
+			 
+				$data = array(
+					 
+					'fullname' => trim($this->input->post("fullname")),
+					'phone'    => trim($this->input->post("phone")),
+					'email'    => trim($this->input->post("email")),
+					'address' =>  trim($this->input->post("address")),
+				);
+				 
+				$result = $this->customers_model->updateCustomer($data,$params_where);
+				
+				if($result >= 1){
+					message_flash('Lưu thành công');
+					redirect(site_url('customer/profile'));
+				} else{
+					message_flash('Lưu không thành công. Vui lòng thử lại!');
+				}
+			 }
+				
+			 
+		}
+		$data['customer'] = $customer;
+		$data['template'] = 'customer/profile';
+		$data['edit'] = 'true';
+	    $this->load->view('layout/home',$data );
+		
+	}
+	
+	
 	// Change password
 	
 	public function changepass(){
@@ -79,6 +119,8 @@ class Customer extends CI_Controller {
 		echo json_encode($res); 
 	}
 	
+	
+	
 	//Shop yêu thích
 	public function favousrite_shop(){
 		$data['template'] = 'customer/favousrite_shop';
@@ -113,4 +155,15 @@ class Customer extends CI_Controller {
 		  $this->session->sess_destroy();
          redirect(site_url('auth'));
 	}
+	
+	// Callback email
+	public function _email($email = ''){
+		$count = $this->customers_model->findCustomer(array('email'=>$email));
+		if($count >= 1){
+			$this->form_validation->set_message('_email', 'Email '.$email.' đã tồn tại');
+			return FALSE;
+		}
+		return TRUE;
+	}
+
 }

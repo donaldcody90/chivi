@@ -60,12 +60,17 @@ class Order extends CI_Controller {
 			'tbalias' => 'orders',
 			);	
 		 
-		
+		$config = vst_pagination();
+		$start = $this->input->get('page');
+
 		$currentCustomer =  vst_getCurrentCustomer();
 		$cid= $currentCustomer['id'];
 		$param=array('cid'=>$cid);
-		$list_order = $this->order_model->listOrder($filter, 0, 0, $param);
+		$list_order = $this->order_model->listOrder($filter, 2, $start, $param);
+		$data['total_rows'] = $config['total_rows'] = $list_order['records'];
+		
 		$data['list_orders']=$list_order;
+		$this->pagination->initialize($config);
 		$data['template'] = 'order/list';
 		$this->load->view('layout/home', $data);
 		 

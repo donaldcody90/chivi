@@ -8,11 +8,11 @@ a{cursor:pointer;}
     padding-left: 0px;
     padding-right: 0px;
 }
-
+.pag {text-align: center; padding-top: 15px;}
 .no-padding {
     padding: 0px !important;
 }
-
+.red {color: #cc1414;}
 ul, ol {
     padding: 0px;
     margin: 0px;

@@ -5,7 +5,7 @@
     <!-- BEGIN: .steps -->
     <!-- END: .steps -->
     <h2 class="text-center page-title text-success"><i class="glyphicon glyphicon-log-in"></i> Đăng nhập vào website</h2>
-    <div class="content">
+    <div class="content_signup">
     <div class="site-signup">
       <form id="form-login" class="form-horizontal" action="<?php echo site_url('auth/login'); ?>" method="post">
 		<div class="text-center">

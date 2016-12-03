@@ -22,10 +22,12 @@ class Order_model extends MY_Model
           $query = $this->db->from($this->table_orders);
 		  vst_buildFilter($filter);
           $query = $this->db->where($param);
-          $query = $this->db->order_by($this->table_orders.'.id', 'desc');          
+          $query = $this->db->order_by($this->table_orders.'.id', 'desc');
+		  $tempdb = clone $this->db;
+		  $num_results= $tempdb->count_all_results();           
           $query = $this->db->limit($total, $start);
           $query = $this->db->get();
-          $records = $query->num_rows();
+         // $records = $query->num_rows();
           $list = $query->result_array();
           
 		  if($list)
@@ -42,7 +44,7 @@ class Order_model extends MY_Model
                }
           }
 		  
-          $results = array( 'lists'=> $list,'records'=> $records );
+          $results = array( 'lists'=> $list,'records'=> $num_results );
            
           return $results;
      }

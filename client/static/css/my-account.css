@@ -20,7 +20,7 @@
 .item-view .order-item{
     float: left;
     width: 100%;
-    border:1px solid #cae1fe;
+   /* border:1px solid #cae1fe; */
     margin-bottom: 15px;
 }
 .item-view .order-item .button-checkout{
@@ -68,13 +68,14 @@
 .item-view .item-middle .order-detail tr{
     border-bottom: 1px solid #ddd;
 }
-.item-view .item-middle .order-detail tr td{
+.item-view .item-middle .order-detail tr td,.item-view .item-middle .order-detail th{
     text-align: center;
     border-right: solid 1px #ddd;
     min-height: 40px;
     padding: 10px 5px;
 }
-
+.order-detail{    border: 1px solid #ddd;}
+.item-view .item-middle .order-detail tr td.last_td{border-right: 0px;}
 .item-view .order-detail td .thumbs-product-image{
     width: 58px;
     height: 58px;

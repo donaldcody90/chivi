@@ -16,6 +16,47 @@ if ( ! function_exists('is_logged_in'))
 		}
 	}
 }
+
+if(!function_exists('vst_pagination')){
+	function vst_Pagination(){
+		$config['full_tag_open'] = '<ul class="pagination">';
+		$config['full_tag_close'] = '</ul>';
+		$config['first_link'] = '&laquo; ';
+		$config['first_tag_open'] = '<li>';
+		$config['first_tag_close'] = '</li>';
+		$config['last_link'] = ' &raquo;';
+		$config['last_tag_open'] = '<li>';
+		$config['last_tag_close'] = '</li>';
+		$config['next_link'] = 'Trang sau &raquo;';
+		$config['next_tag_open'] = '<li>';
+		$config['next_tag_close'] = '</li>';
+		$config['prev_link'] = '&laquo; Trang trước';
+		$config['prev_tag_open'] = '<li>';
+		$config['prev_tag_close'] = '</li>';
+		$config['cur_tag_open'] = '<li class="active"><a>';
+		$config['cur_tag_close'] = '</a></li>';
+		$config['num_tag_open'] = '<li>';
+        $config['per_page'] =2;
+        $config['page_query_string'] =true;
+        $config['query_string_segment'] ="page";
+		$config['base_url'] =vst_currentUrl();
+		return $config;
+	}
+}
+if(!function_exists('vst_currentUrl')){
+	function vst_currentUrl($withoutPage=true)
+	{
+		$CI =& get_instance();
+		$url = $CI->config->site_url($CI->uri->uri_string());
+		$params=$CI->input->get();
+		if(isset($params['page']) && $withoutPage)
+			unset($params['page']);
+		$http_query=http_build_query($params, '', "&");
+		return $http_query ? $url.'?'.$http_query : $url;
+	}
+}
+
+
 if ( ! function_exists('vst_getPropertyValue'))
 {
 	function vst_getPropertyValue($id) {
@@ -401,30 +442,34 @@ if ( ! function_exists('getCartData'))
 
 if(!function_exists('order_status')){
 	function order_status($status_id){
-		$status_text='';
-		switch($status_id){
+		$statusText="<span class='chuaduyet'>Chưa duyệt</span>";
+		switch($status_id)
+		{
 			case -1:
-				$status_text='Đã hủy';
+				$statusText="<span class='dahuy'>Đã hủy</span>";
 				break;
 			case 0:
-				$status_text='Chờ xử lý';
+				$statusText="<span class='chuaduyet'>Chưa duyệt</span>";
 				break;
 			case 1:
-				$status_text='Đã duyệt';
+				$statusText="<span class='daduyet'>Đã duyệt</span>";
 				break;
 			case 2:
-				$status_text='Đã thanh toán';
-			case 3:
-				$status_text='Đã mua hàng';
-			case 4:
-				$status_text='Hàng đã về - Chờ giao';
-			case 5:
-				$status_text='Kết thúc';
+				$statusText="<span class='dathanhtoan'>Đã thanh toán - chờ mua hàng</span>";
 				break;
-			default: 
-				$status_text='Đã duyệt';
+			case 3:
+				$statusText="<span class='damuahang'>Đã mua hàng</span>";
+				break;
+			case 4:
+				$statusText="<span class='hangdave'>Hàng đã về - chờ giao hàng</span>";
+				break;
+			case 5:
+				$statusText="<span class='daketthuc'>Đã kết thúc</span>";
+				break;
+			default:
+				$statusText="<span class='chuaduyet'>Chưa duyệt</span>";
 		}
-		return $status_text;
+		return $statusText;
 	}
 }
 
