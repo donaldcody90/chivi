@@ -36,6 +36,42 @@ if ( ! function_exists('get_menu_items'))
 	}
 }
 
+if ( ! function_exists('build_menu_link'))
+{
+	function build_menu_link($id) {
+	
+		$CI =& get_instance();
+		$table_menu_items = $CI->db->dbprefix('menu_items'); 
+		$CI->db->select("*");
+		$CI->db->from($table_menu_items);
+		$CI->db->where(array('id'=>$id));
+		$query=$CI->db->get();
+		$row=$query->row_array();
+		 
+		if($row){
+			switch($row['type'])
+			{
+			case 1:  
+				$link = site_url('slug-p').$row['type_id'];
+				break;
+			case 2:  
+				$link = site_url('slug-c').$row['type_id'];
+				break;	
+			case 3:  
+				$link = $row['custom_link'];
+				break;
+			case 4:  
+				$link = $row['custom_link'];
+				break;
+			default:
+				$link= site_url();
+			}
+			return $link;				
+		
+		}	
+	}
+}
+
 
 if(!function_exists('vst_pagination')){
 	function vst_Pagination(){

@@ -127,7 +127,7 @@
 			foreach($list_items as $item){
 	  ?>
         <li>
-          <a href="<?php echo $item['custom_link'] ?>" title="<?php echo $item['title'] ?>"><?php echo $item['title'] ?></a>
+          <a href="<?php  echo build_menu_link($item['id']); ?>" title="<?php echo $item['title'] ?>"><?php echo $item['title'] ?></a>
         </li>
        <?php
 			}
