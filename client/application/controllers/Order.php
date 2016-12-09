@@ -66,7 +66,7 @@ class Order extends CI_Controller {
 		$currentCustomer =  vst_getCurrentCustomer();
 		$cid= $currentCustomer['id'];
 		$param=array('cid'=>$cid);
-		$list_order = $this->order_model->listOrder($filter, 2, $start, $param);
+		$list_order = $this->order_model->listOrder($filter, $config['per_page'], $start, $param);
 		$data['total_rows'] = $config['total_rows'] = $list_order['records'];
 		
 		$data['list_orders']=$list_order;

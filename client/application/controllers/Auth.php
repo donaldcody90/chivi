@@ -37,7 +37,7 @@ class Auth extends CI_Controller {
 				unset($result['password']);
 				$this->session->set_userdata('vkt_clientCustomer',$result);
 				redirect(site_url('customer'));
-				die();
+				 
 			}else{
 				message_flash('Tên đăng nhập hoặc mật khẩu không đúng. Xin vui lòng nhập lại','error');
 				redirect(site_url('auth/login'));
@@ -85,13 +85,7 @@ class Auth extends CI_Controller {
 	}
 
 	// Forgot password
-	public function forgotpass121(){
-		
-		
-		
-		$data['template'] = 'auth/forgotpass';
-		$this->load->view('layout/home', $data);
-	}
+ 
 	
 	public function forgotpass()
 	{

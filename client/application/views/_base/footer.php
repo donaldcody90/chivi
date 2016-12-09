@@ -107,17 +107,7 @@
 			</div>
 		  </div>
 		</div>
-		<div class="col-md-12 footer-end">
-			<div class="container">
-				<div class="register-new-feed text-center">
-					<span class="bg-ico-email"> Đăng ký nhận tin Chivi.vn </span>
-					<form id="registerEmail" class="form-inline form-register-email" action="#" method="post">
-						<input type="text" id="subcribeletter-email" class="form-control" name="SubcribeLetter[email]" placeholder="Nhập email của bạn ...">
-					</form>
-					<button type="submit" class="btn btn-sm btn-primary btn-subcribe-letter"><i class="glyphicon glyphicon-envelope"></i>&nbsp;Đăng ký</button>
-				</div>
-			</div>
-		</div>
+		 
     </footer>
 	<script>
 		var baseURL="<?php echo base_url() ?>";

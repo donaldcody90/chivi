@@ -44,29 +44,25 @@ class Category extends CI_Controller {
 				'keyword'=>$this->input->get('keyword')
 			);
 			
-			$per_page= 4;
-			$limit= $per_page;
+			$config= vst_Pagination();
 			$start= $this->input->get('page');
 			$params= array(
 					'param_in' => $param_in,
 					'filter' => $filter,
-					'limit' => $limit,
+					'limit' => $config['per_page'],
 					'start' => $start
 				);
-			$params2= array(
-						'param_in' => $param_in,
-						'filter' => $filter
-					);
+			 
 			$extra_params= array(
 						'getPriceRange'=>true,
 						'getImages'=>true,
 					);
-				
-			$list_product_total=count( $this->category_model->getAllProduct($params2, $extra_params) );
-			$config= vst_Pagination($list_product_total, $per_page);
-			$this->pagination->initialize($config);
 			
 			$list_product = $this->category_model->getAllProduct($params, $extra_params);
+			$config['total_rows'] =  $list_product['records'];
+			$this->pagination->initialize($config);
+			
+			
 			
 			
 			/*-----------Danh mục----------*/
@@ -90,8 +86,8 @@ class Category extends CI_Controller {
 				}
 			}
 			
-			$data['list_product']['data'] = $list_product;
-			$data['list_product']['total'] = $list_product_total;
+			$data['list_product']['data'] = $list_product['list'];
+			$data['list_product']['total'] = $list_product['records'];
 			$data['links']['breadcrumbs']['parent_cats'] = $categoriesRevert;
 			$data['links']['breadcrumbs']['current_cat'] = $category_info;
 			$data['links']['list_subcat'] = $listSubCat;

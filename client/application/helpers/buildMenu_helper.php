@@ -29,7 +29,7 @@ if(!function_exists('buildMenu')){
 		
 		$cat_list2= buildTree($cat_list1);
 		$data['category_lists']= $cat_list2;
-		print_r($cat_list2);
+		//print_r($cat_list2);
 		$CI->load->view('_base/menu', $data);
 		
 		//echo '<pre>'; print_r($cat_list2); echo '</pre>';

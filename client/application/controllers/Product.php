@@ -8,8 +8,39 @@ class Product extends CI_Controller {
 		parent::__construct();
 		$this->load->model("shop_model");
 		$this->load->model("product_model");
+		$this->load->model('category_model');
 
 	}
+	
+	public function index(){
+		$extra_params=array(
+			'getPriceRange'=>true,
+			'getImages'=>true,
+			);
+		
+		$config = vst_pagination();
+		$start= $this->input->get('page');
+		$config['per_page'] = 20; 
+		$filter=array(
+					'sortType'		=>	$this->input->get('sortType'),
+					'sort'			=>	$this->input->get('sort'),
+					'priceFrom'		=>	$this->input->get('priceFrom'),
+					'priceTo'		=>	$this->input->get('priceTo'),
+					'keyword'		=>	$this->input->get('keyword')
+				);	
+		$params= array(
+					'filter' 	=> $filter,
+					'limit' 	=> $config['per_page'],
+					'start' 	=> $start
+				);		
+		$list_product= $this->category_model->getAllProduct($params,$extra_params);	
+		$config['total_rows'] =  $list_product['records'];
+		//var_dump($list_product['list']);
+		$data['products']= $list_product['list'];
+		$this->pagination->initialize($config);
+		$data['template'] = 'product/index';
+		$this->load->view('layout/home', $data);
+	}	
 
 	public function detail($slug,$pid){
 		$extra_params=array(

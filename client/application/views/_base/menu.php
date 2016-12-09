@@ -121,21 +121,18 @@
       </div>
       <!--/Category -->
       <ul class="nav navbar-nav navbar-main">
+	  <?php 
+		$list_items = (get_menu_items(1));
+		if($list_items){
+			foreach($list_items as $item){
+	  ?>
         <li>
-          <a href="#" title="Quần áo">Quần áo</a>
+          <a href="<?php echo $item['custom_link'] ?>" title="<?php echo $item['title'] ?>"><?php echo $item['title'] ?></a>
         </li>
-        <li>
-          <a href="#" title="Giày dép">Giày dép</a>
-        </li>
-        <li>
-          <a href="#" title="Túi xách, ví da">Túi xách, ví da</a>
-        </li>
-        <li>
-          <a href="#" title="Phụ kiện">Phụ kiện</a>
-        </li>
-        <li>
-          <a href="#" title="Cửa hàng">Cửa hàng</a>
-        </li>
+       <?php
+			}
+		}
+	   ?>
       </ul>
       <!-- /Nav Right -->
     </div>

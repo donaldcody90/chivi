@@ -8,7 +8,7 @@ class Product_model extends MY_Model
     private $table_shop = 'shops';
     private $table_property = 'properties';
     private $table_property_values = 'property_values';
-    private $table_price_range = 'priceRanges';
+    private $table_price_range = 'priceranges';
     private $table_products_skus = 'product_skus';
     private $table_sku_properties = 'product_sku_properties';
     private $table_products_images = 'product_images';
@@ -97,7 +97,7 @@ class Product_model extends MY_Model
 		return $images;
 	}
 	
-	function getAllProduct($params_where,$limit = 0){
+	function getAllProduct($params_where=array(),$limit = 0){
 		$this->db->select ('*');
 		$this->db->from($this->table_products);
 		$this->db->where($params_where);
@@ -106,8 +106,10 @@ class Product_model extends MY_Model
 		$lists = $query->result_array();
 		if($lists){
 			foreach($lists as $key=>$product){
-				$image =  $this->getProductImages(array('id' => $product['id']));
+				$image =  $this->getProductImages(array('pid' => $product['id']));
 				$lists[$key]['images']=$image;
+				$priceRanges = $this->getPriceRange(array('pid'=>$product['id']),true);
+				$lists[$key]['priceRanges'] = $priceRanges;
 			}
 		}
 		return $lists;

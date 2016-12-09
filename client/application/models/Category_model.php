@@ -152,23 +152,31 @@ class Category_model extends MY_Model
 		}else if(!isset($filter['sort'])){
 			$this->db->order_by('views','DESC');
 		}
+		$tempdb = clone $this->db;
+		$num_results= $tempdb->count_all_results();
 		$this->db->limit($limit, $start);
 		$query= $this->db->get();
 		//echo  $this->db->last_query();
-		return $query->result_array();
+		$list = $query->result_array();
+		return array(
+			'list' => $list,
+			'records' => $num_results,
+		);
 	}
 	
-	function getAllProduct($params, $extra_params){
+	function getAllProduct($params, $extra_params,$total=0, $start=0){
 		$product_list= $this->getProductFilter(isset($params['param_in'])?$params['param_in']:null, isset($params['filter'])?$params['filter']:null, isset($params['limit'])?$params['limit']:0, isset($params['start'])?$params['start']:0);
+		
 		if(isset($extra_params) && $extra_params!= array()){
 			if(isset($extra_params['getPriceRange']) && $extra_params['getPriceRange']){
-				foreach($product_list as $product_list_id=>$product_list_data){
-					$product_list[$product_list_id]['price_range']= $this->getPriceRange(array('pid'=>$product_list_data['id']),true);
+				foreach($product_list['list'] as $product_list_id=>$product_list_data){
+					
+					$product_list['list'][$product_list_id]['price_range']= $this->getPriceRange(array('pid'=>$product_list_data['id']),true);
 				}
 			}
 			if(isset($extra_params['getImages']) && $extra_params['getImages']){
-				foreach($product_list as $product_list_id=>$product_list_data){
-					$product_list[$product_list_id]['images']= $this->getProductImages(array('pid'=>$product_list_data['id']),true);
+				foreach($product_list['list'] as $product_list_id=>$product_list_data){
+					$product_list['list'][$product_list_id]['images']= $this->getProductImages(array('pid'=>$product_list_data['id']),true);
 				}
 			}
 		}else{

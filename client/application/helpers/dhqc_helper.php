@@ -17,6 +17,26 @@ if ( ! function_exists('is_logged_in'))
 	}
 }
 
+if ( ! function_exists('get_menu_items'))
+{
+	function get_menu_items($menu_id) {
+	
+		$CI =& get_instance();
+		$table_menu_items = $CI->db->dbprefix('menu_items'); 
+		$CI->db->select("*");
+		$CI->db->from($table_menu_items);
+		$CI->db->where(array('menu_id'=>$menu_id));
+		$query=$CI->db->get();
+		$rows=$query->result_array();
+		if($rows){
+			return $rows;
+		}else{
+			return false;
+		}
+	}
+}
+
+
 if(!function_exists('vst_pagination')){
 	function vst_Pagination(){
 		$config['full_tag_open'] = '<ul class="pagination">';
@@ -36,7 +56,7 @@ if(!function_exists('vst_pagination')){
 		$config['cur_tag_open'] = '<li class="active"><a>';
 		$config['cur_tag_close'] = '</a></li>';
 		$config['num_tag_open'] = '<li>';
-        $config['per_page'] =2;
+        $config['per_page'] =10;
         $config['page_query_string'] =true;
         $config['query_string_segment'] ="page";
 		$config['base_url'] =vst_currentUrl();

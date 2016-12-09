@@ -25,12 +25,15 @@ class Shop extends CI_Controller {
 				redirect(site_url($shop_detail['slug'].'-s'.$shop_detail['id']));
 			}
 			
+			$config= vst_Pagination();
+			$start= $this->input->get('page');
+			
 			$param_in= array();
 			$param_in['sid']= array($shop_id);
 			$param= array('sid'=> $shop_id);
-			$per_page= 4;
+		 
 			$start= $this->input->get('page');
-			$limit= $per_page;
+		 
 			
 			$filter=array(
 					'sortType'		=>	$this->input->get('sortType'),
@@ -45,7 +48,7 @@ class Shop extends CI_Controller {
 			$params= array(
 					'param_in' 	=> $param_in,
 					'filter' 	=> $filter,
-					'limit' 	=> $limit,
+					'limit' 	=> $config['per_page'],
 					'start' 	=> $start
 				);
 			$params2= array(
@@ -55,7 +58,7 @@ class Shop extends CI_Controller {
 			$params3= array(
 					'param_in' 	=> $param_in,
 					'filter' 	=> $filter2,
-					'limit' 	=> 10
+					'limit' 	=> 5
 				);
 			$extra_params= array(
 					'getPriceRange'	=>true,
@@ -63,17 +66,18 @@ class Shop extends CI_Controller {
 				);
 			
 			
-			$list_product_total= count( $this->category_model->getAllProduct($params2, $extra_params) );
-			$config= vst_Pagination($list_product_total, $per_page);
-			$this->pagination->initialize($config);
+			 
+			 
+			
 			$list_product = $this->category_model->getAllProduct($params, $extra_params);
 			$top_sales = $this->category_model->getAllProduct($params3, $extra_params);
 			
-			
-			$data['list_product']['data'] = $list_product;
-			$data['list_product']['total'] = $list_product_total;
+			$config['total_rows'] =  $list_product['records'];
+			$this->pagination->initialize($config);
+			$data['list_product']['data'] = $list_product['list'];
+			$data['list_product']['total'] =  $list_product['records'];
 			$data['shop_detail'] = $shop_detail;
-			$data['shop_detail']['top_sales']= $top_sales;
+			$data['shop_detail']['top_sales']= $top_sales['list'];
 			$data['template'] = 'shop/view';
 			//print_r($data['shop_detail']);
 			$this->load->view('layout/home', $data);
