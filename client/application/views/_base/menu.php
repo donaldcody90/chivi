@@ -72,8 +72,8 @@
 				</div>
 			</div>
 			<div class="hotline">
-				<strong>Hà Nội: <span>04.7303 1999</span></strong>
-				<strong>Tp.HCM: <span>08.7302 8666</span></strong>
+				<strong>Hà Nội: <span><?php echo get_setting_meta('hn_support_phone');?></span></strong>
+				<strong>Tp.HCM: <span><?php echo get_setting_meta('hcm_support_phone');?></span></strong>
 			</div>
 			<div class="account"></div>
 		</div>

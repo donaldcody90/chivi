@@ -55,6 +55,41 @@ if ( ! function_exists('get_menu_info'))
 	}
 }
 
+// Hàm lấy thông tin của tham chiếu Menu
+if ( ! function_exists('get_menu_ref_items'))
+{
+	function get_menu_ref_items($ref_type, $id) {
+		$CI =& get_instance();
+	    if($ref_type){
+			switch($ref_type)
+			{
+			case 1:  
+				$table = $CI->db->dbprefix('pages');
+				break;
+			case 2:  
+				$table = $CI->db->dbprefix('categories');
+				break;	
+			case 4:  
+				$table = $CI->db->dbprefix('products');
+				break;
+			default:
+				$table = $CI->db->dbprefix('pages');
+			}
+			
+			$CI->db->select("*");
+			$CI->db->from($table);
+			$CI->db->where(array('id'=>$id));
+			$query=$CI->db->get();
+			$row =$query->row_array();
+			if($row ){
+				return $row ;
+			}else{
+				return false;
+			}				
+		
+		}
+	}
+}
 
 if ( ! function_exists('build_menu_link'))
 {
@@ -71,17 +106,23 @@ if ( ! function_exists('build_menu_link'))
 		if($row){
 			switch($row['type'])
 			{
-			case 1:  
-				$link = site_url('slug-p').$row['type_id'];
+			case 1:
+				$items = get_menu_ref_items($row['type'],$id);
+				$slug = $items['slug'];
+				$link = site_url($slug.'-p').$row['type_id'];
 				break;
 			case 2:  
-				$link = site_url('slug-c').$row['type_id'];
+				$items = get_menu_ref_items($row['type'],$id);
+				$slug = $items['slug'];
+				$link = site_url($slug.'-c').$row['type_id'];
 				break;	
 			case 3:  
 				$link = $row['custom_link'];
 				break;
 			case 4:  
-				$link = $row['custom_link'];
+				$items = get_menu_ref_items($row['type'],$id);
+				$slug = $items['slug'];
+				$link = site_url($slug.'-i').$row['type_id'];
 				break;
 			default:
 				$link= site_url();
@@ -470,7 +511,7 @@ if(!function_exists('get_setting_meta')){
 function get_setting_meta($meta_key,$return_row=false)
 	{
 		$CI =& get_instance();
-		$setting_table="vt_setting";
+		$setting_table="vt_settings";
 		$CI->db->select("*");
 		$CI->db->from($setting_table);
 		$CI->db->where(array('meta_key'=>$meta_key));
