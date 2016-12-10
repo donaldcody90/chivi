@@ -37,6 +37,8 @@ $config['site'] = array(
 			'static/js/custom.js',
 			'static/js/skype.js',
 			'static/js/w2ui-1.4.3.min.js',	
+			
+			
 				
 		),
 		'foot'	=> array(
@@ -47,6 +49,7 @@ $config['site'] = array(
 			'static/js/custom.js',
 			'static/js/jquery.dialog.js',
 			'static/js/item.js',
+			'static/js/rating.js',	
 		),
 	),
 	// Default stylesheets to embed at page head
@@ -57,6 +60,7 @@ $config['site'] = array(
 			'static/css/slick.css',
 			'static/css/jquery-ui.css',
 			'static/css/font-awesome.css',
+			
 			
 			'static/css/main.css',
 			'static/css/profile.css',
@@ -76,7 +80,8 @@ $config['site'] = array(
 			'static/css/shop.css',
 			'static/css/product_page.css',
 			'static/css/product-filter.css',
-			'static/css/page.css'
+			'static/css/page.css',
+			'static/css/rating.css',
 		)
 	),
 	// Multilingual settings (set empty array to disable this)

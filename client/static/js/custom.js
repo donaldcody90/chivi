@@ -47,6 +47,18 @@ jQuery(document).ready(function($){
 	$(".pickdate_from").datepicker({dateFormat: 'yy-mm-dd' });
 	// Enddate //
 	$(".pickdate_to").datepicker({dateFormat: 'yy-mm-dd' });
+	
+	$(function(){
+    $('#star-rating').rating(function(vote, event){
+        // we have vote and event variables now, lets send vote to server.
+        $.ajax({
+            url: "/get_votes.php",
+            type: "GET",
+            data: {rate: vote},
+        });
+    });
+});
+	
 });
 
 

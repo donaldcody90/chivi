@@ -26,80 +26,57 @@
 				<div>
 				  <div class="menu-footer-list col-md-4">
 					<div class="menu-parent">
-					  <a href="#"  title="Về chúng tôi"> Về chúng tôi </a>
+					  <a href="#"  title="Về chúng tôi"><?php $menu = get_menu_info(2); if($menu) echo $menu['name'];?></a>
 					</div>
+					
 					<ul>
-					  <li>
-						<a href="#"  title="Giới thiệu chivi.vn">Giới thiệu Chivi.vn</a>
-					  </li>
-					  <li>
-						<a href="#"  title="Thoả thuận người dùng">Thoả thuận người dùng</a>
-					  </li>
-					  <li>
-						<a href="#"   title="Những câu hỏi thường gặp">Những câu hỏi thường gặp</a>
-					  </li>
-					  <li>
-						<a href="#"   title="Tuyển dụng">Tuyển dụng</a>
-					  </li>
-					  <li>
-						<a href="#" target="_blank"  title="Sitemap">Sitemap</a>
-					  </li>
+					<?php 
+						$list_items = get_menu_items(2);
+						if($list_items){
+							foreach($list_items as $item){
+					  ?>
+						<li>
+						  <a href="<?php  echo build_menu_link($item['id']); ?>" title="<?php echo $item['title'] ?>"><?php echo $item['title'] ?></a>
+					   <?php
+							}
+						}
+					   ?>
 					</ul>
 				  </div>
 				  <div class="menu-footer-list col-md-4">
 					<div class="menu-parent">
-					  <a href="#" title="ĐIỀU KHOẢN SỬ DỤNG"> ĐIỀU KHOẢN SỬ DỤNG</a>
+					  <a href="#" title="ĐIỀU KHOẢN SỬ DỤNG"><?php $menu = get_menu_info(3); if($menu) echo $menu['name'];?></a>
 					</div>
 					<ul>
-					  <li>
-						<a href="#" title="Quy chế hoạt động">Quy chế hoạt động</a>
-					  </li>
-					  <li>
-						<a href="#" title="Chính sách bảo mật">Chính sách bảo mật</a>
-					  </li>
-					  <li>
-						<a href="#" title="Giải quyết khiếu nại">Giải quyết khiếu nại</a>
-					  </li>
-					  <li>
-						<a href="#" title="Bán hàng cùng Lưu Thông">Bán hàng cùng Chivi</a>
-					  </li>
-					  <li>
-						<a href="#" title="Quy định mua hàng">Quy định mua hàng</a>
-					  </li>
-					  <li>
-						<a href="#" title="Quy định đối với người mua hàng">Quy định đối với người mua hàng</a>
-					  </li>
-					  <li>
-						<a href="#" title="Quy định đối với người bán hàng">Quy định đối với người bán hàng</a>
-					  </li>
+					  <?php 
+						$list_items = get_menu_items(3);
+						if($list_items){
+							foreach($list_items as $item){
+					  ?>
+						<li>
+						  <a href="<?php  echo build_menu_link($item['id']); ?>" title="<?php echo $item['title'] ?>"><?php echo $item['title'] ?></a>
+					   <?php
+							}
+						}
+					   ?>
 					</ul>
 				  </div>
 				  <div class="menu-footer-list col-md-4">
 					<div class="menu-parent">
-					  <a href="#" title="HƯỚNG DẪN SỬ DỤNG"> HƯỚNG DẪN SỬ DỤNG </a>
+					  <a href="#" title="HƯỚNG DẪN SỬ DỤNG"> <?php $menu = get_menu_info(4); if($menu) echo $menu['name'];?> </a>
 					</div>
 					<ul>
-					  <li>
-						<a href="#" title="Hướng dẫn đăng ký tài khoản">Hướng dẫn đăng ký tài khoản</a>
-					  </li>
-					  <li>
-						<a href="#" title="Hướng dẫn đăng nhập">Hướng dẫn đăng nhập</a>
-					  </li>
-					  <li>
-						<a href="#" title="Hướng dẫn mở Shop">Hướng dẫn mở Shop</a>
-					  </li>
-					  <li>
-						<a href="#" title="Hướng dẫn đăng sản phẩm">Hướng dẫn đăng sản phẩm</a>
-					  </li>
-					  <li>
-						<a href="#" title="Hướng dẫn đặt hàng">Hướng dẫn đặt hàng</a>
-					  </li>
-					  <li>
-						<a href="#" title="Hướng dẫn nạp tiền Vào tài khoản">Hướng dẫn nạp tiền Vào tài khoản</a>
-					  </li>
-					  <li>
-						<a href="#"  title="Hướng dẫn gửi Liên hệ, Góp ý">Hướng dẫn gửi Liên hệ, Góp ý</a>
-					  </li>
+					 <?php 
+						$list_items = get_menu_items(4);
+						if($list_items){
+							foreach($list_items as $item){
+					  ?>
+						<li>
+						  <a href="<?php  echo build_menu_link($item['id']); ?>" title="<?php echo $item['title'] ?>"><?php echo $item['title'] ?></a>
+					   <?php
+							}
+						}
+					   ?>
 					</ul>
 				  </div>
 				</div>

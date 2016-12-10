@@ -35,8 +35,17 @@
             <div class="btn-shop">
               <a class="btn btn-info hz-favorite" href="/" title="Thêm vào danh sách yêu thích">Yêu thích</a>            
             </div>
+			<div id="star-rating" class="star-rating">
+				<input type="radio" name="example" class="rating" value="1" />
+				<input type="radio" name="example" class="rating" value="2" />
+				<input type="radio" name="example" class="rating" value="3" />
+				<input type="radio" name="example" class="rating" value="4" />
+				<input type="radio" name="example" class="rating" value="5" />
+			</div>
+
           </div>
         </div>
+		
 		<!--
         <div class="widget-product-category">
           <div class="wpc-panel wpc-panel-default">

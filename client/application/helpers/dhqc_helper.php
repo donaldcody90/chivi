@@ -36,6 +36,26 @@ if ( ! function_exists('get_menu_items'))
 	}
 }
 
+if ( ! function_exists('get_menu_info'))
+{
+	function get_menu_info($menu_id) {
+	
+		$CI =& get_instance();
+		$table_menus = $CI->db->dbprefix('menus'); 
+		$CI->db->select("*");
+		$CI->db->from($table_menus);
+		$CI->db->where(array('id'=>$menu_id));
+		$query=$CI->db->get();
+		$row =$query->row_array();
+		if($row ){
+			return $row ;
+		}else{
+			return false;
+		}
+	}
+}
+
+
 if ( ! function_exists('build_menu_link'))
 {
 	function build_menu_link($id) {
